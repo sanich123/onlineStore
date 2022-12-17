@@ -7,20 +7,69 @@
 // и по БЭМ в разметке тот же принцип, в сущности, есть родительский элемент, и его дочерний будет через __ , модификатор через --. Не надо лепить что-то типа header__nav__ul__li--active. Нужно миксовать дополнительный класс. Вложенность одного уровня, типа если есть ul, то его дети будут ul__li, так типа должно быть
 
 .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+    background-color: #F5901E;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     &__logo {
-        color: red;
+        display: flex;
+	    flex-direction: row;
+	    align-items: center;
+        width: 170px;
+        height: 100px;
     }
-    .navigation {
-        &__list {
-            .reset-ul();//это миксин, типа функции, чисто для сокращения
+    .logo {
+        &__home {
+            background-image: url(/src/assets/png/shopping-bags.png);
+        }
+        &__text {
+            font-family: 'Magra', sans-serif;
+            font-size: 32px;
+	        color: #94928F;
+            line-height: 0.9;
+            text-align: center;
+        }
+        &__basket {
+            background-image: url(/src/assets/png/basket.png);
+            width: 50px;
         }
     }
-    .nav-list {
-        &__item {
-            color: green;
+    }
+    .total {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+        font-size: 22px;
+        font-family: 'Red Hat Text', sans-serif;
+	    font-weight: 500;
+        &__text {
+            color: #F34D10;
         }
-    }
-    &__user-menu {
-        color: @yellow;//это переменная, тоже надо импортировать в файл, чтобы пользоваться. Особо ничего не дает, но чуть удобнее
-    }
-}
+        &__summary {
+            color: #2F0F04;
+        }
+        .basket {
+            display: flex;
+            align-items: center;
+        }
+        }
+
+//    .navigation {
+//        &__list {
+//            .reset-ul();//это миксин, типа функции, чисто для сокращения
+//        }
+//    }
+//    .nav-list {
+//        &__item {
+//            color: green;
+//        }
+//    }
+//    &__user-menu {
+//        color: @yellow;//это переменная, тоже надо импортировать в файл, чтобы пользоваться. Особо ничего не дает, но чуть удобнее
+//    }
+//}
