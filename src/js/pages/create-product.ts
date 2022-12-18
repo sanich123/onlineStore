@@ -5,7 +5,5 @@ export function CreateProduct() {
   if (body) {
     body.innerHTML = `<p>Здесь будет страница товара<p>`;
   }
-  console.log("Я страница товара");
-
   hashListener();
 }

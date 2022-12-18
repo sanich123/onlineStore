@@ -1,17 +1,10 @@
-import { hashListener } from "../utils/utils";
+import { mocks } from "../mocks/mocks";
+import { getFiltredData, getSearchParams, hashListener } from "../utils/utils";
 
 export function CreateCatalog() {
-    const location = window.location.href;
-    const url = new URL(location).hash;
-    console.log(url);
-    // const filtredParams = url.includes('?') ? url.slice(url.indexOf('?')) : '';
+  const searchParams = getSearchParams();
 
-    // const searchParams = new URLSearchParams(filtredParams);
-    // const result = {};
-    // for (let [key, value] of searchParams) {
-    //     result[key] = value;
-    // }
-    // console.log(result);
+  console.log(getFiltredData(mocks, searchParams));
 
   const body = document.querySelector(".page");
   if (body) {

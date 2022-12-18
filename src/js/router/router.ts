@@ -4,11 +4,10 @@ import { CreateProduct } from "../pages/create-product";
 import { routes } from "../utils/const";
 
 export function Router(location: string) {
-  console.log(location);
   const url = new URL(location);
-  if (location.includes('#catalog')) {
+  if (location.includes(routes.catalog)) {
     CreateCatalog();
-  } else if (url.hash === routes.product) {
+  } else if (location.includes(routes.product)) {
     CreateProduct();
   } else if (url.hash === routes.cart) {
     CreateCart();
