@@ -34,5 +34,533 @@
         </div>
       </div>
     </header>
+    <main class="page__main main">
+      <section class="main__filters filters">
+        <form class="filters__category filters-category">
+          <fieldset class="filters__fieldset">
+            <legend>Category</legend>
+            <label class="filters-category__label">
+              <input
+                class="filters-category__input"
+                type="checkbox"
+                value="smartphones"
+              />
+              smartphones
+            </label>
+            <label class="filters-category__label">
+              <input
+                class="filters-category__input"
+                type="checkbox"
+                value="smartphones"
+              />
+              smartphones
+            </label>
+            <label class="filters-category__label">
+              <input
+                class="filters-category__input"
+                type="checkbox"
+                value="laptops"
+              />
+              laptops
+            </label>
+            <label class="filters-category__label">
+              <input
+                class="filters-category__input"
+                type="checkbox"
+                value="fragrances"
+              />
+              fragrances
+            </label>
+            <label class="filters-category__label">
+              <input
+                class="filters-category__input"
+                type="checkbox"
+                value="skincare"
+              />
+              skincare
+            </label>
+          </fieldset>
+        </form>
+        <form class="filters__brand filters-brand">
+          <fieldset class="filters__fieldset">
+            <legend>Brand</legend>
+            <label class="filters-brand__label">
+              <input
+                class="filters-brand__input"
+                type="checkbox"
+                value="Apple"
+              />
+              Apple
+            </label>
+            <label class="filters-brand__label">
+              <input
+                class="filters-brand__input"
+                type="checkbox"
+                value="Samsung"
+              />
+              Samsung
+            </label>
+            <label class="filters-brand__label">
+              <input
+                class="filters-brand__input"
+                type="checkbox"
+                value="OPPO"
+              />
+              OPPO
+            </label>
+            <label class="filters-brand__label">
+              <input
+                class="filters-brand__input"
+                type="checkbox"
+                value="Huawei"
+              />
+              Huawei
+            </label>
+          </fieldset>
+        </form>
+        <form class="filters-range-price">
+          <fieldset class="filters__fieldset">
+            <legend class="filters-range-price__legend">Price</legend>
+            <label class="filters-range-price__label">
+              $0
+              <input
+                class="filters-range-price__input"
+                type="range"
+                id="price-asc"
+                min="0"
+                max="1749"
+                step="10"
+                value="0"
+              /> </label
+            ><br />
+            <label class="filters-range-price__label">
+              $1749
+              <input
+                class="filters-range-price__input"
+                type="range"
+                id="price-desc"
+                min="0"
+                max="1749"
+                step="10"
+                value="0"
+              />
+            </label>
+          </fieldset>
+        </form>
+        <form class="filters-range-stock">
+          <fieldset class="filters__fieldset">
+            <legend class="filters-range-stock__legend">Stock</legend>
+            <label class="filters-range-stock__label">
+              2
+              <input
+                class="filters-range-stock__input"
+                type="range"
+                id="price-asc"
+                min="0"
+                max="1749"
+                step="10"
+                value="0"
+              /> </label
+            ><br />
+            <label class="filters-range-stock__label">
+              150
+              <input
+                class="filters-range__input"
+                type="range"
+                id="price-desc"
+                min="0"
+                max="1749"
+                step="10"
+                value="0"
+              />
+            </label>
+          </fieldset>
+        </form>
+        <button class="filters__reset-btn" type="button">Reset filters</button>
+        <button class="filters__copy-link" type="button">Copy link</button>
+      </section>
+      <section class="main__products products-list">
+        <div class="products-list__options sort-options">
+          <form class="sort-direction__radio radio-form">
+            <label class="radio-form__label">
+              <input
+                name="price"
+                class="radio-form__input"
+                type="radio"
+                value="asc"
+              />
+              Price
+              <svg
+                id="arrow-up"
+                width="15"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 330 330"
+                style="enable-background: new 0 0 330 330"
+                xml:space="preserve"
+              >
+                <path
+                  id="XMLID_224_"
+                  d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
+	l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393
+	C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"
+                />
+              </svg>
+            </label>
+            <label class="radio-form__label">
+              <input
+                name="price"
+                class="radio-form__input"
+                type="radio"
+                value="desc"
+              />
+              Price
+              <svg
+                width="15"
+                id="arrow-down"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 512.011 512.011"
+                style="enable-background: new 0 0 512.011 512.011"
+                xml:space="preserve"
+              >
+                <g>
+                  <g>
+                    <path
+                      d="M505.755,123.592c-8.341-8.341-21.824-8.341-30.165,0L256.005,343.176L36.421,123.592c-8.341-8.341-21.824-8.341-30.165,0
+			s-8.341,21.824,0,30.165l234.667,234.667c4.16,4.16,9.621,6.251,15.083,6.251c5.462,0,10.923-2.091,15.083-6.251l234.667-234.667
+			C514.096,145.416,514.096,131.933,505.755,123.592z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </label>
+            <label class="radio-form__label">
+              <input
+                name="rating"
+                class="radio-form__input"
+                type="radio"
+                value="asc"
+              />
+              Rating
+              <svg
+                width="15"
+                id="arrow-down"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 512.011 512.011"
+                style="enable-background: new 0 0 512.011 512.011"
+                xml:space="preserve"
+              >
+                <g>
+                  <g>
+                    <path
+                      d="M505.755,123.592c-8.341-8.341-21.824-8.341-30.165,0L256.005,343.176L36.421,123.592c-8.341-8.341-21.824-8.341-30.165,0
+			s-8.341,21.824,0,30.165l234.667,234.667c4.16,4.16,9.621,6.251,15.083,6.251c5.462,0,10.923-2.091,15.083-6.251l234.667-234.667
+			C514.096,145.416,514.096,131.933,505.755,123.592z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </label>
+            <label class="radio-form__label">
+              <input
+                name="rating"
+                class="radio-form__input"
+                type="radio"
+                value="desc"
+              />
+              Rating:
+              <svg
+                id="arrow-up"
+                width="15"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                viewBox="0 0 330 330"
+                style="enable-background: new 0 0 330 330"
+                xml:space="preserve"
+              >
+                <path
+                  id="XMLID_224_"
+                  d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
+	l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393
+	C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"
+                />
+              </svg>
+            </label>
+          </form>
+          <span class="sort-options__items-count">Found: 100</span>
+          <input
+            type="search"
+            class="sort-options__search"
+            placeholder="Search product"
+          />
+          <form class="size-change__radio size-change">
+            <label class="size-change__label">
+              <input
+                name="layout"
+                type="radio"
+                class="size-change__radio"
+                value="wide"
+              />
+              Wide items
+            </label>
+            <label class="size-change__label">
+              <input
+                name="layout"
+                type="radio"
+                class="size-change__radio"
+                value="shallow"
+              />
+              Shallow items
+            </label>
+          </form>
+        </div>
+        <ul class="products">
+          <li class="products__item products-item">
+            <span class="products-item__description">iPhone 9</span>
+            <img
+              class="products-item__img"
+              alt=""
+              src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            />
+            <div class="btn-wrapper">
+              <button class="products-item__btn" type="button">To cart</button>
+              <button class="products-item__btn" type="button">Details</button>
+            </div>
+
+            <ul class="products-item__full-description full-description">
+              <li class="full-description__item">
+                <span>Category</span>
+                <span>smartphones</span>
+              </li>
+              <li class="full-description__item">
+                <span>Brand</span>
+                <span>Apple</span>
+              </li>
+              <li class="full-description__item">
+                <span>Price</span>
+                <span>$549.00</span>
+              </li>
+              <li class="full-description__item">
+                <span>Discount</span>
+                <span>%12.96</span>
+              </li>
+              <li class="full-description__item">
+                <span>Rating</span>
+                <span>4.69</span>
+              </li>
+              <li class="full-description__item">
+                <span>Stock</span>
+                <span>94</span>
+              </li>
+            </ul>
+          </li>
+          <li class="products__item products-item">
+            <span class="products-item__description">iPhone 9</span>
+            <img
+              class="products-item__img"
+              alt=""
+              src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            />
+            <div class="btn-wrapper">
+              <button class="products-item__btn" type="button">To cart</button>
+              <button class="products-item__btn" type="button">Details</button>
+            </div>
+
+            <ul class="products-item__full-description full-description">
+              <li class="full-description__item">
+                <span>Category</span>
+                <span>smartphones</span>
+              </li>
+              <li class="full-description__item">
+                <span>Brand</span>
+                <span>Apple</span>
+              </li>
+              <li class="full-description__item">
+                <span>Price</span>
+                <span>$549.00</span>
+              </li>
+              <li class="full-description__item">
+                <span>Discount</span>
+                <span>%12.96</span>
+              </li>
+              <li class="full-description__item">
+                <span>Rating</span>
+                <span>4.69</span>
+              </li>
+              <li class="full-description__item">
+                <span>Stock</span>
+                <span>94</span>
+              </li>
+            </ul>
+          </li>
+          <li class="products__item products-item">
+            <span class="products-item__description">iPhone 9</span>
+            <img
+              class="products-item__img"
+              alt=""
+              src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            />
+            <div class="btn-wrapper">
+              <button class="products-item__btn" type="button">To cart</button>
+              <button class="products-item__btn" type="button">Details</button>
+            </div>
+
+            <ul class="products-item__full-description full-description">
+              <li class="full-description__item">
+                <span>Category</span>
+                <span>smartphones</span>
+              </li>
+              <li class="full-description__item">
+                <span>Brand</span>
+                <span>Apple</span>
+              </li>
+              <li class="full-description__item">
+                <span>Price</span>
+                <span>$549.00</span>
+              </li>
+              <li class="full-description__item">
+                <span>Discount</span>
+                <span>%12.96</span>
+              </li>
+              <li class="full-description__item">
+                <span>Rating</span>
+                <span>4.69</span>
+              </li>
+              <li class="full-description__item">
+                <span>Stock</span>
+                <span>94</span>
+              </li>
+            </ul>
+          </li>
+          <li class="products__item products-item">
+            <span class="products-item__description">iPhone 9</span>
+            <img
+              class="products-item__img"
+              alt=""
+              src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            />
+            <div class="btn-wrapper">
+              <button class="products-item__btn" type="button">To cart</button>
+              <button class="products-item__btn" type="button">Details</button>
+            </div>
+
+            <ul class="products-item__full-description full-description">
+              <li class="full-description__item">
+                <span>Category</span>
+                <span>smartphones</span>
+              </li>
+              <li class="full-description__item">
+                <span>Brand</span>
+                <span>Apple</span>
+              </li>
+              <li class="full-description__item">
+                <span>Price</span>
+                <span>$549.00</span>
+              </li>
+              <li class="full-description__item">
+                <span>Discount</span>
+                <span>%12.96</span>
+              </li>
+              <li class="full-description__item">
+                <span>Rating</span>
+                <span>4.69</span>
+              </li>
+              <li class="full-description__item">
+                <span>Stock</span>
+                <span>94</span>
+              </li>
+            </ul>
+          </li>
+          <li class="products__item products-item">
+            <span class="products-item__description">iPhone 9</span>
+            <img
+              class="products-item__img"
+              alt=""
+              src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            />
+            <div class="btn-wrapper">
+              <button class="products-item__btn" type="button">To cart</button>
+              <button class="products-item__btn" type="button">Details</button>
+            </div>
+
+            <ul class="products-item__full-description full-description">
+              <li class="full-description__item">
+                <span>Category</span>
+                <span>smartphones</span>
+              </li>
+              <li class="full-description__item">
+                <span>Brand</span>
+                <span>Apple</span>
+              </li>
+              <li class="full-description__item">
+                <span>Price</span>
+                <span>$549.00</span>
+              </li>
+              <li class="full-description__item">
+                <span>Discount</span>
+                <span>%12.96</span>
+              </li>
+              <li class="full-description__item">
+                <span>Rating</span>
+                <span>4.69</span>
+              </li>
+              <li class="full-description__item">
+                <span>Stock</span>
+                <span>94</span>
+              </li>
+            </ul>
+          </li>
+          <li class="products__item products-item">
+            <span class="products-item__description">iPhone 9</span>
+            <img
+              class="products-item__img"
+              alt=""
+              src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+            />
+            <div class="btn-wrapper">
+              <button class="products-item__btn" type="button">To cart</button>
+              <button class="products-item__btn" type="button">Details</button>
+            </div>
+
+            <ul class="products-item__full-description full-description">
+              <li class="full-description__item">
+                <span>Category</span>
+                <span>smartphones</span>
+              </li>
+              <li class="full-description__item">
+                <span>Brand</span>
+                <span>Apple</span>
+              </li>
+              <li class="full-description__item">
+                <span>Price</span>
+                <span>$549.00</span>
+              </li>
+              <li class="full-description__item">
+                <span>Discount</span>
+                <span>%12.96</span>
+              </li>
+              <li class="full-description__item">
+                <span>Rating</span>
+                <span>4.69</span>
+              </li>
+              <li class="full-description__item">
+                <span>Stock</span>
+                <span>94</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </main>
   </body>
 </html>

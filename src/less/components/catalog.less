@@ -1,0 +1,130 @@
+.main {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  gap: 30px;
+  .container(@width: 1400px);
+  &__filters {
+    display: grid;
+    height: min-content;
+    grid-template-rows: repeat(6, min-content);
+    row-gap: 30px;
+    .filters-category fieldset,
+    .filters-brand fieldset {
+      display: grid;
+      grid-template-rows: auto;
+      grid-auto-rows: min-content;
+    }
+  }
+  .filters__fieldset {
+    border-radius: 10px;
+    background-color: gainsboro;
+  }
+  .filters__reset-btn,
+  .filters__copy-link {
+    .reset-btn();
+    border-radius: 10px;
+    padding: 10px;
+    text-transform: uppercase;
+    font: bold 20px/1.5 Arial, sans-serif;
+    background: orange;
+    color: white;
+    transition: 0.5s ease;
+    &:hover {
+      background: orangered;
+      color: pink;
+    }
+  }
+  legend {
+    font: bold 20px/1.5 Arial, sans-serif;
+    text-transform: uppercase;
+  }
+  &__products {
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
+    padding: 30px;
+    .sort-options {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      place-items: center;
+      &__search {
+        border-radius: 5px;
+        border: none;
+        padding: 10px;
+        transition: 1.5 ease;
+        &:focus {
+          transform: scale(1.05);
+          background-color: gainsboro;
+        }
+      }
+    }
+    .radio-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+      &__label {
+        text-transform: uppercase;
+        &:focus-within {
+          svg {
+            fill: red;
+          }
+        }
+      }
+    }
+  }
+}
+.products {
+  .reset-ul();
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 20px;
+  &__item {
+    padding: 10px;
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    .full-description {
+      .reset-ul();
+      position: absolute;
+      top: 60px;
+      left: 10px;
+      color: white;
+      display: grid;
+
+      &__item {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        color: aliceblue;
+        background: orange;
+      }
+    }
+  }
+  .products-item {
+    &__description {
+      padding: 10px;
+      font: bold 20px/1.5 Arial, sans-serif;
+    }
+  }
+  .btn-wrapper {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    .products-item__btn {
+      .reset-btn();
+      border-radius: 10px;
+      padding: 10px 10px;
+      background: orange;
+      color: white;
+      text-transform: uppercase;
+      transition: 0.5s ease;
+      &:hover {
+        background: orangered;
+        color: aliceblue;
+      }
+    }
+  }
+}
