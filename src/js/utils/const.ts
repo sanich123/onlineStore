@@ -3,3 +3,4 @@ export const routes = {
     product: '#product',
     cart: '#cart',
 }
+export const SIZE_VALUES = ['Shallow', 'Wide'];
