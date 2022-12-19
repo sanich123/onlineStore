@@ -47,3 +47,6 @@ export function getFiltredData(
   }
   return filtredData;
 }
+export function getCheckedCheckboxes(checkboxes: NodeListOf<HTMLInputElement>) {
+  return [...checkboxes].filter(({checked}) => checked).map(({value}) => `category=${value}`).join('&');
+}

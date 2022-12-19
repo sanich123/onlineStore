@@ -9,10 +9,12 @@ import {
 export function createFilters(products: DataType[]) {
   const categories = [...new Set(products.map(({ category }) => category))];
   const brands = [...new Set(products.map(({ brand }) => brand))];
-  const minPrice = Math.min(...products.map(({ price }) => price));
-  const maxPrice = Math.max(...products.map(({ price }) => price));
-  const minStock = Math.min(...products.map(({ stock }) => stock));
-  const maxStock = Math.max(...products.map(({ stock }) => stock));
+  const mappedPrice = products.map(({ price }) => price);
+  const mappedStock = products.map(({ stock }) => stock);
+  const minPrice = Math.min(...mappedPrice);
+  const maxPrice = Math.max(...mappedPrice);
+  const minStock = Math.min(...mappedStock);
+  const maxStock = Math.max(...mappedStock);
 
   return `<section class="main__filters filters">
             <form class="filters__category filters-category">
