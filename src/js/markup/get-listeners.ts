@@ -2,7 +2,7 @@ export function getListeners() {
   const priceSort = document.querySelector(".price-sort");
   const ratingSort = document.querySelector('.rating-sort');
   const formSearch = document.querySelector(".sort-options__form-search");
-  const inputSearch = document.querySelector(".sort-options__search");
+  const inputSearch = document.querySelector(".sort-options__search") as HTMLInputElement;
   const inputSize = document.querySelector(".size-change__radio");
   const categoriesFilter = document.querySelector(".filters__category");
   const brandFilter = document.querySelector(".filters__brand");
@@ -14,8 +14,7 @@ export function getListeners() {
   const maxPrice = document.querySelector('.maxPrice');
   const minStock = document.querySelector('.minStock');
   const maxStock = document.querySelector('.maxStock');
-  const categories = document.querySelectorAll('.filters-category__input') as NodeListOf<HTMLInputElement>;
-  const brands = document.querySelectorAll('.filters-brand__input') as NodeListOf<HTMLInputElement>;
+
 
   return {
     priceSort,
@@ -33,7 +32,5 @@ export function getListeners() {
     maxPrice,
     minStock,
     maxStock,
-    categories,
-    brands,
   };
 }

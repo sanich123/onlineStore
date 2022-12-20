@@ -1,6 +1,6 @@
 import { Router } from "../router/router";
 import { DataType } from "../types/types";
-import { priceOrStockMap, routes } from "./const";
+import { priceOrStockMap, routes, SEARCH_KEYS } from "./const";
 
 export function getUrl(string: string) {
   return string.slice(string.indexOf("#"));
@@ -8,11 +8,7 @@ export function getUrl(string: string) {
 
 export function hashListener() {
   return window.addEventListener("hashchange", (event) => {
-    window.history.pushState(
-      { urlPath: getUrl(event.newURL) },
-      "",
-      getUrl(event.newURL)
-    );
+    window.history.pushState({}, "", getUrl(event.newURL));
     Router(event.newURL);
   });
 }
@@ -24,20 +20,14 @@ export function getSearchParams() {
   return new URLSearchParams(filtredParams);
 }
 
-export function getFiltredData(
-  mocks: DataType[],
-  searchParams: URLSearchParams
-) {
+export function getFiltredData(mocks: DataType[], searchParams: URLSearchParams) {
   let filtredData;
   if (searchParams) {
     for (const [key] of searchParams) {
       filtredData = mocks.filter((product) => {
         const value = searchParams.get(key);
         const productProperty = product[key as keyof DataType];
-        if (
-          typeof productProperty === "number" &&
-          productProperty === Number(value)
-        ) {
+        if (typeof productProperty === "number" && productProperty === Number(value)) {
           return product;
         }
         if (typeof productProperty === "string" && productProperty === value) {
@@ -62,27 +52,17 @@ export function getCheckedBrands(brands: NodeListOf<HTMLInputElement>) {
 }
 
 export function createSearchUrl(params: URLSearchParams) {
-  const categories = document.querySelectorAll(
-    ".filters-category__input"
-  ) as NodeListOf<HTMLInputElement>;
-  const brands = document.querySelectorAll(
-    ".filters-brand__input"
-  ) as NodeListOf<HTMLInputElement>;
-  const checkedBrands = getCheckedBrands(brands)
-    ? `&${getCheckedBrands(brands)}`
-    : "";
-  const checkedCheckboxes = getCheckedCategories(categories)
-    ? `&${getCheckedCategories(categories)}`
-    : "";
+  const categories = document.querySelectorAll(".filters-category__input") as NodeListOf<HTMLInputElement>;
+  const brands = document.querySelectorAll(".filters-brand__input") as NodeListOf<HTMLInputElement>;
+  const checkedBrands = getCheckedBrands(brands) ? `&${getCheckedBrands(brands)}` : "";
+  const checkedCheckboxes = getCheckedCategories(categories) ? `&${getCheckedCategories(categories)}` : "";
   for (const [key] of params) {
-    if (key === "category" || key === "brand") {
+    if (key === SEARCH_KEYS.category || key === SEARCH_KEYS.brand) {
       params.delete(key);
     }
   }
 
-  return `${window.location.origin}/${
-    routes.catalog
-  }?${params.toString()}${checkedBrands}${checkedCheckboxes}`;
+  return `${window.location.origin}/${routes.catalog}?${params.toString()}${checkedBrands}${checkedCheckboxes}`;
 }
 
 export function getMinMaxValue(
@@ -111,4 +91,10 @@ export function setCheckedToCheckboxes(
   return [...nodes]
     .filter(({ value }) => types.includes(value))
     .map((category) => (category.checked = true));
+}
+
+export function setCheckedRadio(nodes: NodeListOf<HTMLInputElement>, type: string, searchValue: string) {
+  if (searchValue) {
+    return [...nodes].filter(({ name, value }) => name === type && value === searchValue).map((e) => e.checked = true);
+  }
 }

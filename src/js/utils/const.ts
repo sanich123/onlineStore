@@ -19,4 +19,7 @@ export const SEARCH_KEYS = {
     category: 'category',
     sortPrice: 'sortPrice',
     sortRating: 'sortRating',
+    size: 'size',
+    search: 'search',
 }
+
