@@ -3,80 +3,75 @@ import { createHeader } from "../markup/create-header";
 import { createProductsList } from "../markup/create-products-list";
 import { getListeners } from "../markup/get-listeners";
 import { mocks } from "../mocks/mocks";
-import { routes } from "../utils/const";
-import { getCheckedCheckboxes, getFiltredData, getSearchParams, hashListener } from "../utils/utils";
+import { routes, SEARCH_KEYS } from "../utils/const";
+import { createSearchUrl, getFiltredData, getMinMaxValue, getSearchParams, hashListener, setCheckedToCheckboxes } from "../utils/utils";
 
 export function CreateCatalog() {
   const searchParams = getSearchParams();
-  console.log(getFiltredData(mocks, searchParams));
 
   const body = document.querySelector(".page");
   if (body) {
     body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks)}${createProductsList(mocks)}</main>`;
   }
- const { priceSort, ratingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter,resetBtn, copyLinkBtn, minPrice, maxPrice, minStock, maxStock } = getListeners();
-  priceSort?.addEventListener('click', ({ target }) => {
+  const { priceSort, ratingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock, categories, brands } = getListeners();
+  setCheckedToCheckboxes(searchParams, categories, SEARCH_KEYS.category);
+  setCheckedToCheckboxes(searchParams, brands, SEARCH_KEYS.brand);
+
+  priceSort?.addEventListener("click", ({ target }) => {
     const { value, checked } = target as HTMLInputElement;
     if (value && checked) {
-      console.log(`sortPrice=${value}`);
+      searchParams.set(SEARCH_KEYS.sortPrice, value);
+      window.history.pushState({}, "", createSearchUrl(searchParams));
     }
   });
-  ratingSort?.addEventListener('click', ({ target }) => {
+  ratingSort?.addEventListener("click", ({ target }) => {
     const { value, checked } = target as HTMLInputElement;
     if (value && checked) {
-    console.log(`sortRating=${value}`);
+      searchParams.set(SEARCH_KEYS.sortRating, value);
+      window.history.pushState({}, "", createSearchUrl(searchParams));
     }
   });
-  inputSearch?.addEventListener('change', ({ target }) => {
+  inputSearch?.addEventListener("change", ({ target }) => {
     const { value } = target as HTMLInputElement;
-    const typedSearch = `search=${ value }`
-    console.log(typedSearch);
+    searchParams.set("search", value);
+    window.history.pushState({}, "", createSearchUrl(searchParams));
   });
-  
-  inputSize?.addEventListener('click', ({ target }) => {
-    const { value, checked } = target as HTMLInputElement; 
+
+  inputSize?.addEventListener("click", ({ target }) => {
+    const { value, checked } = target as HTMLInputElement;
     if (value && checked) {
-      const chosenSize = `size=${value}`;
-      console.log(chosenSize);
+      searchParams.set("size", value);
+      window.history.pushState({}, "", createSearchUrl(searchParams));
     }
   });
-  categoriesFilter?.addEventListener('click', () => {
-    const categories = document.querySelectorAll('.filters-category__input') as NodeListOf<HTMLInputElement>;
-    const checkedCheckboxes = getCheckedCheckboxes(categories);
-    console.log(checkedCheckboxes);
+  categoriesFilter?.addEventListener("click", () => {
+    window.history.pushState({}, "", createSearchUrl(searchParams));
   });
-  brandFilter?.addEventListener('click', () => {
-    const brands = document.querySelectorAll('.filters-brand__input') as NodeListOf<HTMLInputElement>;
-    const checkedBrands = getCheckedCheckboxes(brands);
-    console.log(checkedBrands);
+  brandFilter?.addEventListener("click", () => {
+    window.history.pushState({}, "", createSearchUrl(searchParams));
   });
-  priceRangeFilter?.addEventListener('change', ({ target }) => {
+  priceRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-    if (id === 'price-asc') {
-      console.log(`minPrice=${value}`);
-      if (minPrice) minPrice.textContent = `$${value}`;
-    } else {
-      if (maxPrice) maxPrice.textContent = `$${value}`;
-      console.log(`maxPrice=${value}`);
+    if (minPrice && maxPrice) {
+      getMinMaxValue(id, value, searchParams, minPrice, maxPrice);
     }
   });
-  stockRangeFilter?.addEventListener('change', ({ target }) => {
+  stockRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-    if (id === 'stock-asc') {
-      if (minStock) minStock.textContent = value;
-      console.log(`minStock=${value}`);
-    } else {
-      if (maxStock) maxStock.textContent = value;
-      console.log(`maxStock=${value}`);
+    if (minStock && maxStock) {
+      getMinMaxValue(id, value, searchParams, minStock, maxStock);
     }
   });
-  resetBtn?.addEventListener('click', () => {
-    window.history.pushState({ urlPath: routes.catalog }, '', routes.catalog);
+  resetBtn?.addEventListener("click", () => {
+    for (const [key] of searchParams) {
+      searchParams.delete(key);
+    }
+    window.history.pushState({}, "", routes.catalog);
   });
-  copyLinkBtn?.addEventListener('click', () => {
+  copyLinkBtn?.addEventListener("click", () => {
     const location = window.location.href;
     navigator.clipboard.writeText(location);
-  })
+  });
 
   hashListener();
 }

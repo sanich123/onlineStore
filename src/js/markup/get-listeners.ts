@@ -14,6 +14,8 @@ export function getListeners() {
   const maxPrice = document.querySelector('.maxPrice');
   const minStock = document.querySelector('.minStock');
   const maxStock = document.querySelector('.maxStock');
+  const categories = document.querySelectorAll('.filters-category__input') as NodeListOf<HTMLInputElement>;
+  const brands = document.querySelectorAll('.filters-brand__input') as NodeListOf<HTMLInputElement>;
 
   return {
     priceSort,
@@ -31,5 +33,7 @@ export function getListeners() {
     maxPrice,
     minStock,
     maxStock,
+    categories,
+    brands,
   };
 }

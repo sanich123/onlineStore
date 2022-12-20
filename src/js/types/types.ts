@@ -11,3 +11,7 @@ export type DataType = {
   thumbnail: string;
   images: string[];
 };
+
+export type ObjectKeys = {
+  [key: string]: string,
+}
