@@ -21,5 +21,9 @@ export const SEARCH_KEYS = {
     sortRating: 'sortRating',
     size: 'size',
     search: 'search',
+    minPrice: 'minPrice',
+    maxPrice: 'maxPrice',
+    minStock: 'minStock',
+    maxStock: 'maxStock',
 }
 

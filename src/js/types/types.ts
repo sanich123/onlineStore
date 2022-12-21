@@ -15,3 +15,16 @@ export type DataType = {
 export type ObjectKeys = {
   [key: string]: string,
 }
+
+export type ParsedParams = {
+  urlCategories: string[],
+  urlBrands: string[],
+  urlSortPrice: string,
+  urlSortRating: string,
+  urlSize: string,
+  urlMinStock: string,
+  urlMaxStock: string,
+  urlMinPrice: string, 
+  urlMaxPrice: string,
+  searchParams: URLSearchParams,
+}

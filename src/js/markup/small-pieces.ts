@@ -20,7 +20,7 @@ export function priceRanges(minPrice: number, maxPrice: number) {
                 min="${minPrice}"
                 max="${maxPrice}"
                 step="10"
-                value="${minPrice}"
+                value=""
               /> </label
             ><br />
             <label class="filters-range-price__label">
@@ -32,7 +32,7 @@ export function priceRanges(minPrice: number, maxPrice: number) {
                 min="${minPrice}"
                 max="${maxPrice}"
                 step="10"
-                value="${minPrice}"
+                value=""
               />
             </label>`;
 }
@@ -47,19 +47,19 @@ export function stockRanges(minStock: number, maxStock: number) {
                 min="${minStock}"
                 max="${maxStock}"
                 step="10"
-                value="${minStock}"
+                value=""
               /> </label
             ><br />
             <label class="filters-range-stock__label">
               <span class="maxStock">${maxStock}</span>
               <input
-                class="filters-range__input"
+                class="filters-range-stock__input"
                 type="range"
                 id="stock-desc"
                 min="${minStock}"
                 max="${maxStock}"
                 step="10"
-                value="${maxStock}"
+                value=""
               />
             </label>`;
 }
