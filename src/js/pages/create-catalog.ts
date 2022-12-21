@@ -16,12 +16,12 @@ export function CreateCatalog() {
     body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks)}${createProductsList(filtredData)}</main>`;
   }
   const { priceSort, ratingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock } = getListeners();
-  const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock } = getNodes();
+  const { categories, brands, radioPrice, radioRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock } = getNodes();
 
   setCheckedToCheckboxes(categories, urlCategories);
   setCheckedToCheckboxes(brands, urlBrands);
-  setCheckedRadio(radioPriceRating, 'price', urlSortPrice);
-  setCheckedRadio(radioPriceRating, 'rating', urlSortRating);
+  setCheckedRadio(radioPrice, 'price', urlSortPrice);
+  setCheckedRadio(radioRating, 'rating', urlSortRating);
   setCheckedRadio(radioSize, 'layout', urlSize);
   inputSearch.value = urlSearch;
   setValueToPriceRange(priceRangeInputs, spanShowMinPrice, spanShowMaxPrice, urlMinPrice, urlMaxPrice);

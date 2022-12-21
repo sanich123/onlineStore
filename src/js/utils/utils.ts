@@ -91,7 +91,6 @@ export function createSearchUrl(params: URLSearchParams) {
       params.delete(key);
     }
   }
-
   return `${ window.location.origin }/${ routes.catalog }?${ params.toString() }${ checkedBrands }${ checkedCheckboxes }`;
 }
 
@@ -111,7 +110,7 @@ export function setCheckedToCheckboxes(nodes: NodeListOf<HTMLInputElement>, cate
 }
 
 export function setCheckedRadio(nodes: NodeListOf<HTMLInputElement>, type: string, searchValue: string) {
-  console.log([...nodes].filter(({ name, value }) => name === type && value === searchValue));
+  console.log(type, searchValue);
     return [...nodes].filter(({ name, value }) => name === type && value === searchValue).map((e) => (e.checked = true));
 }
 
