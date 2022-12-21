@@ -1,29 +1,27 @@
 import { SIZE_VALUES } from "../utils/const";
 import { createArrowDown, createArrowUp } from "./create-icons";
 
-export function createSortOptions() {
+export function createSortOptions(productsLength: number) {
     return `<div class="products-list__options sort-options">
-          <form class="sort-direction__radio radio-form price-sort">
+          <form class="sort-direction__radio radio-form sort-radio">
             <label class="radio-form__label">
-              <input name="price" class="radio-form__input--price" type="radio" value="asc" />
+              <input name="sort-radio" class="radio-form__input" type="radio" value="price-asc" />
               Price ${createArrowUp()}
             </label>
             <label class="radio-form__label">
-              <input name="price" class="radio-form__input--price" type="radio" value="desc" />
+              <input name="sort-radio" class="radio-form__input" type="radio" value="price-desc" />
               Price ${createArrowDown()}
             </label>
-            </form>
-            <form class="sort-direction__radio radio-form rating-sort">
             <label class="radio-form__label">
-              <input name="rating" class="radio-form__input--rating" type="radio" value="asc" />
+              <input name="sort-radio" class="radio-form__input" type="radio" value="rating-asc" />
               Rating ${createArrowUp()}
             </label>
             <label class="radio-form__label">
-              <input name="rating" class="radio-form__input--rating" type="radio" value="desc" />
+              <input name="sort-radio" class="radio-form__input" type="radio" value="rating-desc" />
               Rating ${createArrowDown()}
             </label>
           </form>
-          <span class="sort-options__items-count">Found: 100</span>
+          <span class="sort-options__items-count">Found: ${productsLength}</span>
           <input
             type="search"
             class="sort-options__search"

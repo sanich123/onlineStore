@@ -1,6 +1,5 @@
 export function getListeners() {
-  const priceSort = document.querySelector(".price-sort");
-  const ratingSort = document.querySelector('.rating-sort');
+  const priceRatingSort = document.querySelector(".sort-radio") as HTMLFormElement;
   const formSearch = document.querySelector(".sort-options__form-search");
   const inputSearch = document.querySelector(".sort-options__search") as HTMLInputElement;
   const inputSize = document.querySelector(".size-change__radio");
@@ -17,8 +16,7 @@ export function getListeners() {
 
 
   return {
-    priceSort,
-    ratingSort,
+    priceRatingSort,
     inputSearch,
     formSearch,
     inputSize,

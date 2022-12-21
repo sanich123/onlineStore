@@ -6,11 +6,11 @@ import {
   stockRanges,
 } from "./small-pieces";
 
-export function createFilters(products: DataType[]) {
+export function createFilters(products: DataType[], filtredProducts: DataType[]) {
   const categories = [...new Set(products.map(({ category }) => category))];
   const brands = [...new Set(products.map(({ brand }) => brand))];
-  const mappedPrice = products.map(({ price }) => price);
-  const mappedStock = products.map(({ stock }) => stock);
+  const mappedPrice = filtredProducts.map(({ price }) => price);
+  const mappedStock = filtredProducts.map(({ stock }) => stock);
   const minPrice = Math.min(...mappedPrice);
   const maxPrice = Math.max(...mappedPrice);
   const minStock = Math.min(...mappedStock);

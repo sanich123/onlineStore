@@ -1,6 +1,6 @@
 import { Router } from "../router/router";
 import { DataType, ParsedParams } from "../types/types";
-import { priceOrStockMap, routes, SEARCH_KEYS } from "./const";
+import { priceOrStockMap, routes, SEARCH_KEYS, SORT_TYPES } from "./const";
 
 export function getUrl(string: string) {
   return string.slice(string.indexOf("#"));
@@ -24,18 +24,16 @@ export function getSearchParams() {
   const urlMaxStock = searchParams.get(SEARCH_KEYS.maxStock) || '';
   const urlCategories = searchParams.getAll(SEARCH_KEYS.category) || '';
   const urlBrands = searchParams.getAll(SEARCH_KEYS.brand) || '';
-  const urlSortPrice = searchParams.get(SEARCH_KEYS.sortPrice) || '';
-  const urlSortRating = searchParams.get(SEARCH_KEYS.sortPrice) || '';
+  const urlSortPriceRating = searchParams.get(SEARCH_KEYS.sort) || '';
   const urlSize = searchParams.get(SEARCH_KEYS.size) || '';
   const urlSearch = searchParams.get(SEARCH_KEYS.search) || '';
   return {
-    urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock, urlCategories, urlBrands, urlSortPrice, urlSortRating, urlSize, urlSearch, searchParams
+    urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock, urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, searchParams
   }
 }
 
 export function getFiltredData(mocks: DataType[], params: ParsedParams) {
-  const { urlCategories, urlBrands, urlSortPrice, urlSortRating, urlSize, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, searchParams } = params;
-  console.log(urlSortRating, urlSortPrice);
+  const { urlCategories, urlBrands, urlSortPriceRating, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, urlSearch } = params;
  
   let filtredData: DataType[] = [];
 
@@ -55,20 +53,33 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
       }
     }
   }
-  if (urlSortPrice) {
-    if (urlSortPrice === 'asc') {
+  if (urlSortPriceRating) {
+    if (urlSortPriceRating === SORT_TYPES.ascendPrice) {
       filtredData = filtredData.slice().sort((a, b) => a.price - b.price);
-    } else {
+    } else if (urlSortPriceRating === SORT_TYPES.descendPrice) {
       filtredData = filtredData.slice().sort((a, b) => b.price - a.price);
+    } else if (urlSortPriceRating === SORT_TYPES.ascendRating) {
+      filtredData = filtredData.slice().sort((a, b) => a.rating - b.rating);
+    } else {
+      filtredData = filtredData.slice().sort((a, b) => b.rating - a.rating);
     }
   }
-  // if (urlSortRating) {
-  //   if (urlSortRating === 'asc') {
-  //     filtredData = filtredData.slice().sort((a, b) => a.rating - b.rating);
-  //   } else {
-  //     filtredData = filtredData.slice().sort((a, b) => b.rating - a.rating);
-  //   }
-  // }
+  if (urlSearch) {
+    const regExp = new RegExp(urlSearch, 'gi');
+    filtredData = filtredData.filter((product) => regExp.test(JSON.stringify(product)))
+  }
+  if (urlMinPrice) {
+    filtredData = filtredData.filter(({price}) => price >= +urlMinPrice);
+  }
+  if (urlMaxPrice) {
+    filtredData = filtredData.filter(({price}) => price <= +urlMaxPrice);
+  }
+  if (urlMinStock) {
+    filtredData = filtredData.filter(({stock}) => stock >= +urlMinStock);
+  }
+  if (urlMaxStock) {
+    filtredData = filtredData.filter(({ stock }) => stock <= +urlMaxStock);
+  }
 
   return filtredData;
 }
@@ -110,7 +121,6 @@ export function setCheckedToCheckboxes(nodes: NodeListOf<HTMLInputElement>, cate
 }
 
 export function setCheckedRadio(nodes: NodeListOf<HTMLInputElement>, type: string, searchValue: string) {
-  console.log(type, searchValue);
     return [...nodes].filter(({ name, value }) => name === type && value === searchValue).map((e) => (e.checked = true));
 }
 

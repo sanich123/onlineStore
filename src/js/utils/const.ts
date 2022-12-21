@@ -17,13 +17,19 @@ export const priceOrStockMap: ObjectKeys = {
 export const SEARCH_KEYS = {
     brand: 'brand',
     category: 'category',
-    sortPrice: 'sortPrice',
-    sortRating: 'sortRating',
+    sort: 'sort',
     size: 'size',
     search: 'search',
     minPrice: 'minPrice',
     maxPrice: 'maxPrice',
     minStock: 'minStock',
     maxStock: 'maxStock',
+}
+
+export const SORT_TYPES = {
+    ascendPrice: 'price-asc',
+    descendPrice: 'price-desc',
+    ascendRating: 'rating-asc',
+    descendRating: 'rating-desc',
 }
 

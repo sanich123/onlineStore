@@ -19,9 +19,9 @@ export type ObjectKeys = {
 export type ParsedParams = {
   urlCategories: string[],
   urlBrands: string[],
-  urlSortPrice: string,
-  urlSortRating: string,
+  urlSortPriceRating: string,
   urlSize: string,
+  urlSearch: string,
   urlMinStock: string,
   urlMaxStock: string,
   urlMinPrice: string, 

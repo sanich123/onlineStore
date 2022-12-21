@@ -2,10 +2,10 @@ import { DataType } from "../types/types";
 import { createItem } from "./create-product";
 import { createSortOptions } from "./create-sort-options";
 
-export function createProductsList(mocks: DataType[]) {
+export function createProductsList(productsList: DataType[]) {
   return `<section class="main__products products-list">
-          ${createSortOptions()}
+          ${createSortOptions(productsList.length)}
          <ul class="products">
-         ${mocks.map((product) => createItem(product)).join('')}
+         ${productsList.map((product) => createItem(product)).join('')}
          </ul></section>`;
 }
