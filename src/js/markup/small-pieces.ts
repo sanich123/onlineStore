@@ -10,9 +10,10 @@ export function categoryCheckbox(category: string) {
     ${category}</label>`;
 }
 
-export function priceRanges(minPrice: number, maxPrice: number) {
+export function priceRanges(minPrice: number, maxPrice: number, urlMinPrice: string, urlMaxPrice: string) {
+  console.log(minPrice, maxPrice, urlMinPrice, urlMaxPrice);
   return `<label class="filters-range-price__label">
-              <span class="minPrice">$${minPrice}</span>
+              <span class="minPrice">$${urlMinPrice ? urlMinPrice : minPrice}</span>
               <input
                 class="filters-range-price__input"
                 type="range"
@@ -20,11 +21,11 @@ export function priceRanges(minPrice: number, maxPrice: number) {
                 min="${minPrice}"
                 max="${maxPrice}"
                 step="10"
-                value=""
+                value="${urlMinPrice ? urlMinPrice : minPrice}"
               /> </label
             ><br />
             <label class="filters-range-price__label">
-              <span class="maxPrice">$${maxPrice}</span>
+              <span class="maxPrice">$${urlMaxPrice ? urlMaxPrice : maxPrice}</span>
               <input
                 class="filters-range-price__input"
                 type="range"
@@ -32,10 +33,11 @@ export function priceRanges(minPrice: number, maxPrice: number) {
                 min="${minPrice}"
                 max="${maxPrice}"
                 step="10"
-                value=""
+                value="${urlMaxPrice ? urlMaxPrice : maxPrice}"
               />
             </label>`;
 }
+
 
 export function stockRanges(minStock: number, maxStock: number) {
   return `<label class="filters-range-stock__label">

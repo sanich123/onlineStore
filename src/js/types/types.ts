@@ -27,4 +27,5 @@ export type ParsedParams = {
   urlMinPrice: string, 
   urlMaxPrice: string,
   searchParams: URLSearchParams,
+  filtredParams: string,
 }

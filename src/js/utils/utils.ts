@@ -28,14 +28,15 @@ export function getSearchParams() {
   const urlSize = searchParams.get(SEARCH_KEYS.size) || '';
   const urlSearch = searchParams.get(SEARCH_KEYS.search) || '';
   return {
-    urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock, urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, searchParams
+    urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock, urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, searchParams, filtredParams,
   }
 }
 
 export function getFiltredData(mocks: DataType[], params: ParsedParams) {
-  const { urlCategories, urlBrands, urlSortPriceRating, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, urlSearch } = params;
+  const { urlCategories, urlBrands, urlSortPriceRating, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, urlSearch, filtredParams } = params;
  
   let filtredData: DataType[] = [];
+  if (!filtredParams || filtredParams.length === 1) return mocks;
 
   if (urlCategories.length) {
     for (const urlCategory of urlCategories) {
@@ -45,13 +46,31 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
   }
   if (urlBrands.length) {
     for (const urlBrand of urlBrands) {
-      const filtredBrands = urlCategories.length > 0 ? filtredData.filter(({ brand }) => brand === urlBrand) : mocks.filter(({ brand }) => brand === urlBrand);
-      if (urlCategories.length > 0) {
-        filtredData = [...filtredBrands];
-      } else {
-        filtredData = [...filtredData, ...filtredBrands];
-      }
+      urlCategories.length ? 
+      filtredData = filtredData.filter(({ brand }) => brand === urlBrand) : 
+      filtredData = mocks.filter(({ brand }) => brand === urlBrand);
     }
+  }
+
+  if (urlSearch) {
+    const regExp = new RegExp(urlSearch, 'gi');
+    filtredData = filtredData.filter((product) => regExp.test(JSON.stringify(product)))
+  }
+  if (urlMinPrice) {
+    filtredData.length > 0 ? 
+    filtredData = filtredData.filter(({ price }) => price >= +urlMinPrice) : 
+    filtredData = mocks.filter(({ price }) => price >= +urlMinPrice);
+  }
+  if (urlMaxPrice) {
+    filtredData.length > 0 ?
+      filtredData = filtredData.filter(({ price }) => price <= +urlMaxPrice) :
+      filtredData = mocks.filter(({ price }) => price <= +urlMaxPrice);
+  }
+  if (urlMinStock) {
+    filtredData = filtredData.filter(({stock}) => stock >= +urlMinStock);
+  }
+  if (urlMaxStock) {
+    filtredData = filtredData.filter(({ stock }) => stock <= +urlMaxStock);
   }
   if (urlSortPriceRating) {
     if (urlSortPriceRating === SORT_TYPES.ascendPrice) {
@@ -64,23 +83,6 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
       filtredData = filtredData.slice().sort((a, b) => b.rating - a.rating);
     }
   }
-  if (urlSearch) {
-    const regExp = new RegExp(urlSearch, 'gi');
-    filtredData = filtredData.filter((product) => regExp.test(JSON.stringify(product)))
-  }
-  if (urlMinPrice) {
-    filtredData = filtredData.filter(({price}) => price >= +urlMinPrice);
-  }
-  if (urlMaxPrice) {
-    filtredData = filtredData.filter(({price}) => price <= +urlMaxPrice);
-  }
-  if (urlMinStock) {
-    filtredData = filtredData.filter(({stock}) => stock >= +urlMinStock);
-  }
-  if (urlMaxStock) {
-    filtredData = filtredData.filter(({ stock }) => stock <= +urlMaxStock);
-  }
-
   return filtredData;
 }
 
@@ -125,19 +127,31 @@ export function setCheckedRadio(nodes: NodeListOf<HTMLInputElement>, type: strin
 }
 
 export function setValueToPriceRange(
-  nodes: NodeListOf<HTMLInputElement>,
+  nodes: NodeListOf<HTMLInputElement>, 
   spanNodeMin: HTMLSpanElement,
   spanNodeMax: HTMLSpanElement,
   minPrice: string,
   maxPrice: string,
+  minProductPrice: number,
+  maxProductPrice: number,
 ) {
   return [...nodes].forEach((node) => {
-    if (node.id === "price-asc") {
-      node.value = minPrice;
-      spanNodeMin.textContent = `$${minPrice}`;
+    if (minPrice || maxPrice) {
+      if (node.id === "price-asc") {
+        node.value = minPrice;
+        spanNodeMin.textContent = `$${minPrice}`;
+      } else {
+        node.value = maxPrice;
+        spanNodeMax.textContent = `$${maxPrice}`;
+      }
     } else {
-      node.value = maxPrice;
-      spanNodeMax.textContent = `$${maxPrice}`;
+      if (node.id === "price-asc") {
+        node.value = minProductPrice.toString();
+        spanNodeMin.textContent = `$${minProductPrice}`;
+      } else {
+        node.value = maxProductPrice.toString();
+        spanNodeMax.textContent = `$${maxProductPrice}`;
+      }
     }
   });
 }

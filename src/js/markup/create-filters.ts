@@ -6,11 +6,11 @@ import {
   stockRanges,
 } from "./small-pieces";
 
-export function createFilters(products: DataType[], filtredProducts: DataType[]) {
+export function createFilters(products: DataType[], filtredProducts: DataType[], urlMinPrice: string, urlMaxPrice: string) {
   const categories = [...new Set(products.map(({ category }) => category))];
   const brands = [...new Set(products.map(({ brand }) => brand))];
-  const mappedPrice = filtredProducts.map(({ price }) => price);
-  const mappedStock = filtredProducts.map(({ stock }) => stock);
+  const mappedPrice = products.map(({ price }) => price);
+  const mappedStock = products.map(({ stock }) => stock);
   const minPrice = Math.min(...mappedPrice);
   const maxPrice = Math.max(...mappedPrice);
   const minStock = Math.min(...mappedStock);
@@ -32,7 +32,7 @@ export function createFilters(products: DataType[], filtredProducts: DataType[])
         <form class="filters-range-price">
           <fieldset class="filters__fieldset">
             <legend class="filters-range-price__legend">Price</legend>
-            ${priceRanges(minPrice, maxPrice)}
+            ${priceRanges(minPrice, maxPrice, urlMinPrice, urlMaxPrice)}
           </fieldset>
         </form>
         <form class="filters-range-stock">

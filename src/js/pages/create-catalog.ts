@@ -10,10 +10,13 @@ import { createSearchUrl, getFiltredData, getMinMaxValue, getSearchParams, hashL
 export function CreateCatalog() {
   const { urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, searchParams } = getSearchParams();
   const filtredData = getFiltredData(mocks, getSearchParams());
+  const mappedPrice = mocks.map(({ price }) => price);
+  const minProductPrice = Math.min(...mappedPrice);
+  const maxProductPrice = Math.max(...mappedPrice);
 
   const body = document.querySelector(".page");
   if (body) {
-    body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData)}${createProductsList(filtredData)}</main>`;
+    body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData, urlMinPrice, urlMaxPrice)}${createProductsList(filtredData)}</main>`;
   }
   const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock } = getListeners();
   const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock } = getNodes();
@@ -23,7 +26,7 @@ export function CreateCatalog() {
   setCheckedRadio(radioPriceRating, 'sort-radio', urlSortPriceRating);
   setCheckedRadio(radioSize, 'layout', urlSize);
   inputSearch.value = urlSearch;
-  setValueToPriceRange(priceRangeInputs, spanShowMinPrice, spanShowMaxPrice, urlMinPrice, urlMaxPrice);
+  setValueToPriceRange(priceRangeInputs, spanShowMinPrice, spanShowMaxPrice, urlMinPrice, urlMaxPrice, minProductPrice, maxProductPrice);
   setValueToStockRange(stockRangeInputs, spanShowMinStock, spanShowMaxStock, urlMinStock, urlMaxStock);
 
   priceRatingSort?.addEventListener("click", ({ target }) => {
