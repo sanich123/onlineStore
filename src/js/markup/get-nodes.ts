@@ -9,6 +9,8 @@ export function getNodes() {
   const spanShowMaxPrice = document.querySelector('.maxPrice') as HTMLSpanElement;
   const spanShowMinStock = document.querySelector('.minStock') as HTMLSpanElement;
   const spanShowMaxStock = document.querySelector('.maxStock') as HTMLSpanElement;
+  const cartBtns = document.querySelectorAll('.products-item__btn') as NodeListOf<HTMLButtonElement>;
+  const cartShowPriceHeader = document.querySelector('.total__summary') as HTMLDivElement;
   return {
     categories,
     brands,
@@ -19,6 +21,8 @@ export function getNodes() {
     spanShowMinPrice,
     spanShowMaxPrice,
     spanShowMinStock,
-    spanShowMaxStock
+    spanShowMaxStock,
+    cartBtns,
+    cartShowPriceHeader,
   };
 }

@@ -33,3 +33,11 @@ export const SORT_TYPES = {
     descendRating: 'rating-desc',
 }
 
+export const LS_KEYS = {
+    cart: 'cart',
+    product: 'product',
+    inCart: 'in-cart',
+}
+
+export const EMPTY_LIST = "<p>We tried so much to find your products, but there are no products to match your filters...</p>";
+

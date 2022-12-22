@@ -11,7 +11,6 @@ export function categoryCheckbox(category: string) {
 }
 
 export function priceRanges(minPrice: number, maxPrice: number, urlMinPrice: string, urlMaxPrice: string) {
-  console.log(minPrice, maxPrice, urlMinPrice, urlMaxPrice);
   return `<label class="filters-range-price__label">
               <span class="minPrice">$${urlMinPrice ? urlMinPrice : minPrice}</span>
               <input

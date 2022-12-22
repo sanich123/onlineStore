@@ -4,21 +4,27 @@ import { createProductsList } from "../markup/create-products-list";
 import { getListeners } from "../markup/get-listeners";
 import { getNodes } from "../markup/get-nodes";
 import { mocks } from "../mocks/mocks";
+import { DataType } from "../types/types";
 import { routes, SEARCH_KEYS } from "../utils/const";
-import { createSearchUrl, getFiltredData, getMinMaxPriceStock, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
+import { getFiltredData } from "../utils/filter-sort";
+import { localStorageHelper } from "../utils/local-storage";
+import { createSearchUrl, getMinMaxPriceStock, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
 
 export function CreateCatalog() {
+  const storageItems: DataType[] = JSON.parse(localStorage.getItem('cart') || '[]');
+  const ids = storageItems.map(({ id }) => id);
+
   const { urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, searchParams } = getSearchParams();
   const filtredData = getFiltredData(mocks, getSearchParams());
-const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = getMinMaxPriceStock(mocks);
+  const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = getMinMaxPriceStock(mocks);
 
   const body = document.querySelector(".page");
   if (body) {
-    body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData, urlMinPrice, urlMaxPrice)}${createProductsList(filtredData)}</main>`;
+    body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData, urlMinPrice, urlMaxPrice)}${createProductsList(filtredData, ids)}</main>`;
   }
-  const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock } = getListeners();
-  const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock } = getNodes();
-
+  const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
+  const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock, cartShowPriceHeader } = getNodes();
+  cartShowPriceHeader.innerText = `$${storageItems.reduce((total, {price}) => total + price, 0)}`;
   setCheckedToCheckboxes(categories, urlCategories);
   setCheckedToCheckboxes(brands, urlBrands);
   setCheckedRadio(radioPriceRating, 'sort-radio', urlSortPriceRating);
@@ -35,9 +41,16 @@ const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = g
   });
   inputSearch?.addEventListener("change", ({ target }) => {
     const { value } = target as HTMLInputElement;
-    searchParams.set("search", value);
-    window.history.pushState({}, "", createSearchUrl(searchParams));
-    CreateCatalog();
+    if (value) {
+      searchParams.set("search", value);
+      window.history.pushState({}, "", createSearchUrl(searchParams));
+      CreateCatalog();
+    } 
+    if (!value) {
+      searchParams.delete("search");
+      window.history.pushState({}, "", createSearchUrl(searchParams));
+      CreateCatalog();
+    }
   });
   inputSize?.addEventListener("click", ({ target }) => {
     const { value, checked } = target as HTMLInputElement;
@@ -75,6 +88,10 @@ const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = g
   copyLinkBtn?.addEventListener("click", () => {
     const location = window.location.href;
     navigator.clipboard.writeText(location);
+  });
+  productsList?.addEventListener("click", ({ target }) => {
+    const { value, name } = target as HTMLButtonElement;
+    localStorageHelper(name, value, ids, storageItems);
   });
   hashListener();
 }

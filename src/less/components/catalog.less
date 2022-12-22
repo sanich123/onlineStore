@@ -1,14 +1,18 @@
 .main {
   padding: 30px;
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 18% 82%;
   gap: 30px;
   .container(@width: 1400px);
   &__filters {
     display: grid;
-    height: min-content;
     grid-template-rows: repeat(6, min-content);
     row-gap: 30px;
+    .filters__category,
+    .filters__brand {
+      height: 300px;
+      overflow: auto;
+    }
     .filters-category fieldset,
     .filters-brand fieldset {
       display: grid;
@@ -124,6 +128,9 @@
         background: orangered;
         color: aliceblue;
       }
+    }
+    .in-cart {
+      background: green;
     }
   }
 }

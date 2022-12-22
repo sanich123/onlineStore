@@ -13,6 +13,7 @@ export function getListeners() {
   const maxPrice = document.querySelector('.maxPrice');
   const minStock = document.querySelector('.minStock');
   const maxStock = document.querySelector('.maxStock');
+  const productsList = document.querySelector('.products') as HTMLUListElement;
 
 
   return {
@@ -30,5 +31,6 @@ export function getListeners() {
     maxPrice,
     minStock,
     maxStock,
+    productsList,
   };
 }
