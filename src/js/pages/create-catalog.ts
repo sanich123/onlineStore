@@ -5,14 +5,12 @@ import { getListeners } from "../markup/get-listeners";
 import { getNodes } from "../markup/get-nodes";
 import { mocks } from "../mocks/mocks";
 import { routes, SEARCH_KEYS } from "../utils/const";
-import { createSearchUrl, getFiltredData, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
+import { createSearchUrl, getFiltredData, getMinMaxPriceStock, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
 
 export function CreateCatalog() {
   const { urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, searchParams } = getSearchParams();
   const filtredData = getFiltredData(mocks, getSearchParams());
-  const mappedPrice = mocks.map(({ price }) => price);
-  const minProductPrice = Math.min(...mappedPrice);
-  const maxProductPrice = Math.max(...mappedPrice);
+const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = getMinMaxPriceStock(mocks);
 
   const body = document.querySelector(".page");
   if (body) {
@@ -27,7 +25,7 @@ export function CreateCatalog() {
   setCheckedRadio(radioSize, 'layout', urlSize);
   inputSearch.value = urlSearch;
   setValueToPriceRange(priceRangeInputs, spanShowMinPrice, spanShowMaxPrice, urlMinPrice, urlMaxPrice, minProductPrice, maxProductPrice);
-  setValueToStockRange(stockRangeInputs, spanShowMinStock, spanShowMaxStock, urlMinStock, urlMaxStock);
+  setValueToStockRange(stockRangeInputs, spanShowMinStock, spanShowMaxStock, urlMinStock, urlMaxStock, minProductStock, maxProductStock);
 
   priceRatingSort?.addEventListener("click", ({ target }) => {
     const { value } = target as HTMLInputElement;
@@ -67,6 +65,7 @@ export function CreateCatalog() {
     const { value, id } = target as HTMLInputElement;
     if (minStock && maxStock) {
       getMinMaxValue(id, value, searchParams, minStock, maxStock);
+      CreateCatalog();
     }
   });
   resetBtn?.addEventListener("click", () => {

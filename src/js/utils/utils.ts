@@ -54,7 +54,9 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
 
   if (urlSearch) {
     const regExp = new RegExp(urlSearch, 'gi');
-    filtredData = filtredData.filter((product) => regExp.test(JSON.stringify(product)))
+    filtredData.length > 0 ?
+    filtredData = filtredData.filter((product) => regExp.test(JSON.stringify(product))) :
+    filtredData = mocks.filter((product) => regExp.test(JSON.stringify(product)))
   }
   if (urlMinPrice) {
     filtredData.length > 0 ? 
@@ -67,10 +69,14 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
       filtredData = mocks.filter(({ price }) => price <= +urlMaxPrice);
   }
   if (urlMinStock) {
-    filtredData = filtredData.filter(({stock}) => stock >= +urlMinStock);
+    filtredData.length > 0 ?
+    filtredData = filtredData.filter(({ stock }) => stock >= +urlMinStock) :
+    filtredData = mocks.filter(({ stock }) => stock >= +urlMinStock);
   }
   if (urlMaxStock) {
-    filtredData = filtredData.filter(({ stock }) => stock <= +urlMaxStock);
+    filtredData.length > 0 ?
+      filtredData = filtredData.filter(({ stock }) => stock <= +urlMaxStock) :
+      filtredData = mocks.filter(({ stock }) => stock <= +urlMaxStock);
   }
   if (urlSortPriceRating) {
     if (urlSortPriceRating === SORT_TYPES.ascendPrice) {
@@ -136,19 +142,22 @@ export function setValueToPriceRange(
   maxProductPrice: number,
 ) {
   return [...nodes].forEach((node) => {
-    if (minPrice || maxPrice) {
+    if (minPrice) {
       if (node.id === "price-asc") {
         node.value = minPrice;
         spanNodeMin.textContent = `$${minPrice}`;
-      } else {
+      } else if (maxPrice) {
         node.value = maxPrice;
         spanNodeMax.textContent = `$${maxPrice}`;
       }
     } else {
-      if (node.id === "price-asc") {
-        node.value = minProductPrice.toString();
-        spanNodeMin.textContent = `$${minProductPrice}`;
-      } else {
+      if (minProductPrice) {
+        if (node.id === "price-asc") {
+          node.value = minProductPrice.toString();
+          spanNodeMin.textContent = `$${minProductPrice}`;
+        }
+      }
+      else if (maxProductPrice) {
         node.value = maxProductPrice.toString();
         spanNodeMax.textContent = `$${maxProductPrice}`;
       }
@@ -161,14 +170,41 @@ export function setValueToStockRange(
   spanNodeMax: HTMLSpanElement,
   minStock: string,
   maxStock: string,
+  minProductStock: number,
+  maxProductStock: number,
 ) {
   return [...nodes].forEach((node) => {
-    if (node.id === "stock-asc") {
-      node.value = minStock;
-      spanNodeMin.textContent = minStock;
+    if (minStock) {
+      if (node.id === "stock-asc") {
+        node.value = minStock;
+        spanNodeMin.textContent = minStock;
+      } else if (maxStock) {
+        node.value = maxStock;
+        spanNodeMax.textContent = maxStock;
+      }
     } else {
-      node.value = maxStock;
-      spanNodeMax.textContent = maxStock;
+      if (minProductStock) {
+        if (node.id === "stock-asc") {
+          node.value = minProductStock.toString();
+          spanNodeMin.textContent = `${minProductStock}`;
+        }
+      }
+      else if (maxProductStock) {
+        node.value = maxProductStock.toString();
+        spanNodeMax.textContent = maxProductStock.toString();
+      }
     }
-  });
+  })
+}
+
+export function getMinMaxPriceStock(mocks: DataType[]) {
+  const mappedPrice = mocks.map(({ price }) => price);
+  const mappedStock = mocks.map(({ stock }) => stock);
+  const minProductPrice = Math.min(...mappedPrice);
+  const maxProductPrice = Math.max(...mappedPrice);
+  const minProductStock = Math.min(...mappedStock);
+  const maxProductStock = Math.max(...mappedStock);
+  return {
+    minProductPrice, maxProductPrice, minProductStock, maxProductStock
+  }
 }
