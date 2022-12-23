@@ -5,7 +5,7 @@ import { routes } from "../utils/const";
 
 export function Router(location: string) {
   const url = new URL(location);
-  if (location.includes(routes.catalog) || !url.hash) {
+  if (location.includes(routes.catalog)) {
     CreateCatalog();
   } else if (location.includes(routes.product)) {
     CreateProduct();
