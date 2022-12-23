@@ -11,3 +11,21 @@ export type DataType = {
   thumbnail: string;
   images: string[];
 };
+
+export type ObjectKeys = {
+  [key: string]: string,
+}
+
+export type ParsedParams = {
+  urlCategories: string[],
+  urlBrands: string[],
+  urlSortPriceRating: string,
+  urlSize: string,
+  urlSearch: string,
+  urlMinStock: string,
+  urlMaxStock: string,
+  urlMinPrice: string, 
+  urlMaxPrice: string,
+  searchParams: URLSearchParams,
+  filtredParams: string,
+}
