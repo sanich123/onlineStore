@@ -88,6 +88,10 @@ export function CreateCatalog() {
   copyLinkBtn?.addEventListener("click", () => {
     const location = window.location.href;
     navigator.clipboard.writeText(location);
+    copyLinkBtn.textContent = 'Copied successfully!';
+    setTimeout(() => {
+      copyLinkBtn.textContent = 'Copy link'
+    }, 1000)
   });
   productsList?.addEventListener("click", ({ target }) => {
     const { value, name } = target as HTMLButtonElement;

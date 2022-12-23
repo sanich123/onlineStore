@@ -15,7 +15,6 @@ export function getListeners() {
   const maxStock = document.querySelector('.maxStock');
   const productsList = document.querySelector('.products') as HTMLUListElement;
 
-
   return {
     priceRatingSort,
     inputSearch,
