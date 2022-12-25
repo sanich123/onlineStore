@@ -17,6 +17,9 @@ export type ObjectKeys = {
   [key: string]: string,
 }
 
+export type CouponsType = { couponValue: string, discount: number, applied: boolean };
+
+
 export type ParsedParams = {
   urlCategories: string[],
   urlBrands: string[],

@@ -99,6 +99,11 @@
         background: orangered;
         color: yellow;
       }
+      &:disabled {
+        background: grey;
+        color: white;
+        cursor: not-allowed;
+      }
     }
     .coupon-form__label {
       display: grid;
@@ -115,6 +120,30 @@
     .coupon-form__input {
       width: 100%;
       padding: 10px;
+    }
+  }
+  .empty-cart {
+    font: normal 25px/1.5 Arial, sans-serif;
+  }
+  .coupons-list {
+    .reset-ul();
+    &__item {
+      display: grid;
+      grid-template-columns: 80% 20%;
+      align-items: center;
+      column-gap: 10px;
+    }
+    .coupons-item__btn {
+      .reset-btn();
+      background: orange;
+      color: white;
+      border-radius: 10px;
+      padding: 10px 20px;
+      transition: 1s ease;
+      &:hover {
+        background: orangered;
+        color: yellow;
+      }
     }
   }
 }

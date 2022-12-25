@@ -37,7 +37,15 @@ export const LS_KEYS = {
     cart: 'cart',
     product: 'product',
     inCart: 'in-cart',
+    promocode: 'promocode',
 }
 
 export const EMPTY_LIST = "<p>We tried so much to find your products, but there are no products to match your filters...</p>";
+export const PROMOCODES = {
+    newYear: 'fucking new year',
+    stupidSanta: 'stupidSanta',
+}
+export const NEW_YEAR_COUPON = { couponValue: 'newYear',
+discount: 10, applied: false };
+export const SANTA_COUPON = { couponValue: 'stupidSanta', discount: 15, applied: false };
 
