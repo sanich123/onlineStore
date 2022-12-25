@@ -10,6 +10,7 @@ export type DataType = {
   category: string;
   thumbnail: string;
   images: string[];
+  amount?: number,
 };
 
 export type ObjectKeys = {
