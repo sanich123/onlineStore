@@ -1,0 +1,114 @@
+.cart {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  column-gap: 20px;
+  &-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 30px;
+    grid-template-areas:
+      "img title"
+      "img description"
+      "img stock"
+      "img price"
+      "img buttons";
+    font: normal 20px/1.5 Arial, sans-serif;
+    &__title {
+      grid-area: title;
+      text-align: center;
+      font: bold 27px/1.5 Arial, sans-serif;
+      margin-top: 0;
+    }
+    &__img {
+      grid-area: img;
+      object-fit: contain;
+    }
+    &__description {
+      grid-area: description;
+      margin: 0;
+    }
+    &__stock {
+      grid-area: stock;
+      display: grid;
+      place-content: center;
+      font: bold 27px/1.5 Arial, sans-serif;
+    }
+    &__price {
+      grid-area: price;
+      display: grid;
+      place-content: center;
+      font: bold 27px/1.5 Arial, sans-serif;
+    }
+    &__btns {
+      grid-area: buttons;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      place-content: center;
+      gap: 30px;
+    }
+    &__decrement,
+    &__increment {
+      .reset-btn();
+      background: orange;
+      color: white;
+      padding: 10px 30px;
+      display: grid;
+      place-items: center;
+      font: bold 27px/1.5 Arial, sans-serif;
+      transition: 1s ease;
+    }
+    &__decrement:hover,
+    &__increment:hover {
+      background: orangered;
+      color: yellow;
+    }
+    &__amount {
+      display: grid;
+      place-items: center;
+      font: bold 27px/1.5 Arial, sans-serif;
+    }
+  }
+  .total-info {
+    font: normal 20px/1.5 Arial, sans-serif;
+    display: grid;
+    place-items: center;
+    &__price {
+      font: bold 30px/1.5 Arial, sans-serif;
+      margin-bottom: 0;
+    }
+    &__amount {
+      font-style: italic;
+    }
+    &__accept {
+      .reset-btn();
+      background: orange;
+      padding: 10px 30px;
+      color: white;
+      text-transform: uppercase;
+      font: bold 30px/1.5 Arial, sans-serif;
+      border-radius: 10px;
+      transition: 1s ease;
+      &:hover {
+        background: orangered;
+        color: yellow;
+      }
+    }
+    .coupon-form__label {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      gap: 10px;
+      margin-top: 20px;
+      &--promo {
+        font-style: italic;
+        font-size: 12px;
+        margin-top: -10px;
+      }
+    }
+    .coupon-form__input {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+}
