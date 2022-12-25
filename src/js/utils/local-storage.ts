@@ -1,7 +1,8 @@
 import { mocks } from "../mocks/mocks";
+import { CreateCart } from "../pages/create-cart";
 import { CreateCatalog } from "../pages/create-catalog";
 import { CreateProduct } from "../pages/create-product";
-import { DataType } from "../types/types";
+import { CouponsType, DataType } from "../types/types";
 import { LS_KEYS, NEW_YEAR_COUPON, PROMOCODES, routes, SANTA_COUPON } from "./const";
 
 export function localStorageHelper(name: string, value: string, ids: number[], storageItems: DataType[]) {
@@ -52,4 +53,56 @@ export function localStorageCouponHelper(coupon: string) {
             }
         }
     }
+}
+
+export function setAmountProperty(item: DataType) {
+    if (!item.amount) {
+        item.amount = 1;
+        return item;
+    } else {
+        return item;
+    }
+}
+
+export function incrementDecrementCounter(
+    name: string,
+    value: string,
+    itemsInCart: DataType[]
+) {
+    if (name === "increment") {
+        itemsInCart.map((cartItem: DataType) => {
+            if (
+                cartItem.id === Number(value) &&
+                cartItem.amount &&
+                cartItem.amount < cartItem.stock
+            ) {
+                cartItem.amount += 1;
+                return cartItem;
+            } else {
+                return cartItem;
+            }
+        });
+    } else {
+        itemsInCart.map((cartItem: DataType) => {
+            if (cartItem.id === Number(value) && cartItem.amount) {
+                cartItem.amount -= 1;
+                return cartItem;
+            } else {
+                return cartItem;
+            }
+        });
+    }
+    const filtredFalsy = itemsInCart.filter(({ amount }) => amount);
+    localStorage.setItem(LS_KEYS.cart, JSON.stringify(filtredFalsy));
+    CreateCart();
+}
+
+export function setAppliedToCoupons(coupons: CouponsType[], couponName: string) {
+    return coupons.map((coupon: CouponsType) => {
+        if (coupon.couponValue === couponName) {
+            coupon.applied = !coupon.applied;
+            return coupon;
+        }
+        return coupon;
+    });
 }

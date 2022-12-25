@@ -2,10 +2,9 @@ import { createCartItemsList } from "../markup/create-cart-item-list";
 import { createHeader } from "../markup/create-header";
 import { createTotalInfo } from "../markup/create-total-info";
 import { getNodesCart } from "../markup/get-nodes-cart";
-import { CouponsType } from "../types/types";
 import { LS_KEYS } from "../utils/const";
-import { localStorageCouponHelper } from "../utils/local-storage";
-import { getTotalAmount, getTotalSumWithAmount, hashListener, incrementDecrementCounter, setAmountProperty } from "../utils/utils";
+import { incrementDecrementCounter, localStorageCouponHelper, setAmountProperty, setAppliedToCoupons } from "../utils/local-storage";
+import { getTotalAmount, getTotalSumWithAmount, hashListener } from "../utils/utils";
 
 export function CreateCart() {
   const couponsInCart = JSON.parse(localStorage.getItem(LS_KEYS.promocode) || '[]');
@@ -37,13 +36,7 @@ export function CreateCart() {
   });
   couponsList?.addEventListener('click', ({ target }) => {
     const { value, name } = target as HTMLButtonElement;
-    const appliedCoupons = couponsInCart.map((coupon: CouponsType) => {
-      if (coupon.couponValue === name) {
-        coupon.applied = !coupon.applied;
-        return coupon;
-      }
-      return coupon;
-    });
+    const appliedCoupons = setAppliedToCoupons(couponsInCart, name);
     localStorage.setItem(LS_KEYS.promocode, JSON.stringify(appliedCoupons));
     CreateCart();
   });

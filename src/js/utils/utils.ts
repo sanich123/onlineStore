@@ -194,47 +194,7 @@ export function getMinMaxPriceStock(mocks: DataType[]) {
   };
 }
 
-export function setAmountProperty(item: DataType) {
-  if (!item.amount) {
-    item.amount = 1;
-    return item;
-  } else {
-    return item;
-  }
-}
 
-export function incrementDecrementCounter(
-  name: string,
-  value: string,
-  itemsInCart: DataType[]
-) {
-    if (name === "increment") {
-      itemsInCart.map((cartItem: DataType) => {
-        if (
-          cartItem.id === Number(value) &&
-          cartItem.amount &&
-          cartItem.amount < cartItem.stock
-        ) {
-          cartItem.amount += 1;
-          return cartItem;
-        } else {
-          return cartItem;
-        }
-      });
-    } else {
-      itemsInCart.map((cartItem: DataType) => {
-        if (cartItem.id === Number(value) && cartItem.amount) {
-          cartItem.amount -= 1;
-          return cartItem;
-        } else {
-          return cartItem;
-        }
-      });
-    }
-    const filtredFalsy = itemsInCart.filter(({ amount }) => amount);
-    localStorage.setItem(LS_KEYS.cart, JSON.stringify(filtredFalsy));
-    CreateCart();
-}
 export const getTotalSumWithAmount = (total: number, { amount, price }: { amount: number, price: number }) => total + (amount * price);
 export const getTotalAmount = (total: number, {amount}: {amount: number}) => total + amount;
 

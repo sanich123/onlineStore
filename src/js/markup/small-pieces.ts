@@ -66,7 +66,8 @@ export function stockRanges(minStock: number, maxStock: number) {
 }
 
 export function createCoupon(couponValue: string, discount: number, applied: boolean) {
+
   return `<li class="coupons-list__item coupons-item">
-    <p class="coupons-item__p"> You may apply ${ couponValue } coupon with ${ discount }% discount! </p>
+    <p class="coupons-item__p"> You ${applied ? 'applied' : 'may apply'} ${ couponValue } coupon with ${ discount }% discount! </p>
       <button class="coupons-item__btn" value="${discount}" name="${couponValue}" type="button">${applied ? 'Drop' : 'Add'}</button></li>`
 }
