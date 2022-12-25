@@ -1,11 +1,16 @@
 .cart {
+  .container(1200px);
   margin-top: 50px;
   display: grid;
   grid-template-columns: 70% 30%;
   column-gap: 20px;
+  &-products-list {
+    display: grid;
+    gap: 20px;
+  }
   &-item {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 40% 60%;
     column-gap: 30px;
     grid-template-areas:
       "img title"
@@ -13,15 +18,17 @@
       "img stock"
       "img price"
       "img buttons";
-    font: normal 20px/1.5 Arial, sans-serif;
+    font: normal 16px/1.5 Arial, sans-serif;
     &__title {
       grid-area: title;
       text-align: center;
-      font: bold 27px/1.5 Arial, sans-serif;
+      font: bold 24px/1.5 Arial, sans-serif;
       margin-top: 0;
     }
     &__img {
       grid-area: img;
+      display: flex;
+      align-self: center;
       object-fit: contain;
     }
     &__description {
@@ -32,13 +39,13 @@
       grid-area: stock;
       display: grid;
       place-content: center;
-      font: bold 27px/1.5 Arial, sans-serif;
+      font: bold 24px/1.5 Arial, sans-serif;
     }
     &__price {
       grid-area: price;
       display: grid;
       place-content: center;
-      font: bold 27px/1.5 Arial, sans-serif;
+      font: bold 24px/1.5 Arial, sans-serif;
     }
     &__btns {
       grid-area: buttons;
@@ -55,7 +62,7 @@
       padding: 10px 30px;
       display: grid;
       place-items: center;
-      font: bold 27px/1.5 Arial, sans-serif;
+      font: bold 24px/1.5 Arial, sans-serif;
       transition: 1s ease;
     }
     &__decrement:hover,
@@ -66,15 +73,14 @@
     &__amount {
       display: grid;
       place-items: center;
-      font: bold 27px/1.5 Arial, sans-serif;
+      font: bold 24px/1.5 Arial, sans-serif;
     }
   }
   .total-info {
-    font: normal 20px/1.5 Arial, sans-serif;
-    display: grid;
-    place-items: center;
+    font: normal 16px/1.5 Arial, sans-serif;
+    grid-template-rows: repeat(4, auto);
     &__price {
-      font: bold 30px/1.5 Arial, sans-serif;
+      font: bold 27px/1.5 Arial, sans-serif;
       margin-bottom: 0;
     }
     &__amount {

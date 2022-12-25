@@ -153,5 +153,8 @@ export function setAmountProperty(item: DataType) {
     if (!item.amount) {
       item.amount = 1;
       return item;
+    } else {
+      return item;
     }
 }
+
