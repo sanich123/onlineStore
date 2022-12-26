@@ -6,7 +6,8 @@ export function createTotalInfo(totalSum: number, totalAmountOfProducts: number,
   const filtredDiscount = couponsInCart.reduce((total, { applied, discount }) => applied ? total + discount : total, 0);
   const finalSum = filtredDiscount ? totalSum - (totalSum * (filtredDiscount / 100)) : totalSum;
     return `<div class="cart__total-info total-info">
-          <p class="total-info__price">Total price: ${(finalSum).toLocaleString('ru')}$</p>
+          ${filtredDiscount ? `<p class="total-info__price">Total price: ${(finalSum).toLocaleString('ru')}$</p>` : ''}
+          <p class="total-info__price ${filtredDiscount ? 'line-through' : ''}">Total price: ${totalSum.toLocaleString('ru')}$</p>
           <p class="total-info__amount">Amount of items: ${totalAmountOfProducts}</p>
           <button class="total-info__accept" ${!totalSum ? 'disabled' : ''}>Purchase items</button>
           <form class="total-info__coupon-form coupon-form">
@@ -21,7 +22,7 @@ export function createTotalInfo(totalSum: number, totalAmountOfProducts: number,
               <span class="coupon-form__label--promo">Try "${PROMOCODES.newYear}" and "${PROMOCODES.stupidSanta}"</span>
             </label>
           </form>
-          ${couponsInCart.length ? `<ul class="coupon-form__list coupons-list">
+          ${couponsInCart.length && totalAmountOfProducts ? `<ul class="coupon-form__list coupons-list">
           ${couponsInCart.map(({couponValue, discount, applied}) => createCoupon(couponValue, discount, applied)).join('')}
           </ul>` : ''}
         </div>`

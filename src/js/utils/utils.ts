@@ -1,7 +1,6 @@
-import { CreateCart } from "../pages/create-cart";
 import { Router } from "../router/router";
 import { DataType } from "../types/types";
-import { LS_KEYS, priceOrStockMap, routes, SEARCH_KEYS } from "./const";
+import { priceOrStockMap, routes, SEARCH_KEYS } from "./const";
 
 export function getUrl(string: string) {
   return string.slice(string.indexOf("#"));
