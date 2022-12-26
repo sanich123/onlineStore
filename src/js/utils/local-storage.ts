@@ -42,6 +42,7 @@ export function localStorageCouponHelper(coupon: string) {
                 localStorage.setItem(LS_KEYS.promocode, JSON.stringify(couponsInCart));
             }
         }
+        CreateCart();
     }
     if (coupon === PROMOCODES.stupidSanta) {
         if (!couponsInCart) {
@@ -52,7 +53,9 @@ export function localStorageCouponHelper(coupon: string) {
                 localStorage.setItem(LS_KEYS.promocode, JSON.stringify(couponsInCart));
             }
         }
+        CreateCart();
     }
+    
 }
 
 export function setAmountProperty(item: DataType) {
