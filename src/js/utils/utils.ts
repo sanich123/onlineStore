@@ -27,6 +27,8 @@ export function getSearchParams() {
   const urlSortPriceRating = searchParams.get(SEARCH_KEYS.sort) || "";
   const urlSize = searchParams.get(SEARCH_KEYS.size) || "";
   const urlSearch = searchParams.get(SEARCH_KEYS.search) || "";
+  const urlPageNumber = searchParams.get(SEARCH_KEYS.pageNumber) || '';
+  const urlAmountOfItems = searchParams.get(SEARCH_KEYS.amountOfItems) || '';
   return {
     urlMinPrice,
     urlMaxPrice,
@@ -39,6 +41,8 @@ export function getSearchParams() {
     urlSearch,
     searchParams,
     filtredParams,
+    urlPageNumber,
+    urlAmountOfItems,
   };
 }
 
@@ -57,6 +61,7 @@ export function getCheckedBrands(brands: NodeListOf<HTMLInputElement>) {
 }
 
 export function createSearchUrl(params: URLSearchParams) {
+  const page = window.location.href.includes(routes.catalog) ? routes.catalog : routes.cart;
   const categories = document.querySelectorAll(
     ".filters-category__input"
   ) as NodeListOf<HTMLInputElement>;
@@ -74,9 +79,7 @@ export function createSearchUrl(params: URLSearchParams) {
       params.delete(key);
     }
   }
-  return `${window.location.origin}/${
-    routes.catalog
-  }?${params.toString()}${checkedBrands}${checkedCheckboxes}`;
+  return `${window.location.origin}/${page}?${params.toString()}${checkedBrands}${checkedCheckboxes}`;
 }
 
 export function getMinMaxValue(

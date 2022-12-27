@@ -5,12 +5,14 @@ import { createTotalInfo } from "../markup/create-total-info";
 import { getNodesCart } from "../markup/get-nodes-cart";
 import { CouponsType } from "../types/types";
 import { getTotalSumAndCoupons } from "../utils/cart-helpers";
-import { LS_KEYS } from "../utils/const";
+import { LS_KEYS, SEARCH_KEYS } from "../utils/const";
 import { incrementDecrementCounter, localStorageCouponHelper, setAppliedToCoupons } from "../utils/local-storage";
-import { hashListener } from "../utils/utils";
+import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
 
 export function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
+  const { urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
+  console.log(urlPageNumber, urlAmountOfItems);
   const body = document.querySelector(".page");
   if (body) {
     body.innerHTML = `${createHeader()}
@@ -21,13 +23,10 @@ export function CreateCart() {
     ${createPagination()}
     </section></main>`;
   } 
-  const {
-    productsList, couponInput, couponsList, totalSumHeader,
-  } = getNodesCart();
-
+  const { productsList, couponInput, couponsList, totalSumHeader, paginationForm } = getNodesCart();
   totalSumHeader.textContent = `$${finalSum}`;
 
-  productsList.addEventListener('click', ({ target }: Event) => {
+  productsList.addEventListener('click', ({ target }) => {
     const { value, name } = target as HTMLButtonElement;
     incrementDecrementCounter(name, value, withAmount)
   });
@@ -47,6 +46,18 @@ export function CreateCart() {
     const appliedCoupons = setAppliedToCoupons(couponsInCart, name);
     localStorage.setItem(LS_KEYS.promocode, JSON.stringify(appliedCoupons));
     CreateCart();
+  });
+  paginationForm?.addEventListener('click', ({ target }) => {
+    const { name, value } = target as HTMLInputElement;
+    if (name && value) {
+      if (name === 'page-btns') {
+        searchParams.set(SEARCH_KEYS.pageNumber, value);
+      } else {
+        searchParams.set(SEARCH_KEYS.amountOfItems, value);
+      }
+      window.history.pushState({}, "", createSearchUrl(searchParams));
+      CreateCart();
+    }
   });
   hashListener();
 }

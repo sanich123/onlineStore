@@ -1,10 +1,16 @@
-export function createPagination() {
+export function createPagination() { 
     return `<section class="pagination">
-    <button class="pagination__previous" type="button"><</button>
     <form class="pagination__page-btns page-btns">
-    ${[1, 2, 3, 4, 5].map((number) => `<label class="page-btns__label">${number}
-    <input class="page-btns__label" name="page-btns" type="radio" value="${number}"/>
-    </label>`).join('')}</form>
-    <button class="pagination__next" type="button">></button>
+    <input class="page-btns__radio visually-hidden" type="radio" name="page-btns" value="previous" id="prev-page"/>
+    <label for="prev-page" class="page-btns__label"><</label>
+    ${[1, 2, 3, 4, 5].map((number) => `
+    <input class="page-btns__radio visually-hidden" id="${number}-page-input" name="page-btns" type="radio" value="${number}"/>
+    <label for="${number}-page-input" class="page-btns__label">${number}</label>`).join('')}
+
+    <input class="page-btns-number__input" type="number" name="amount-items" value="1"/> 
+    
+    <input class="page-btns__radio visually-hidden" id="next-page" type="radio" name="page-btns" value="next"/>
+    
+    <label for="next-page" class="page-btns__label">></label></form>
     </section>`
 }

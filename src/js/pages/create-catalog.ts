@@ -24,7 +24,7 @@ export function CreateCatalog() {
   }
   const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
   const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock, cartShowPriceHeader } = getNodes();
-  cartShowPriceHeader.innerText = `$${storageItems.reduce((total, {price}) => total + price, 0)}`;
+  cartShowPriceHeader.innerText = `$${storageItems.reduce((total, { price }) => total + price, 0)}`;
   setCheckedToCheckboxes(categories, urlCategories);
   setCheckedToCheckboxes(brands, urlBrands);
   setCheckedRadio(radioPriceRating, 'sort-radio', urlSortPriceRating);

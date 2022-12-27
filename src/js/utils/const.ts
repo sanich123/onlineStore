@@ -24,6 +24,8 @@ export const SEARCH_KEYS = {
     maxPrice: 'maxPrice',
     minStock: 'minStock',
     maxStock: 'maxStock',
+    pageNumber: 'pageNumber',
+    amountOfItems: 'amountOfItems'
 }
 
 export const SORT_TYPES = {
