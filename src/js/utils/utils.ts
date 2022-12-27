@@ -112,7 +112,7 @@ export function setCheckedRadio(
 ) {
   return [...nodes]
     .filter(({ name, value }) => name === type && value === searchValue)
-    .map((e) => (e.checked = true));
+    .map((radio) => (radio.checked = true));
 }
 
 export function setValueToPriceRange(
@@ -194,6 +194,6 @@ export function getMinMaxPriceStock(mocks: DataType[]) {
 }
 
 
-export const getTotalSumWithAmount = (total: number, { amount, price }: { amount: number, price: number }) => total + (amount * price);
+export const getTotalSumWithAmount = (total: number, { amount, price }: {amount: number, price: number}) => total + (amount * price);
 export const getTotalAmount = (total: number, {amount}: {amount: number}) => total + amount;
 

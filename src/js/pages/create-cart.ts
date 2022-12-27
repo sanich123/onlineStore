@@ -1,5 +1,6 @@
 import { createCartItemsList } from "../markup/create-cart-item-list";
 import { createHeader } from "../markup/create-header";
+import { createPagination } from "../markup/create-pagination";
 import { createTotalInfo } from "../markup/create-total-info";
 import { getNodesCart } from "../markup/get-nodes-cart";
 import { CouponsType } from "../types/types";
@@ -17,6 +18,7 @@ export function CreateCart() {
     <section class="cart">
     ${createCartItemsList(withAmount)}
     ${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
+    ${createPagination()}
     </section></main>`;
   } 
   const {

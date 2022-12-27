@@ -3,8 +3,6 @@ import { PROMOCODES } from "../utils/const";
 import { createCoupon } from "./small-pieces";
 
 export function createTotalInfo(totalSum: number, totalAmountOfProducts: number, couponsInCart: CouponsType[], filtredDiscount: number, finalSum: number) {
-  // const filtredDiscount = couponsInCart.reduce((total, { applied, discount }) => applied ? total + discount : total, 0);
-  // const finalSum = filtredDiscount ? totalSum - (totalSum * (filtredDiscount / 100)) : totalSum;
 
     return `<div class="cart__total-info total-info">
           ${filtredDiscount ? `<p class="total-info__price">Total price: ${(finalSum).toLocaleString('ru')}$</p>` : ''}

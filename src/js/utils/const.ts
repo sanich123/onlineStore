@@ -41,6 +41,7 @@ export const LS_KEYS = {
 }
 
 export const EMPTY_LIST = "<p>We tried so much to find your products, but there are no products to match your filters...</p>";
+export const EMPTY_CART = '<p class="empty-cart">There are no items in your cart, go ahead and buy something!</p>';
 export const PROMOCODES = {
     newYear: 'fucking new year',
     stupidSanta: 'stupidSanta',
