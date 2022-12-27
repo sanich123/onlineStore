@@ -7,23 +7,26 @@ import { CouponsType } from "../types/types";
 import { getTotalSumAndCoupons } from "../utils/cart-helpers";
 import { LS_KEYS, SEARCH_KEYS } from "../utils/const";
 import { incrementDecrementCounter, localStorageCouponHelper, setAppliedToCoupons } from "../utils/local-storage";
+import { getPaginatedData } from "../utils/pagination";
 import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
 
 export function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
   const { urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
-  console.log(urlPageNumber, urlAmountOfItems);
+  const { amountPages, paginatedData } = getPaginatedData(withAmount, urlAmountOfItems, urlPageNumber)
+
   const body = document.querySelector(".page");
   if (body) {
     body.innerHTML = `${createHeader()}
     <main class="page__main">
     <section class="cart">
-    ${createCartItemsList(withAmount)}
+    ${createCartItemsList(paginatedData)}
     ${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
-    ${createPagination()}
+    ${createPagination(urlPageNumber, urlAmountOfItems, amountPages)}
     </section></main>`;
   } 
   const { productsList, couponInput, couponsList, totalSumHeader, paginationForm } = getNodesCart();
+
   totalSumHeader.textContent = `$${finalSum}`;
 
   productsList.addEventListener('click', ({ target }) => {
@@ -52,7 +55,14 @@ export function CreateCart() {
     if (name && value) {
       if (name === 'page-btns') {
         searchParams.set(SEARCH_KEYS.pageNumber, value);
-      } else {
+      } 
+      if (name === 'prev-btn') {
+        searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) - 1}`)
+      } 
+      if (name === 'next-btn') {
+        searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) + 1}` )
+      }
+      if (name === 'amount-items') {
         searchParams.set(SEARCH_KEYS.amountOfItems, value);
       }
       window.history.pushState({}, "", createSearchUrl(searchParams));

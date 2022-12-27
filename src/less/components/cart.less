@@ -165,9 +165,7 @@
       align-items: center;
       column-gap: 2px;
     }
-    .page-btns__label,
-    .pagination__previous,
-    .pagination__next {
+    .page-btns__label {
       .reset-btn();
       width: 30px;
       height: 30px;
@@ -177,29 +175,21 @@
       transition: .5s ease;
       color: white;
       &:hover {
+        background: orangered;
+      }
+      &:disabled {
         opacity: 0.5;
+        background: grey;
+        cursor: not-allowed;
       }
     }
-    .page-btns__radio:checked + label {
-      background: orangered;
-    }
+
     .page-btns-number__input {
       width: 40px;
       height: 30px;
     }
-    .pagination__previous {
-      margin-right: 2px;
+    .checked {
+      background: green;
     }
-    .pagination__next {
-      margin-left: 2px;
-    }
-
-    .pagination__previous,
-    .pagination__next {
-      &:focus {
-        background: orangered;
-      }
-    }
-
   }
 }
