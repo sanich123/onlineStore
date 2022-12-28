@@ -51,4 +51,13 @@ export const PROMOCODES = {
 export const NEW_YEAR_COUPON = { couponValue: 'newYear',
 discount: 10, applied: false };
 export const SANTA_COUPON = { couponValue: 'stupidSanta', discount: 15, applied: false };
+export const PAGINATION_NAMES = {
+    pageBtns: 'page-btns',
+    prevBtn: 'prev-btn',
+    nextBtn: 'next-btn',
+    amountItems: 'amount-items',
+}
+
+export const DEFAULT_AMOUNT_ITEMS = 3;
+export const DEFAULT_NUMBER_OF_PAGE = 1;
 

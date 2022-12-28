@@ -3,30 +3,24 @@ import { createHeader } from "../markup/create-header";
 import { createPagination } from "../markup/create-pagination";
 import { createTotalInfo } from "../markup/create-total-info";
 import { getNodesCart } from "../markup/get-nodes-cart";
-import { CouponsType } from "../types/types";
 import { getTotalSumAndCoupons } from "../utils/cart-helpers";
 import { LS_KEYS, SEARCH_KEYS } from "../utils/const";
-import { incrementDecrementCounter, localStorageCouponHelper, setAppliedToCoupons } from "../utils/local-storage";
-import { getPaginatedData } from "../utils/pagination";
+import { applyToLocalStorage, deleteAppliedCoupons, incrementDecrementCounter, localStorageCouponHelper, setAppliedToCoupons } from "../utils/local-storage";
+import { getPaginatedData, setPaginationUrlParams, setRightUrlPage } from "../utils/pagination";
 import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
 
 export function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
   const { urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
-  const { amountPages, paginatedData } = getPaginatedData(withAmount, urlAmountOfItems, urlPageNumber)
+  const { amountPages, paginatedData } = getPaginatedData(withAmount, urlAmountOfItems, urlPageNumber, searchParams);
+  setRightUrlPage(urlPageNumber, amountPages, searchParams);
 
-  const body = document.querySelector(".page");
-  if (body) {
-    body.innerHTML = `${createHeader()}
-    <main class="page__main">
-    <section class="cart">
-    ${createCartItemsList(paginatedData)}
-    ${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
-    ${createPagination(urlPageNumber, urlAmountOfItems, amountPages)}
-    </section></main>`;
-  } 
+  const body = document.querySelector(".page") as HTMLBodyElement;
+  body.innerHTML = `${createHeader()}<main class="page__main"><section class="cart">
+    ${createCartItemsList(paginatedData)}${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
+    ${createPagination(urlPageNumber, urlAmountOfItems, amountPages)}</section></main>`;
+
   const { productsList, couponInput, couponsList, totalSumHeader, paginationForm } = getNodesCart();
-
   totalSumHeader.textContent = `$${finalSum}`;
 
   productsList.addEventListener('click', ({ target }) => {
@@ -41,30 +35,17 @@ export function CreateCart() {
     const { name } = target as HTMLButtonElement;
     if (target instanceof HTMLElement) {
       if (target.classList.contains('applied')) {
-        const actualCoupons = couponsInCart.filter(({ couponValue }: CouponsType) => couponValue !== name);
-        localStorage.setItem(LS_KEYS.promocode, JSON.stringify(actualCoupons));
-        return CreateCart();
+        return deleteAppliedCoupons(couponsInCart, name);
       }
     }
     const appliedCoupons = setAppliedToCoupons(couponsInCart, name);
-    localStorage.setItem(LS_KEYS.promocode, JSON.stringify(appliedCoupons));
+    applyToLocalStorage(LS_KEYS.promocode, appliedCoupons);
     CreateCart();
   });
   paginationForm?.addEventListener('click', ({ target }) => {
     const { name, value } = target as HTMLInputElement;
     if (name && value) {
-      if (name === 'page-btns') {
-        searchParams.set(SEARCH_KEYS.pageNumber, value);
-      } 
-      if (name === 'prev-btn') {
-        searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) - 1}`)
-      } 
-      if (name === 'next-btn') {
-        searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) + 1}` )
-      }
-      if (name === 'amount-items') {
-        searchParams.set(SEARCH_KEYS.amountOfItems, value);
-      }
+      setPaginationUrlParams(name, value, searchParams, urlPageNumber);
       window.history.pushState({}, "", createSearchUrl(searchParams));
       CreateCart();
     }
