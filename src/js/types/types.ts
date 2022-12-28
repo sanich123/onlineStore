@@ -10,26 +10,29 @@ export type DataType = {
   category: string;
   thumbnail: string;
   images: string[];
-  amount?: number,
+  amount?: number;
 };
 
 export type ObjectKeys = {
-  [key: string]: string,
-}
+  [key: string]: string;
+};
 
-export type CouponsType = { couponValue: string, discount: number, applied: boolean };
-
+export type CouponsType = {
+  couponValue: string;
+  discount: number;
+  applied: boolean;
+};
 
 export type ParsedParams = {
-  urlCategories: string[],
-  urlBrands: string[],
-  urlSortPriceRating: string,
-  urlSize: string,
-  urlSearch: string,
-  urlMinStock: string,
-  urlMaxStock: string,
-  urlMinPrice: string, 
-  urlMaxPrice: string,
-  searchParams: URLSearchParams,
-  filtredParams: string,
-}
+  urlCategories: string[];
+  urlBrands: string[];
+  urlSortPriceRating: string;
+  urlSize: string;
+  urlSearch: string;
+  urlMinStock: string;
+  urlMaxStock: string;
+  urlMinPrice: string;
+  urlMaxPrice: string;
+  searchParams: URLSearchParams;
+  filtredParams: string;
+};

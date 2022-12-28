@@ -196,7 +196,6 @@ export function getMinMaxPriceStock(mocks: DataType[]) {
   };
 }
 
-
 export const getTotalSumWithAmount = (total: number, { amount, price }: {amount: number, price: number}) => total + (amount * price);
 export const getTotalAmount = (total: number, {amount}: {amount: number}) => total + amount;
 
