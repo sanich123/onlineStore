@@ -36,3 +36,8 @@ export type ParsedParams = {
   searchParams: URLSearchParams;
   filtredParams: string;
 };
+
+export const enum CopyBtnText {
+  default = 'Copy link',
+  success = 'Copied successfully!',
+}

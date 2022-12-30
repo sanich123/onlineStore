@@ -69,3 +69,4 @@ export const PAGINATION_NAMES = {
 
 export const DEFAULT_AMOUNT_ITEMS = 3;
 export const DEFAULT_NUMBER_OF_PAGE = 1;
+export const INCREMENT_BTN = 'increment';
