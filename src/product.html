@@ -12,6 +12,8 @@
     />
   </head>
   <body class="page">
+
+
     <header class="header">
       <div class="header__logo">
         <div class="logo">
@@ -156,7 +158,31 @@
                 <button type="button" onclick="alert('Продукт добавляется в корзину')">ADD TO CART</button>
               </div>
               <div class="price_info__buy">
-                <button type="button" onclick="alert('Оплатить')">BUY NOW</button>
+                <button class="modal_func">BUY NOW</button>
+                <div class="modal">
+                  <div class="modal-content">
+                    <form action="#" method="get" enctype="multipart/form-data" class="form">
+                      <span class="close-button">&times;</span>
+                      <div class="personal">
+                        <h2>Personal details</h2>
+                        <div class="personal__name form_item">
+                          <input type="text" placeholder="Name" class="form_item">
+                        </div>
+                        <div class="personal__phone form_item">
+                          <input type="tel" placeholder="Phone number" class="form_item">
+                        </div>
+                        <div class="personal__adress form_item">
+                          <input type="text" placeholder="Delivery adress" class="form_item">
+                        </div>
+                        <div class="personal__email form_item">
+                          <input type="email" placeholder="E-mail" class="form_item">
+                        </div>
+                      </div>
+                      
+                    </form>
+                    
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -166,5 +192,26 @@
     <footer class="footer">
       <span>Online-Store, 2022</span>
       </footer>
+
+      <script>
+        var modal = document.querySelector(".modal");
+            var trigger = document.querySelector(".modal_func");
+            var closeButton = document.querySelector(".close-button");
+        
+            function toggleModal() {
+                modal.classList.toggle("show-modal");
+            }
+        
+            function windowOnClick(event) {
+                if (event.target === modal) {
+                    toggleModal();
+                }
+            }
+        
+            trigger.addEventListener("click", toggleModal);
+            closeButton.addEventListener("click", toggleModal);
+            window.addEventListener("click", windowOnClick); 
+      </script>
+
   </body>
 </html>

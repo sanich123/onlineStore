@@ -1,3 +1,64 @@
+.modal {
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #cccccc;
+   opacity: 0;
+   visibility: hidden;
+   transform: scale(1.1);
+   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+   }
+   .modal-content {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #FFE5CC;
+   padding: 1%;
+   width: 40%;
+   border-radius: 0.5rem;
+   }
+   .close-button {
+   float: right;
+   width: 1rem;
+   line-height: 1.5rem;
+   text-align: center;
+   cursor: pointer;
+   border-radius: 30px;
+   background-color: #eeeeee;
+   }
+   .close-button:hover {
+   background-color: #adadad;
+   }
+   .show-modal {
+   opacity: 1;
+   visibility: visible;
+   transform: scale(1.0);
+   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+   }
+   .personal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   }
+   .form_item {
+      display: flex;
+		width: 280%;
+		height: 35px;
+		box-shadow: inset 0px 0px 3px rgba(13, 96, 111, 0.08), inset 0px 2px 3px rgba(13, 96, 111, 0.16);
+		border-radius: 10px;
+		border: none;
+		//margin: 0 auto;
+		margin-bottom: 10px;
+   }
+	
+
+
 .breadcrumb-nav {
    display: flex;
    justify-content: center;
@@ -132,7 +193,6 @@
 #gallery {
    overflow: hidden;
    position: relative;
-   z-index: 1;
    }
    #navigation {
    list-style: none;
@@ -142,8 +202,8 @@
    justify-content: space-between;
    }
    #navigation li {
-   max-width: 100px;
-   max-height: 100px;
+   width: 70px;
+   height: 70px;
    padding: 0;
    margin: 0;
    margin:5px 0 20px;
