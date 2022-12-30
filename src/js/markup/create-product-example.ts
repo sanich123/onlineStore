@@ -1,3 +1,6 @@
+import shoppingBags from '../../assets/png/shopping-bags.png';
+import basket from '../../assets/png/basket.png';
+
 export function createProductExample() {
 
     return `<section class="product">
@@ -11,41 +14,41 @@ export function createProductExample() {
                 <ul id="navigation">
                   <li>
                     <a href="#picture1">
-                    <img alt="small picture1" src="./assets/png/basket.png" />
+                    <img alt="small picture1" src="${basket}" />
                     </a>
                   </li>
                   <li>
                     <a href="#picture2">
-                    <img alt="small picture2" src="./assets/png/shopping-bags.png" />
+                    <img alt="small picture2" src="${shoppingBags}" />
                     </a>
                   </li>
                   <li>
                     <a href="#picture3">
-                    <img alt="small picture3" src="./assets/png/basket.png" />
+                    <img alt="small picture3" src="${basket}" />
                     </a>
                   </li>
                   <li>
                     <a href="#picture4">
-                    <img alt="small picture4" src="./assets/png/shopping-bags.png" />
+                    <img alt="small picture4" src="${shoppingBags}" />
                     </a>
                   </li>
                 </ul>
                 <div id="full-picture">
                   <div>
                     <a name="picture1"></a>
-                    <img alt="Large picture1" src="./assets/png/basket.png" />
+                    <img alt="Large picture1" src="${basket}" />
                   </div>
                   <div>
                     <a name="picture2"></a>
-                    <img alt="Large picture2" src="./assets/png/shopping-bags.png" />
+                    <img alt="Large picture2" src="${shoppingBags}" />
                   </div>
                   <div>
                     <a name="picture3"></a>
-                    <img alt="Large picture3" src="./assets/png/basket.png" />
+                    <img alt="Large picture3" src="${basket}" />
                   </div>
                   <div>
                     <a name="picture4"></a>
-                    <img alt="Large picture4" src="./assets/png/shopping-bags.png" />
+                    <img alt="Large picture4" src="${shoppingBags}" />
                   </div>
                 </div>
               </div>
