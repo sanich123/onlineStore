@@ -111,10 +111,10 @@ export function createProductExample() {
                 <span class="text">€1,749.00</span>
               </div>
               <div class="price_info__cart">
-                <button type="button" onclick="alert('Продукт добавляется в корзину')">ADD TO CART</button>
+                <button class="btn_product" type="button" onclick="alert('Продукт добавляется в корзину')">ADD TO CART</button>
               </div>
               <div class="price_info__buy">
-                <button class="modal_func">BUY NOW</button>
+                <button class="modal_func btn_product">BUY NOW</button>
                 <div class="modal">
                   <div class="modal-content">
                     <form action="#" method="get" enctype="multipart/form-data" class="form">
