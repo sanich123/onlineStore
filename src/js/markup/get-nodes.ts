@@ -11,6 +11,11 @@ export function getNodes() {
   const spanShowMaxStock = document.querySelector('.maxStock') as HTMLSpanElement;
   const cartBtns = document.querySelectorAll('.products-item__btn') as NodeListOf<HTMLButtonElement>;
   const cartShowPriceHeader = document.querySelector('.total__summary') as HTMLDivElement;
+  const fullDescriptionList = document.querySelectorAll('.full-description') as NodeListOf<HTMLUListElement>;
+  const productsItems = document.querySelectorAll('.products-item') as NodeListOf<HTMLLIElement>;
+  const productsBtns = document.querySelectorAll('.products-item__btn') as NodeListOf<HTMLButtonElement>;
+  const btnWrapper = document.querySelectorAll('.btn-wrapper') as NodeListOf<HTMLDivElement>;
+
   return {
     categories,
     brands,
@@ -24,5 +29,9 @@ export function getNodes() {
     spanShowMaxStock,
     cartBtns,
     cartShowPriceHeader,
+    fullDescriptionList,
+    productsItems,
+    productsBtns,
+    btnWrapper,
   };
 }

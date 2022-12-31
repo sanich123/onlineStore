@@ -1,12 +1,12 @@
 export function brandCheckbox(brand: string) {
   return `<label class="filters-brand__label">
-  <input class="filters-brand__input" type="checkbox" value="${brand}"/> 
+  <input class="filters-brand__input" type="checkbox" name="brand" value="${brand}"/> 
   ${brand}</label>`;
 }
 
 export function categoryCheckbox(category: string) {
   return `<label class="filters-category__label">
-    <input class="filters-category__input" type="checkbox" value="${category}"/> 
+    <input class="filters-category__input" type="checkbox" name="category" value="${category}"/> 
     ${category}</label>`;
 }
 

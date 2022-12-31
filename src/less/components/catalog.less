@@ -87,15 +87,16 @@
     padding: 10px;
     position: relative;
     display: grid;
+    grid-auto-rows: auto;
     place-items: center;
 
     .full-description {
       .reset-ul();
-      position: absolute;
-      top: 60px;
-      left: 10px;
       color: white;
+      background: orange;
       display: grid;
+      border-radius: 10px;
+      padding: 5px;
 
       &__item {
         display: grid;
@@ -108,7 +109,13 @@
   .products-item {
     &__description {
       padding: 10px;
-      font: bold 20px/1.5 Arial, sans-serif;
+      font: bold 16px/1 Arial, sans-serif;
+      text-align: center;
+    }
+    &__img {
+      object-fit: scale-down;
+      width: 171px;
+      height: 171px;
     }
   }
   .btn-wrapper {

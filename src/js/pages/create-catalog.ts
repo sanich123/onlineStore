@@ -8,18 +8,19 @@ import { CopyBtnText, DataType } from "../types/types";
 import { routes, SEARCH_KEYS } from "../utils/const";
 import { getFiltredData } from "../utils/filter-sort";
 import { localStorageHelper } from "../utils/local-storage";
-import { createSearchUrl, getMinMaxPriceStock, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
+import { createSearchUrl, getMinMaxPriceStock, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setSizeToProductsList, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
 
 export function CreateCatalog() {
   const storageItems: DataType[] = JSON.parse(localStorage.getItem('cart') || '[]');
   const ids = storageItems.map(({ id }) => id);
   const { urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, searchParams } = getSearchParams();
   const filtredData = getFiltredData(mocks, getSearchParams());
+
   const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = getMinMaxPriceStock(mocks);
   const body = document.querySelector(".page") as HTMLBodyElement;
   body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData, urlMinPrice, urlMaxPrice)}${createProductsList(filtredData, ids)}</main>`;
   const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
-  const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock, cartShowPriceHeader } = getNodes();
+  const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock, cartShowPriceHeader, fullDescriptionList, productsItems, productsBtns, btnWrapper } = getNodes();
   cartShowPriceHeader.innerText = `$${storageItems.reduce((total, { price }) => total + price, 0)}`;
   setCheckedToCheckboxes(categories, urlCategories);
   setCheckedToCheckboxes(brands, urlBrands);
@@ -28,7 +29,10 @@ export function CreateCatalog() {
   inputSearch.value = urlSearch;
   setValueToPriceRange(priceRangeInputs, spanShowMinPrice, spanShowMaxPrice, urlMinPrice, urlMaxPrice, minProductPrice, maxProductPrice);
   setValueToStockRange(stockRangeInputs, spanShowMinStock, spanShowMaxStock, urlMinStock, urlMaxStock, minProductStock, maxProductStock);
-
+  if (urlSize) {
+    setSizeToProductsList(urlSize, productsList, fullDescriptionList, productsItems, productsBtns, btnWrapper);
+  }
+  
   priceRatingSort?.addEventListener("click", ({ target }) => {
     const { value } = target as HTMLInputElement;
     searchParams.set(SEARCH_KEYS.sort, value);
@@ -46,6 +50,7 @@ export function CreateCatalog() {
     if (value && checked) {
       searchParams.set(SEARCH_KEYS.size, value);
       window.history.pushState({}, "", createSearchUrl(searchParams));
+      CreateCatalog();
     }
   });
   categoriesFilter?.addEventListener("click", () => {

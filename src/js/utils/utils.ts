@@ -1,14 +1,14 @@
-import { Router } from "../router/router";
-import { DataType } from "../types/types";
-import { priceOrStockMap, routes, SEARCH_KEYS } from "./const";
+import { Router } from '../router/router';
+import { DataType } from '../types/types';
+import { priceOrStockMap, routes, SEARCH_KEYS } from './const';
 
 export function getUrl(string: string) {
-  return string.slice(string.indexOf("#"));
+  return string.slice(string.indexOf('#'));
 }
 
 export function hashListener() {
-  return window.addEventListener("hashchange", (event) => {
-    window.history.pushState({}, "", getUrl(event.newURL));
+  return window.addEventListener('hashchange', (event) => {
+    window.history.pushState({}, '', getUrl(event.newURL));
     Router(event.newURL);
   });
 }
@@ -16,17 +16,17 @@ export function hashListener() {
 export function getSearchParams() {
   const location = window.location.href;
   const url = new URL(location).hash;
-  const filtredParams = url.includes("?") ? url.slice(url.indexOf("?")) : "";
+  const filtredParams = url.includes('?') ? url.slice(url.indexOf('?')) : '';
   const searchParams = new URLSearchParams(filtredParams);
-  const urlMinPrice = searchParams.get(SEARCH_KEYS.minPrice) || "";
-  const urlMaxPrice = searchParams.get(SEARCH_KEYS.maxPrice) || "";
-  const urlMinStock = searchParams.get(SEARCH_KEYS.minStock) || "";
-  const urlMaxStock = searchParams.get(SEARCH_KEYS.maxStock) || "";
-  const urlCategories = searchParams.getAll(SEARCH_KEYS.category) || "";
-  const urlBrands = searchParams.getAll(SEARCH_KEYS.brand) || "";
-  const urlSortPriceRating = searchParams.get(SEARCH_KEYS.sort) || "";
-  const urlSize = searchParams.get(SEARCH_KEYS.size) || "";
-  const urlSearch = searchParams.get(SEARCH_KEYS.search) || "";
+  const urlMinPrice = searchParams.get(SEARCH_KEYS.minPrice) || '';
+  const urlMaxPrice = searchParams.get(SEARCH_KEYS.maxPrice) || '';
+  const urlMinStock = searchParams.get(SEARCH_KEYS.minStock) || '';
+  const urlMaxStock = searchParams.get(SEARCH_KEYS.maxStock) || '';
+  const urlCategories = searchParams.getAll(SEARCH_KEYS.category) || '';
+  const urlBrands = searchParams.getAll(SEARCH_KEYS.brand) || '';
+  const urlSortPriceRating = searchParams.get(SEARCH_KEYS.sort) || '';
+  const urlSize = searchParams.get(SEARCH_KEYS.size) || '';
+  const urlSearch = searchParams.get(SEARCH_KEYS.search) || '';
   const urlPageNumber = searchParams.get(SEARCH_KEYS.pageNumber) || '';
   const urlAmountOfItems = searchParams.get(SEARCH_KEYS.amountOfItems) || '';
   return {
@@ -46,40 +46,24 @@ export function getSearchParams() {
   };
 }
 
-export function getCheckedCategories(checkboxes: NodeListOf<HTMLInputElement>) {
-  return [...checkboxes]
-    .filter(({ checked }) => checked)
-    .map(({ value }) => `category=${value}`)
-    .join("&");
-}
-
-export function getCheckedBrands(brands: NodeListOf<HTMLInputElement>) {
-  return [...brands]
-    .filter(({ checked }) => checked)
-    .map(({ value }) => `brand=${value}`)
-    .join("&");
+export function setCheckedValuesToParams(checkboxes: NodeListOf<HTMLInputElement>, params: URLSearchParams) {
+  return [...checkboxes].filter(({ checked }) => checked).forEach(({ value, name }) => params.append(name, value));
 }
 
 export function createSearchUrl(params: URLSearchParams) {
   const page = window.location.href.includes(routes.catalog) ? routes.catalog : routes.cart;
-  const categories = document.querySelectorAll(
-    ".filters-category__input"
-  ) as NodeListOf<HTMLInputElement>;
-  const brands = document.querySelectorAll(
-    ".filters-brand__input"
-  ) as NodeListOf<HTMLInputElement>;
-  const checkedBrands = getCheckedBrands(brands)
-    ? `&${getCheckedBrands(brands)}`
-    : "";
-  const checkedCheckboxes = getCheckedCategories(categories)
-    ? `&${getCheckedCategories(categories)}`
-    : "";
-  for (const [key] of params) {
+  const categories = document.querySelectorAll('.filters-category__input') as NodeListOf<HTMLInputElement>;
+  const brands = document.querySelectorAll('.filters-brand__input') as NodeListOf<HTMLInputElement>;
+  const searchUrl = params;
+
+  for (const [key] of searchUrl) {
     if (key === SEARCH_KEYS.category || key === SEARCH_KEYS.brand) {
-      params.delete(key);
+      searchUrl.delete(key);
     }
   }
-  return `${window.location.origin}/${page}?${params.toString()}${checkedBrands}${checkedCheckboxes}`;
+  setCheckedValuesToParams(categories, searchUrl);
+  setCheckedValuesToParams(brands, searchUrl);
+  return `${window.location.origin}/${page}?${[...new Set([...searchUrl.toString().split('&')])].join('&')}`;
 }
 
 export function getMinMaxValue(
@@ -89,14 +73,14 @@ export function getMinMaxValue(
   minValue: Element,
   maxValue: Element
 ) {
-  if (id.includes("asc")) {
+  if (id.includes('asc')) {
     params.set(priceOrStockMap[id], value);
-    minValue.textContent = `${id.includes("price") ? "$" : ""}${value}`;
+    minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
   } else {
     params.set(priceOrStockMap[id], value);
-    maxValue.textContent = `${id.includes("price") ? "$" : ""}${value}`;
+    maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
   }
-  window.history.pushState({}, "", createSearchUrl(params));
+  window.history.pushState({}, '', createSearchUrl(params));
 }
 
 export function setCheckedToCheckboxes(
@@ -129,7 +113,7 @@ export function setValueToPriceRange(
 ) {
   return [...nodes].forEach((node) => {
     if (minPrice) {
-      if (node.id === "price-asc") {
+      if (node.id === 'price-asc') {
         node.value = minPrice;
         spanNodeMin.textContent = `$${minPrice}`;
       } else if (maxPrice) {
@@ -138,7 +122,7 @@ export function setValueToPriceRange(
       }
     } else {
       if (minProductPrice) {
-        if (node.id === "price-asc") {
+        if (node.id === 'price-asc') {
           node.value = minProductPrice.toString();
           spanNodeMin.textContent = `$${minProductPrice}`;
         }
@@ -160,7 +144,7 @@ export function setValueToStockRange(
 ) {
   return [...nodes].forEach((node) => {
     if (minStock) {
-      if (node.id === "stock-asc") {
+      if (node.id === 'stock-asc') {
         node.value = minStock;
         spanNodeMin.textContent = minStock;
       } else if (maxStock) {
@@ -169,7 +153,7 @@ export function setValueToStockRange(
       }
     } else {
       if (minProductStock) {
-        if (node.id === "stock-asc") {
+        if (node.id === 'stock-asc') {
           node.value = minProductStock.toString();
           spanNodeMin.textContent = `${minProductStock}`;
         }
@@ -198,4 +182,30 @@ export function getMinMaxPriceStock(mocks: DataType[]) {
 
 export const getTotalSumWithAmount = (total: number, { amount, price }: {amount: number, price: number}) => total + (amount * price);
 export const getTotalAmount = (total: number, {amount}: {amount: number}) => total + amount;
+
+export function setSizeToProductsList(urlSize: string, productsList: HTMLUListElement, fullDescriptionList: NodeListOf<HTMLUListElement>, productsItems: NodeListOf<HTMLLIElement>, productsBtns: NodeListOf<HTMLButtonElement>, btnWrapper: NodeListOf<HTMLDivElement>) {
+  if (urlSize) {
+    if (urlSize === 'wide') {
+      productsList.style.gridTemplateColumns = 'repeat(3, auto)';
+      fullDescriptionList.forEach((item) => item.style.display = 'block');
+      productsItems.forEach((item) => item.style.width = 'auto');
+      productsBtns.forEach((item) => {
+        item.style.width = 'auto';
+        item.style.height = 'auto';
+        item.style.fontSize = '18px';
+      });
+      btnWrapper.forEach((wrapper) => wrapper.style.gap = '20px');
+    } else {
+      productsList.style.gridTemplateColumns = 'repeat(5, auto)';
+      fullDescriptionList.forEach((item) => item.style.display = 'none');
+      productsItems.forEach((item) => item.style.width = 'auto');
+      productsBtns.forEach((item) => {
+        item.style.width = 'auto';
+        item.style.height = 'auto';
+        item.style.fontSize = '12px';
+      });
+      btnWrapper.forEach((wrapper) => wrapper.style.gap = '7px');
+    }
+  }
+}
 

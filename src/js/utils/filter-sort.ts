@@ -15,7 +15,8 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
   } = params;
 
   let filtredData: DataType[] = [];
-  if (!filtredParams || filtredParams.length === 1) return mocks;
+
+  if (!filtredParams || filtredParams === '?' || filtredParams === '?size=wide' || filtredParams === '?size=shallow') return mocks;
 
   if (urlCategories.length) {
     for (const urlCategory of urlCategories) {
