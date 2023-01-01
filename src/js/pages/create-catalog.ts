@@ -3,24 +3,38 @@ import { createHeader } from "../markup/create-header";
 import { createProductsList } from "../markup/create-products-list";
 import { getListeners } from "../markup/get-listeners";
 import { getNodes } from "../markup/get-nodes";
+import { getNodesCart } from "../markup/get-nodes-cart";
 import { mocks } from "../mocks/mocks";
 import { CopyBtnText, DataType } from "../types/types";
-import { routes, SEARCH_KEYS } from "../utils/const";
+import { LS_KEYS, routes, SEARCH_KEYS } from "../utils/const";
 import { getFiltredData } from "../utils/filter-sort";
-import { localStorageHelper } from "../utils/local-storage";
+import { getFromLocalStorage, localStorageHelper } from "../utils/local-storage";
+import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
 import { createSearchUrl, getMinMaxPriceStock, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setSizeToProductsList, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
 
 export function CreateCatalog() {
-  const storageItems: DataType[] = JSON.parse(localStorage.getItem('cart') || '[]');
+  const storageItems: DataType[] = getFromLocalStorage(LS_KEYS.cart);
   const ids = storageItems.map(({ id }) => id);
-  const { urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, searchParams } = getSearchParams();
+  const { urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
+
   const filtredData = getFiltredData(mocks, getSearchParams());
+  if (filtredData.length) setDefaultPagesAndAmount(urlPageNumber, urlAmountOfItems, searchParams);
+  const { amountPages, paginatedData } = getPaginatedData(filtredData, Number(urlAmountOfItems), Number(urlPageNumber));
+
+  if (Number(urlPageNumber) > amountPages) {
+    searchParams.set(SEARCH_KEYS.pageNumber, `${amountPages}`);
+    window.history.pushState({}, "", createSearchUrl(searchParams));
+    CreateCatalog();
+    return;
+  }
 
   const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = getMinMaxPriceStock(mocks);
   const body = document.querySelector(".page") as HTMLBodyElement;
-  body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData, urlMinPrice, urlMaxPrice)}${createProductsList(filtredData, ids)}</main>`;
+  body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData, urlMinPrice, urlMaxPrice)}${createProductsList(paginatedData, ids, urlAmountOfItems, urlPageNumber, amountPages, filtredData)}</main>`;
+
   const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
   const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock, cartShowPriceHeader, fullDescriptionList, productsItems, productsBtns, btnWrapper } = getNodes();
+  const { paginationForm } = getNodesCart();
   cartShowPriceHeader.innerText = `$${storageItems.reduce((total, { price }) => total + price, 0)}`;
   setCheckedToCheckboxes(categories, urlCategories);
   setCheckedToCheckboxes(brands, urlBrands);
@@ -84,6 +98,14 @@ export function CreateCatalog() {
   productsList?.addEventListener("click", ({ target }) => {
     const { value, name } = target as HTMLButtonElement;
     localStorageHelper(name, value, ids, storageItems);
+  });
+  paginationForm?.addEventListener('click', ({ target }) => {
+    const { name, value } = target as HTMLInputElement;
+    if (name && value) {
+      setPaginationUrlParams(name, value, searchParams, urlPageNumber);
+      window.history.pushState({}, "", createSearchUrl(searchParams));
+      CreateCatalog();
+    }
   });
   hashListener();
 }

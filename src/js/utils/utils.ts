@@ -13,6 +13,9 @@ export function hashListener() {
   });
 }
 
+export function findWordsFromRightProperties(data: DataType[], regExp: RegExp) {
+  return data.filter(({ title, description, price, brand, category, rating, discountPercentage }) => regExp.test(JSON.stringify({ title, description, price, brand, category, rating, discountPercentage })));
+}
 export function getSearchParams() {
   const location = window.location.href;
   const url = new URL(location).hash;
