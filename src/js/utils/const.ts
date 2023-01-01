@@ -67,5 +67,6 @@ export const PAGINATION_NAMES = {
   amountItems: "amount-items",
 };
 
-export const DEFAULT_AMOUNT_ITEMS = 3;
+export const DEFAULT_AMOUNT_ITEMS = 9;
 export const DEFAULT_NUMBER_OF_PAGE = 1;
+export const INCREMENT_BTN = 'increment';

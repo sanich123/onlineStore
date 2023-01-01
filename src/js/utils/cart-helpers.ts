@@ -1,11 +1,11 @@
 import { CouponsType } from "../types/types";
 import { LS_KEYS } from "./const";
-import { setAmountProperty } from "./local-storage";
+import { getFromLocalStorage, setAmountProperty } from "./local-storage";
 import { getTotalAmount, getTotalSumWithAmount } from "./utils";
 
 export function getTotalSumAndCoupons() {
-    const couponsInCart = JSON.parse(localStorage.getItem(LS_KEYS.promocode) || '[]');
-    const itemsInCart = JSON.parse(localStorage.getItem(LS_KEYS.cart) || "[]");
+    const couponsInCart = getFromLocalStorage(LS_KEYS.promocode);
+    const itemsInCart = getFromLocalStorage(LS_KEYS.cart);
     const withAmount = itemsInCart.map(setAmountProperty);
     const totalSum = withAmount.reduce(getTotalSumWithAmount, 0);
     const totalAmountOfProducts = withAmount.reduce(getTotalAmount, 0);

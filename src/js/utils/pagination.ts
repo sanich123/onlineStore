@@ -1,6 +1,7 @@
 import { CreateCart } from "../pages/create-cart";
+import { CreateCatalog } from "../pages/create-catalog";
 import { DataType } from "../types/types";
-import { DEFAULT_AMOUNT_ITEMS, DEFAULT_NUMBER_OF_PAGE, PAGINATION_NAMES, SEARCH_KEYS } from "./const";
+import { DEFAULT_AMOUNT_ITEMS, DEFAULT_NUMBER_OF_PAGE, PAGINATION_NAMES, routes, SEARCH_KEYS } from "./const";
 import { createSearchUrl } from "./utils";
 
 export function getPaginatedData(cartItems: DataType[], urlAmount: number = DEFAULT_AMOUNT_ITEMS, urlPage: number = DEFAULT_NUMBER_OF_PAGE) {
@@ -12,18 +13,10 @@ export function getPaginatedData(cartItems: DataType[], urlAmount: number = DEFA
 }
 
 export function setPaginationUrlParams(name: string, value: string, searchParams: URLSearchParams, urlPageNumber: string) {
-    if (name === PAGINATION_NAMES.pageBtns) {
-        searchParams.set(SEARCH_KEYS.pageNumber, value);
-    }
-    if (name === PAGINATION_NAMES.prevBtn) {
-        searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) - 1}`);
-    }
-    if (name === PAGINATION_NAMES.nextBtn) {
-        searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) + 1}`);
-    }
-    if (name === PAGINATION_NAMES.amountItems) {
-        searchParams.set(SEARCH_KEYS.amountOfItems, value);
-    }
+    if (name === PAGINATION_NAMES.pageBtns) searchParams.set(SEARCH_KEYS.pageNumber, value);
+    if (name === PAGINATION_NAMES.prevBtn) searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) - 1}`);
+    if (name === PAGINATION_NAMES.nextBtn) searchParams.set(SEARCH_KEYS.pageNumber, `${Number(urlPageNumber) + 1}`);
+    if (name === PAGINATION_NAMES.amountItems) searchParams.set(SEARCH_KEYS.amountOfItems, value);
 }
 
 export function setDefaultPagesAndAmount(urlPageNumber: string, urlAmountOfItems: string, searchParams: URLSearchParams) {
@@ -35,6 +28,7 @@ export function setDefaultPagesAndAmount(urlPageNumber: string, urlAmountOfItems
             searchParams.set(SEARCH_KEYS.amountOfItems, `${DEFAULT_AMOUNT_ITEMS}`);
         }
         window.history.pushState({}, '', createSearchUrl(searchParams));
-        CreateCart();
+        const location = window.location.href;
+        location.includes(routes.cart) ? CreateCart() : CreateCatalog();
     }
 }
