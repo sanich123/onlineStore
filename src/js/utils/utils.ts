@@ -70,18 +70,26 @@ export function createSearchUrl(params: URLSearchParams) {
 }
 
 export function getMinMaxValue(id: string, value: string, params: URLSearchParams, minValue: HTMLInputElement, maxValue: HTMLInputElement, filtredData: DataType[]) {
-  const { minProductPrice: defaultMinPrice, maxProductPrice: defaultMaxPrice } = getMinMaxPriceStock(mocks);
-  const { minProductPrice: minFiltredPrice, maxProductPrice: maxFiltredPrice } = getMinMaxPriceStock(filtredData);
+  // const { minProductPrice: defaultMinPrice, maxProductPrice: defaultMaxPrice, minProductStock: defaultMinStock, maxProductStock: defaultMaxStock } = getMinMaxPriceStock(mocks);
+  const { minProductPrice: minFiltredPrice, maxProductPrice: maxFiltredPrice, minProductStock: minFiltredStock, maxProductStock: maxFiltredStock } = getMinMaxPriceStock(filtredData);
   const { urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock } = getSearchParams();
-  console.log(defaultMinPrice, defaultMaxPrice, minFiltredPrice, maxFiltredPrice, urlMinPrice, urlMaxPrice);
+  // console.log(defaultMinPrice, defaultMaxPrice, minFiltredPrice, maxFiltredPrice, urlMinPrice, urlMaxPrice);
   if (id.includes('asc')) {
     if (id.includes('price')) {
       if (Number(value) < Number(urlMaxPrice)) {
         params.set(priceOrStockMap[id], value);
         minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
       }
+      if (Number(value) < Number(maxFiltredPrice)) {
+        params.set(priceOrStockMap[id], value);
+        minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      }
     } else {
       if (Number(value) < Number(urlMaxStock)) {
+        params.set(priceOrStockMap[id], value);
+        minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      }
+      if (Number(value) < Number(maxFiltredStock)) {
         params.set(priceOrStockMap[id], value);
         minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
       }
@@ -92,8 +100,16 @@ export function getMinMaxValue(id: string, value: string, params: URLSearchParam
         params.set(priceOrStockMap[id], value);
         maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
       } 
+      if (Number(value) > Number(minFiltredPrice)) {
+        params.set(priceOrStockMap[id], value);
+        maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      }
     } else {
       if (Number(value) > Number(urlMinStock)) {
+        params.set(priceOrStockMap[id], value);
+        maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      }
+      if (Number(value) > Number(minFiltredStock)) {
         params.set(priceOrStockMap[id], value);
         maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
       }
