@@ -1,20 +1,10 @@
+import { mocks } from "../mocks/mocks";
 import { DataType } from "../types/types";
-import {
-  brandCheckbox,
-  categoryCheckbox,
-  priceRanges,
-  stockRanges,
-} from "./small-pieces";
+import { brandCheckbox, categoryCheckbox, priceRanges, stockRanges } from "./small-pieces";
 
-export function createFilters(products: DataType[], filtredProducts: DataType[], urlMinPrice: string, urlMaxPrice: string) {
+export function createFilters(products: DataType[], filtredProducts: DataType[]) {
   const categories = [...new Set(products.map(({ category }) => category))];
   const brands = [...new Set(products.map(({ brand }) => brand))];
-  const mappedPrice = products.map(({ price }) => price);
-  const mappedStock = products.map(({ stock }) => stock);
-  const minPrice = Math.min(...mappedPrice);
-  const maxPrice = Math.max(...mappedPrice);
-  const minStock = Math.min(...mappedStock);
-  const maxStock = Math.max(...mappedStock);
 
   return `<section class="main__filters filters">
             <form class="filters__category filters-category">
@@ -32,13 +22,13 @@ export function createFilters(products: DataType[], filtredProducts: DataType[],
         <form class="filters-range-price">
           <fieldset class="filters__fieldset">
             <legend class="filters-range-price__legend">Price</legend>
-            ${priceRanges(minPrice, maxPrice, urlMinPrice, urlMaxPrice)}
+            ${priceRanges(mocks, filtredProducts)}
           </fieldset>
         </form>
         <form class="filters-range-stock">
           <fieldset class="filters__fieldset">
             <legend class="filters-range-stock__legend">Stock</legend>
-            ${stockRanges(minStock, maxStock)}
+            ${stockRanges(mocks, filtredProducts)}
           </fieldset>
         </form>
         <button class="filters__reset-btn" type="button">Reset filters</button>
