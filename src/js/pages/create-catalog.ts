@@ -11,12 +11,12 @@ import { getFiltredData } from "../utils/filter-sort";
 import { getFromLocalStorage, localStorageHelper } from "../utils/local-storage";
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
 import { createSearchUrl, getMinMaxValue, getSearchParams, hashListener, setSizeToProductsList } from "../utils/utils";
+import { CreateCart } from "./create-cart";
 
 export function CreateCatalog() {
   const storageItems: DataType[] = getFromLocalStorage(LS_KEYS.cart);
   const ids = storageItems.map(({ id }) => id);
   const { urlSize, urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
-
   const filtredData = getFiltredData(mocks, getSearchParams());
   setDefaultPagesAndAmount(urlPageNumber, urlAmountOfItems, searchParams);
   const { amountPages, paginatedData } = getPaginatedData(filtredData, Number(urlAmountOfItems), Number(urlPageNumber));
@@ -32,7 +32,7 @@ export function CreateCatalog() {
   body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData)}${createProductsList(paginatedData, ids, urlAmountOfItems, urlPageNumber, amountPages, filtredData)}</main>`;
 
   const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn, copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
-  const { fullDescriptionList, productsItems, productsBtns, btnWrapper } = getNodes();
+  const { fullDescriptionList, productsItems, productsBtns, btnWrapper, logo, cart } = getNodes();
   const { paginationForm } = getNodesCart();
 
   if (urlSize) {
@@ -69,12 +69,12 @@ export function CreateCatalog() {
   });
   priceRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-      getMinMaxValue(id, value, searchParams, minPrice, maxPrice);
+      getMinMaxValue(id, value, searchParams, minPrice, maxPrice, filtredData);
       CreateCatalog();
   });
   stockRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-      getMinMaxValue(id, value, searchParams, minStock, maxStock);
+      getMinMaxValue(id, value, searchParams, minStock, maxStock, filtredData);
       CreateCatalog();
   });
   resetBtn?.addEventListener("click", () => {
@@ -99,6 +99,14 @@ export function CreateCatalog() {
       window.history.pushState({}, "", createSearchUrl(searchParams));
       CreateCatalog();
     }
+  });
+  cart?.addEventListener('click', () => {
+    window.history.pushState({}, '', `${routes.cart}`);
+    CreateCart();
+  });
+  logo?.addEventListener('click', () => {
+    window.history.pushState({}, '', `${routes.catalog}`);
+    CreateCatalog();
   });
   hashListener();
 }

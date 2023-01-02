@@ -1,3 +1,4 @@
+import { mocks } from '../mocks/mocks';
 import { Router } from '../router/router';
 import { DataType } from '../types/types';
 import { priceOrStockMap, routes, SEARCH_KEYS } from './const';
@@ -68,19 +69,35 @@ export function createSearchUrl(params: URLSearchParams) {
     return `${window.location.origin}/${page}?${[...new Set([...searchUrl.toString().split('&')])].join('&')}`;
 }
 
-export function getMinMaxValue(
-  id: string,
-  value: string,
-  params: URLSearchParams,
-  minValue: Element,
-  maxValue: Element
-) {
+export function getMinMaxValue(id: string, value: string, params: URLSearchParams, minValue: HTMLInputElement, maxValue: HTMLInputElement, filtredData: DataType[]) {
+  const { minProductPrice: defaultMinPrice, maxProductPrice: defaultMaxPrice } = getMinMaxPriceStock(mocks);
+  const { minProductPrice: minFiltredPrice, maxProductPrice: maxFiltredPrice } = getMinMaxPriceStock(filtredData);
+  const { urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock } = getSearchParams();
+  console.log(defaultMinPrice, defaultMaxPrice, minFiltredPrice, maxFiltredPrice, urlMinPrice, urlMaxPrice);
   if (id.includes('asc')) {
-    params.set(priceOrStockMap[id], value);
-    minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+    if (id.includes('price')) {
+      if (Number(value) < Number(urlMaxPrice)) {
+        params.set(priceOrStockMap[id], value);
+        minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      }
+    } else {
+      if (Number(value) < Number(urlMaxStock)) {
+        params.set(priceOrStockMap[id], value);
+        minValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      }
+    }
   } else {
-    params.set(priceOrStockMap[id], value);
-    maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+    if (id.includes('price')) {
+      if (Number(value) > Number(urlMinPrice)) {
+        params.set(priceOrStockMap[id], value);
+        maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      } 
+    } else {
+      if (Number(value) > Number(urlMinStock)) {
+        params.set(priceOrStockMap[id], value);
+        maxValue.textContent = `${id.includes('price') ? '$' : ''}${value}`;
+      }
+    }
   }
   window.history.pushState({}, '', createSearchUrl(params));
 }

@@ -5,7 +5,6 @@ import { findWordsFromRightProperties } from "./utils";
 export function getFiltredData(mocks: DataType[], params: ParsedParams) {
   const { urlCategories, urlBrands, urlSortPriceRating, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, urlSearch, searchParams } = params;
   let filtredData: DataType[] = [];
-  console.log(urlCategories, urlBrands, urlSortPriceRating, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, urlSearch);
 
   if (
     !searchParams.has(SEARCH_KEYS.brand) && 
