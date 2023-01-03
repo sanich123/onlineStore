@@ -1,4 +1,3 @@
-import { mocks } from '../mocks/mocks';
 import { Router } from '../router/router';
 import { DataType } from '../types/types';
 import { priceOrStockMap, routes, SEARCH_KEYS } from './const';
@@ -70,10 +69,8 @@ export function createSearchUrl(params: URLSearchParams) {
 }
 
 export function getMinMaxValue(id: string, value: string, params: URLSearchParams, minValue: HTMLInputElement, maxValue: HTMLInputElement, filtredData: DataType[]) {
-  // const { minProductPrice: defaultMinPrice, maxProductPrice: defaultMaxPrice, minProductStock: defaultMinStock, maxProductStock: defaultMaxStock } = getMinMaxPriceStock(mocks);
   const { minProductPrice: minFiltredPrice, maxProductPrice: maxFiltredPrice, minProductStock: minFiltredStock, maxProductStock: maxFiltredStock } = getMinMaxPriceStock(filtredData);
   const { urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock } = getSearchParams();
-  // console.log(defaultMinPrice, defaultMaxPrice, minFiltredPrice, maxFiltredPrice, urlMinPrice, urlMaxPrice);
   if (id.includes('asc')) {
     if (id.includes('price')) {
       if (Number(value) < Number(urlMaxPrice)) {
