@@ -4,10 +4,12 @@ import { DataType } from "../types/types";
 import { DEFAULT_AMOUNT_ITEMS, DEFAULT_NUMBER_OF_PAGE, PAGINATION_NAMES, routes, SEARCH_KEYS } from "./const";
 import { createSearchUrl } from "./utils";
 
-export function getPaginatedData(cartItems: DataType[], urlAmount: number = DEFAULT_AMOUNT_ITEMS, urlPage: number = DEFAULT_NUMBER_OF_PAGE) {
-    const amountPages = Math.ceil(cartItems.length / urlAmount);
-    const start = (urlPage - 1) * urlAmount;
-    const last = start + urlAmount;
+export function getPaginatedData(cartItems: DataType[], urlAmount?: number, urlPage?: number) {
+    const safeAmount = urlAmount || DEFAULT_AMOUNT_ITEMS;
+    const safePage = urlPage || DEFAULT_NUMBER_OF_PAGE;
+    const amountPages = Math.ceil(cartItems.length / safeAmount);
+    const start = (safePage - 1) * safeAmount;
+    const last = start + safeAmount;
     const paginatedData = cartItems.slice(start, last);
     return { amountPages, paginatedData }
 }

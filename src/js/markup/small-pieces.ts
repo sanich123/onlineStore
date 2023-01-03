@@ -1,66 +1,87 @@
+import { DataType } from "../types/types";
+import { getMinMaxPriceStock, getSearchParams } from "../utils/utils";
+
 export function brandCheckbox(brand: string) {
+  const { urlBrands } = getSearchParams();
   return `<label class="filters-brand__label">
-  <input class="filters-brand__input" type="checkbox" name="brand" value="${brand}"/> 
+  <input class="filters-brand__input" type="checkbox" ${urlBrands.includes(brand) ? 'checked' : ''} name="brand" value="${brand}"/> 
   ${brand}</label>`;
 }
 
 export function categoryCheckbox(category: string) {
+  const { urlCategories } = getSearchParams();
   return `<label class="filters-category__label">
-    <input class="filters-category__input" type="checkbox" name="category" value="${category}"/> 
+    <input class="filters-category__input" type="checkbox" ${urlCategories.includes(category) ? 'checked' : ''} name="category" value="${category}"/> 
     ${category}</label>`;
 }
 
-export function priceRanges(minPrice: number, maxPrice: number, urlMinPrice: string, urlMaxPrice: string) {
+export function priceRanges(defaultData: DataType[], filtredData: DataType[]) {
+  const defaultPrice = defaultData.map(({ price }) => price);
+  const defaultMinPrice = Math.min(...defaultPrice);
+  const defaultMaxPrice = Math.max(...defaultPrice);
+  const { urlMinPrice, urlMaxPrice } = getSearchParams();
+  const { minProductPrice, maxProductPrice } = getMinMaxPriceStock(filtredData);
+  const finallyMinPrice = urlMinPrice ? urlMinPrice : minProductPrice && Number.isFinite(minProductPrice) ? minProductPrice : defaultMinPrice;
+  const finallyMaxPrice = urlMaxPrice ? urlMaxPrice : maxProductPrice && Number.isFinite(maxProductPrice) ? maxProductPrice : defaultMaxPrice;
+
   return `<label class="filters-range-price__label">
-              <span class="minPrice">$${urlMinPrice ? urlMinPrice : minPrice}</span>
+              <span class="minPrice">$${finallyMinPrice}</span>
               <input
                 class="filters-range-price__input"
                 type="range"
                 id="price-asc"
-                min="${minPrice}"
-                max="${maxPrice}"
+                min="${defaultMinPrice}"
+                max="${defaultMaxPrice}"
                 step="10"
-                value="${urlMinPrice ? urlMinPrice : minPrice}"
+                value="${finallyMinPrice}"
               /> </label
             ><br />
             <label class="filters-range-price__label">
-              <span class="maxPrice">$${urlMaxPrice ? urlMaxPrice : maxPrice}</span>
+              <span class="maxPrice">$${finallyMaxPrice}</span>
               <input
                 class="filters-range-price__input"
                 type="range"
                 id="price-desc"
-                min="${minPrice}"
-                max="${maxPrice}"
+                min="${defaultMinPrice}"
+                max="${defaultMaxPrice}"
                 step="10"
-                value="${urlMaxPrice ? urlMaxPrice : maxPrice}"
+                value="${finallyMaxPrice}"
               />
             </label>`;
 }
 
 
-export function stockRanges(minStock: number, maxStock: number) {
+export function stockRanges(defaultData: DataType[], filtredData: DataType[]) {
+  const defaultStock = defaultData.map(({ stock }) => stock);
+  const defaultMinStock = Math.min(...defaultStock);
+  const defaultMaxStock = Math.max(...defaultStock);
+  const { urlMinStock, urlMaxStock } = getSearchParams();
+  const { minProductStock, maxProductStock } = getMinMaxPriceStock(filtredData);
+  const finallyMinStock = urlMinStock ? urlMinStock : minProductStock && Number.isFinite(minProductStock) ? minProductStock : defaultMinStock;
+  const finallyMaxStock = urlMaxStock ? urlMaxStock : maxProductStock && Number.isFinite(maxProductStock) ? maxProductStock : defaultMaxStock;
+
   return `<label class="filters-range-stock__label">
-              <span class="minStock">${minStock}</span>
+              <span class="minStock">${finallyMinStock}</span>
               <input
                 class="filters-range-stock__input"
                 type="range"
                 id="stock-asc"
-                min="${minStock}"
-                max="${maxStock}"
+                min="${defaultMinStock}"
+                max="${defaultMaxStock}"
                 step="10"
-                value=""
+                value="${finallyMinStock}"
               /> </label
             ><br />
             <label class="filters-range-stock__label">
-              <span class="maxStock">${maxStock}</span>
+              <span class="maxStock">${finallyMaxStock}</span>
               <input
                 class="filters-range-stock__input"
                 type="range"
                 id="stock-desc"
-                min="${minStock}"
-                max="${maxStock}"
+                min="${defaultMinStock}"
+                max="${defaultMaxStock}"
                 step="10"
-                value=""
+                value="${finallyMaxStock}"
               />
             </label>`;
 }

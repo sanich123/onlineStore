@@ -2,12 +2,14 @@ import { createCartItemsList } from "../markup/create-cart-item-list";
 import { createHeader } from "../markup/create-header";
 import { createPagination } from "../markup/create-pagination";
 import { createTotalInfo } from "../markup/create-total-info";
+import { getNodes } from "../markup/get-nodes";
 import { getNodesCart } from "../markup/get-nodes-cart";
 import { getTotalSumAndCoupons } from "../utils/cart-helpers";
-import { LS_KEYS, SEARCH_KEYS } from "../utils/const";
+import { LS_KEYS, routes, SEARCH_KEYS } from "../utils/const";
 import { applyToLocalStorage, deleteAppliedCoupons, incrementDecrementCounter, localStorageCouponHelper, setAppliedToCoupons } from "../utils/local-storage";
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
 import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
+import { CreateCatalog } from "./create-catalog";
 
 export function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
@@ -29,6 +31,7 @@ export function CreateCart() {
     </section></main>`;
 
   const { productsList, couponInput, couponsList, totalSumHeader, paginationForm } = getNodesCart();
+  const { logo, cart } = getNodes();
   totalSumHeader.textContent = `$${finalSum}`;
 
   productsList.addEventListener('click', ({ target }) => {
@@ -57,6 +60,16 @@ export function CreateCart() {
       window.history.pushState({}, "", createSearchUrl(searchParams));
       CreateCart();
     }
+  });
+  cart?.addEventListener('click', () => {
+    window.history.pushState({}, '', `${routes.cart}`);
+    document.location.reload();
+    CreateCart();
+  });
+  logo?.addEventListener('click', () => {
+    window.history.pushState({}, '', `${routes.catalog}`);
+    document.location.reload();
+    CreateCatalog();
   });
   hashListener();
 }

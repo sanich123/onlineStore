@@ -28,21 +28,56 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
     }
   }
   if (urlMinPrice) {
-    filtredData.length ? 
-    filtredData = filtredData.filter(({ price }) => price >= +urlMinPrice) :
-    filtredData = mocks.filter(({ price }) => price >= +urlMinPrice);
+    if (filtredData.length) {
+      filtredData = filtredData.filter(({ price }) => price >= Number(urlMinPrice)) ;
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    } else {
+      filtredData = mocks.filter(({ price }) => price >= Number(urlMinPrice));
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    }    
   }
   if (urlMaxPrice) {
-    filtredData.length ? 
-    filtredData = filtredData.filter(({ price }) => price <= +urlMaxPrice) : filtredData = mocks.filter(({ price }) => price <= +urlMaxPrice);
+    if (filtredData.length) {
+      filtredData = filtredData.filter(({ price }) => price <= Number(urlMaxPrice));
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    } else {
+      filtredData = mocks.filter(({ price }) => price <= +urlMaxPrice);
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    } 
   }
   if (urlMinStock) {
-    filtredData.length ? 
-    filtredData = filtredData.filter(({ stock }) => stock >= +urlMinStock) : filtredData = mocks.filter(({ stock }) => stock >= +urlMinStock);
+    if (filtredData.length) {
+      filtredData = filtredData.filter(({ stock }) => stock >= Number(urlMinStock));
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    } else {
+      filtredData = mocks.filter(({ stock }) => stock >= +urlMinStock);
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    }
   }
   if (urlMaxStock) {
-    filtredData.length ?
-    filtredData = filtredData.filter(({ stock }) => stock <= +urlMaxStock) : filtredData = mocks.filter(({ stock }) => stock <= +urlMaxStock);
+    if (filtredData.length) {
+      filtredData = filtredData.filter(({ stock }) => stock <= Number(urlMaxStock));
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    } else {
+      filtredData = mocks.filter(({ stock }) => stock <= +urlMaxStock);
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    }
   }
   if (urlSortPriceRating) {
     if (urlSortPriceRating === SORT_TYPES.ascendPrice) {
@@ -63,9 +98,17 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
   }
   if (urlSearch) {
     const regExp = new RegExp(urlSearch, "gi");
-    filtredData.length ?
-      filtredData = findWordsFromRightProperties(filtredData, regExp) :
+    if (filtredData.length) {
+      filtredData = findWordsFromRightProperties(filtredData, regExp);
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    } else {
       filtredData = findWordsFromRightProperties(mocks, regExp);
+      if (!filtredData.length) {
+        return filtredData;
+      }
+    } 
   }
   return filtredData;
 }

@@ -10,39 +10,31 @@ import { LS_KEYS, routes, SEARCH_KEYS } from "../utils/const";
 import { getFiltredData } from "../utils/filter-sort";
 import { getFromLocalStorage, localStorageHelper } from "../utils/local-storage";
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
-import { createSearchUrl, getMinMaxPriceStock, getMinMaxValue, getSearchParams, hashListener, setCheckedRadio, setCheckedToCheckboxes, setSizeToProductsList, setValueToPriceRange, setValueToStockRange } from "../utils/utils";
+import { createSearchUrl, getMinMaxValue, getSearchParams, hashListener, setSizeToProductsList } from "../utils/utils";
+import { CreateCart } from "./create-cart";
 
 export function CreateCatalog() {
   const storageItems: DataType[] = getFromLocalStorage(LS_KEYS.cart);
   const ids = storageItems.map(({ id }) => id);
-  const { urlCategories, urlBrands, urlSortPriceRating, urlSize, urlSearch, urlMinStock, urlMaxStock, urlMinPrice, urlMaxPrice, urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
-
+  const { urlSize, urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
   const filtredData = getFiltredData(mocks, getSearchParams());
-  if (filtredData.length) setDefaultPagesAndAmount(urlPageNumber, urlAmountOfItems, searchParams);
+  setDefaultPagesAndAmount(urlPageNumber, urlAmountOfItems, searchParams);
   const { amountPages, paginatedData } = getPaginatedData(filtredData, Number(urlAmountOfItems), Number(urlPageNumber));
 
-  if (Number(urlPageNumber) > amountPages) {
+  if (amountPages && Number(urlPageNumber) > amountPages) {
     searchParams.set(SEARCH_KEYS.pageNumber, `${amountPages}`);
     window.history.pushState({}, "", createSearchUrl(searchParams));
     CreateCatalog();
     return;
   }
 
-  const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = getMinMaxPriceStock(mocks);
   const body = document.querySelector(".page") as HTMLBodyElement;
-  body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData, urlMinPrice, urlMaxPrice)}${createProductsList(paginatedData, ids, urlAmountOfItems, urlPageNumber, amountPages, filtredData)}</main>`;
+  body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData)}${createProductsList(paginatedData, ids, urlAmountOfItems, urlPageNumber, amountPages, filtredData)}</main>`;
 
-  const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn,copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
-  const { categories, brands, radioPriceRating, radioSize, priceRangeInputs, stockRangeInputs, spanShowMinPrice, spanShowMaxPrice,spanShowMinStock, spanShowMaxStock, cartShowPriceHeader, fullDescriptionList, productsItems, productsBtns, btnWrapper } = getNodes();
+  const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn, copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
+  const { fullDescriptionList, productsItems, productsBtns, btnWrapper, logo, cart } = getNodes();
   const { paginationForm } = getNodesCart();
-  cartShowPriceHeader.innerText = `$${storageItems.reduce((total, { price }) => total + price, 0)}`;
-  setCheckedToCheckboxes(categories, urlCategories);
-  setCheckedToCheckboxes(brands, urlBrands);
-  setCheckedRadio(radioPriceRating, 'sort-radio', urlSortPriceRating);
-  setCheckedRadio(radioSize, 'layout', urlSize);
-  inputSearch.value = urlSearch;
-  setValueToPriceRange(priceRangeInputs, spanShowMinPrice, spanShowMaxPrice, urlMinPrice, urlMaxPrice, minProductPrice, maxProductPrice);
-  setValueToStockRange(stockRangeInputs, spanShowMinStock, spanShowMaxStock, urlMinStock, urlMaxStock, minProductStock, maxProductStock);
+
   if (urlSize) {
     setSizeToProductsList(urlSize, productsList, fullDescriptionList, productsItems, productsBtns, btnWrapper);
   }
@@ -77,16 +69,17 @@ export function CreateCatalog() {
   });
   priceRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-      getMinMaxValue(id, value, searchParams, minPrice, maxPrice);
+      getMinMaxValue(id, value, searchParams, minPrice, maxPrice, filtredData);
       CreateCatalog();
   });
   stockRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-      getMinMaxValue(id, value, searchParams, minStock, maxStock);
+      getMinMaxValue(id, value, searchParams, minStock, maxStock, filtredData);
       CreateCatalog();
   });
   resetBtn?.addEventListener("click", () => {
-    window.history.pushState({}, "", routes.catalog);
+    window.history.pushState({}, "", `${routes.catalog}`); 
+    document.location.reload();  
     CreateCatalog();
   });
   copyLinkBtn?.addEventListener("click", () => {
@@ -106,6 +99,16 @@ export function CreateCatalog() {
       window.history.pushState({}, "", createSearchUrl(searchParams));
       CreateCatalog();
     }
+  });
+  cart?.addEventListener('click', () => {
+    window.history.pushState({}, '', `${routes.cart}`);
+    document.location.reload();
+    CreateCart();
+  });
+  logo?.addEventListener('click', () => {
+    window.history.pushState({}, '', `${routes.catalog}`);
+    document.location.reload();
+    CreateCatalog();
   });
   hashListener();
 }

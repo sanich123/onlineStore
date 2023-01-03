@@ -1,3 +1,4 @@
+import { createArrowDown, createArrowUp } from "../markup/create-icons";
 import { ObjectKeys } from "../types/types";
 
 export const routes = {
@@ -70,3 +71,17 @@ export const PAGINATION_NAMES = {
 export const DEFAULT_AMOUNT_ITEMS = 9;
 export const DEFAULT_NUMBER_OF_PAGE = 1;
 export const INCREMENT_BTN = 'increment';
+
+export const priceRadioValues = [{
+  value: 'price-asc',
+  icon: `Price ${createArrowUp()}`,
+}, {
+  value: 'price-desc',
+  icon: `Price ${createArrowDown()}`,
+}, {
+  value: 'rating-asc',
+  icon: `Rating ${createArrowUp()}`,
+}, {
+  value: 'rating-desc',
+  icon: `Rating ${createArrowDown()}`,
+}];

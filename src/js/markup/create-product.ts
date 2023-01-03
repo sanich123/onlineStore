@@ -36,6 +36,7 @@ export function createItem(product: DataType, ids: number[]) {
               class="products-item__img"
               alt="${title}"
               src="${thumbnail}"
+              loading="lazy"
             />
             <div class="btn-wrapper">
               <button class="products-item__btn ${isInCart ? 'in-cart' : ''}" type="button" value="${id}" name="${isInCart ? 'in-' : ''}cart">${isInCart ? 'In' : 'To'} cart</button>
