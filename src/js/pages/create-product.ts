@@ -40,12 +40,10 @@ export default function CreateProduct() {
   });
   cart?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.cart}`);
-    document.location.reload();
     CreateCart();
   });
   logo?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.catalog}`);
-    document.location.reload();
     CreateCatalog();
   });
 
