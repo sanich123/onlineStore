@@ -1,4 +1,5 @@
 import { createFilters } from "../markup/create-filters";
+import { createFooter } from "../markup/create-footer";
 import { createHeader } from "../markup/create-header";
 import { createProductsList } from "../markup/create-products-list";
 import { getListeners } from "../markup/get-listeners";
@@ -29,7 +30,7 @@ export default function CreateCatalog() {
   }
 
   const body = document.querySelector(".page") as HTMLBodyElement;
-  body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData)}${createProductsList(paginatedData, ids, urlAmountOfItems, urlPageNumber, amountPages, filtredData)}</main>`;
+  body.innerHTML = `${createHeader()}<main class="page__main main">${createFilters(mocks, filtredData)}${createProductsList(paginatedData, ids, urlAmountOfItems, urlPageNumber, amountPages, filtredData)}</main>${createFooter()}`;
 
   const { priceRatingSort, inputSearch, inputSize, categoriesFilter, brandFilter, priceRangeFilter, stockRangeFilter, resetBtn, copyLinkBtn, minPrice, maxPrice, minStock, maxStock, productsList } = getListeners();
   const { fullDescriptionList, productsItems, productsBtns, btnWrapper, logo, cart } = getNodes();

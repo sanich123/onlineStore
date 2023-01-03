@@ -1,4 +1,5 @@
 import { createCartItemsList } from "../markup/create-cart-item-list";
+import { createFooter } from "../markup/create-footer";
 import { createHeader } from "../markup/create-header";
 import { createPagination } from "../markup/create-pagination";
 import { createTotalInfo } from "../markup/create-total-info";
@@ -28,7 +29,7 @@ export default function CreateCart() {
   body.innerHTML = `${createHeader()}<main class="page__main"><section class="cart">
     ${createPagination(urlPageNumber, urlAmountOfItems, amountPages)}
     ${createCartItemsList(paginatedData)}${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
-    </section></main>`;
+    </section></main>${createFooter()}`;
 
   const { productsList, couponInput, couponsList, totalSumHeader, paginationForm } = getNodesCart();
   const { logo, cart } = getNodes();
