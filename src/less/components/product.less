@@ -46,15 +46,17 @@
   flex-direction: column;
   align-items: center;
 }
+.form{
+  width: 100%;
+}
 .form_item {
   display: flex;
-  width: 280%;
+  width: 100%;
   height: 35px;
   box-shadow: inset 0px 0px 3px rgba(13, 96, 111, 0.08),
     inset 0px 2px 3px rgba(13, 96, 111, 0.16);
   border-radius: 10px;
   border: none;
-  //margin: 0 auto;
   margin-bottom: 10px;
 }
 
@@ -294,4 +296,63 @@
   color: #bdae82;
   background-color: #000000;
   border: 1px solid #bdae82;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__text {
+  color: #978864;
+  }
+  &__info {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 10em;
+  margin: 0 auto;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(73,88,84,1) 35%, rgba(0,212,255,1) 100%);
+  border: 2px solid #eb461f;
+  border-radius: 1rem;
+  }
+  &__numberlogo {
+    display: flex;
+    margin: 0.5rem auto 0px;
+  }
+  &__logo {
+    background-color: #f3e5f5;
+    border: 1px solid #eb461f;
+    border-radius: .5rem;
+    width: 40px;
+    height: fit-content;
+    margin-right: .3rem;
+  }
+  &__img {
+    height: 25px;
+    margin: 0 auto;
+  }
+  &__form_item {
+      display: flex;
+      width: 100%;
+      height: 25px;
+      box-shadow: inset 0px 0px 3px rgba(13, 96, 111, 0.08),
+        inset 0px 2px 3px rgba(13, 96, 111, 0.16);
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 10px;
+  }
+  &__other {
+    display: flex;
+    flex-direction: row;
+  }
+  &__valid_info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  &__cvv_info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
 }

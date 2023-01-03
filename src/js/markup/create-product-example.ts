@@ -1,5 +1,6 @@
 import shoppingBags from '../../assets/png/shopping-bags.png';
 import basket from '../../assets/png/basket.png';
+import noLogo from '../../assets/png/nologo.png';
 
 export function createProductExample() {
 
@@ -134,7 +135,30 @@ export function createProductExample() {
                           <input type="email" placeholder="E-mail" class="form_item">
                         </div>
                       </div>
-                      
+
+                      <div class="card">
+                        <h2>Credit card details</h2>
+                        <div class="card__info">
+                          <div class="card__numberlogo">
+                            <div class="card__logo">
+                            <img alt="nologo" class="card__img" src="${noLogo}" />
+                            </div>
+                            <div class="card__number">
+                              <input type="number" placeholder="Card number" class="card__form_item">
+                            </div>
+                          </div>
+                          <div class="card__other">
+                            <div class="card__valid_info">
+                              <h3 class="card__text">VALID:</h3>
+                              <input type="number" placeholder="Valid Thru" class="card__form_item">
+                            </div>
+                            <div class="card__cvv_info">
+                              <h3 class="card__text">CVV:</h3>
+                              <input type="number" placeholder="Code" class="card__form_item">
+                            </div>
+                          </div>
+                          </div>
+                        </div>
                     </form>
                     
                   </div>
