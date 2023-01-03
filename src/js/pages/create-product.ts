@@ -1,6 +1,7 @@
 import { createBreadcrumbs } from "../markup/create-breadcrumbs";
 import { createHeader } from "../markup/create-header";
 import { createProductExample } from "../markup/create-product-example";
+import { createFooter } from "../markup/create-footer";
 import { hashListener } from "../utils/utils";
 import { vasilyExampleOfFunction } from "../utils/vasily-utils";
 
@@ -12,7 +13,7 @@ export function CreateProduct() {
   
   
   const body = document.querySelector(".page") as HTMLBodyElement;
-  body.innerHTML = `${createHeader()}<main>${createBreadcrumbs()}${createProductExample()}</main>`;
+  body.innerHTML = `${createHeader()}<main>${createBreadcrumbs()}${createProductExample()}</main>${createFooter()}`;
   //не отрисовываются картинки - посмотри, как я их импортировал в createHeader(), по аналогии сделай, все будет работать
 
   //здесь можно получить уже отрисованные элементы и навешивать на них обработчики

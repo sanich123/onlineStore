@@ -155,10 +155,10 @@
                 <span class="text">€1,749.00</span>
               </div>
               <div class="price_info__cart">
-                <button type="button" onclick="alert('Продукт добавляется в корзину')">ADD TO CART</button>
+                <button class="btn_product" type="button" onclick="alert('Продукт добавляется в корзину')">ADD TO CART</button>
               </div>
               <div class="price_info__buy">
-                <button class="modal_func">BUY NOW</button>
+                <button class="btn_product">BUY NOW</button>
                 <div class="modal">
                   <div class="modal-content">
                     <form action="#" method="get" enctype="multipart/form-data" class="form">
@@ -178,7 +178,30 @@
                           <input type="email" placeholder="E-mail" class="form_item">
                         </div>
                       </div>
-                      
+
+                      <div class="card">
+                        <h2>Credit card details</h2>
+                        <div class="card__info">
+                          <div class="card__numberlogo">
+                            <div class="card__logo">
+                              <img alt="card-logo" class="card__img" src="./assets/png/nologo.png">
+                            </div>
+                            <div class="card__number">
+                              <input type="number" placeholder="Card number" class="card__form_item">
+                            </div>
+                          </div>
+                          <div class="card__other">
+                            <div class="card__valid_info">
+                              <h3 class="card__text">VALID:</h3>
+                              <input type="number" placeholder="Valid Thru" class="card__form_item">
+                            </div>
+                            <div class="card__cvv_info">
+                              <h3 class="card__text">CVV:</h3>
+                              <input type="number" placeholder="Code" class="card__form_item">
+                            </div>
+                          </div>
+                          </div>
+                        </div>
                     </form>
                     
                   </div>
