@@ -11,9 +11,9 @@ import { getFiltredData } from "../utils/filter-sort";
 import { getFromLocalStorage, localStorageHelper } from "../utils/local-storage";
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
 import { createSearchUrl, getMinMaxValue, getSearchParams, hashListener, setSizeToProductsList } from "../utils/utils";
-import { CreateCart } from "./create-cart";
+import CreateCart from "./create-cart";
 
-export function CreateCatalog() {
+export default function CreateCatalog() {
   const storageItems: DataType[] = getFromLocalStorage(LS_KEYS.cart);
   const ids = storageItems.map(({ id }) => id);
   const { urlSize, urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();

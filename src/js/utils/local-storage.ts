@@ -1,7 +1,7 @@
 import { mocks } from "../mocks/mocks";
-import { CreateCart } from "../pages/create-cart";
-import { CreateCatalog } from "../pages/create-catalog";
-import { CreateProduct } from "../pages/create-product";
+import CreateCart from "../pages/create-cart";
+import CreateCatalog from "../pages/create-catalog";
+import CreateProduct from "../pages/create-product";
 import { CouponsType, DataType } from "../types/types";
 import { INCREMENT_BTN, LS_KEYS, NEW_YEAR_COUPON, PROMOCODES, routes, SANTA_COUPON } from "./const";
 

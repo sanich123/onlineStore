@@ -9,9 +9,9 @@ import { LS_KEYS, routes, SEARCH_KEYS } from "../utils/const";
 import { applyToLocalStorage, deleteAppliedCoupons, incrementDecrementCounter, localStorageCouponHelper, setAppliedToCoupons } from "../utils/local-storage";
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
 import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
-import { CreateCatalog } from "./create-catalog";
+import CreateCatalog from "./create-catalog";
 
-export function CreateCart() {
+export default function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
   const { urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
   const { amountPages, paginatedData } = getPaginatedData(withAmount, Number(urlAmountOfItems), Number(urlPageNumber));

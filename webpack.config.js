@@ -31,14 +31,6 @@ module.exports = {
       template: "src/index.html",
       filename: "index.html",
     }),
-    new HtmlWebpackPlugin({
-      template: "src/product.html",
-      filename: "product.html",
-    }),
-    new HtmlWebpackPlugin({
-      template: "src/cart.html",
-      filename: "cart.html",
-    }),
     new MiniCssExtractPlugin({ filename: "styles.css" }),
   ],
   module: {

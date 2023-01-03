@@ -1,57 +1,29 @@
-import shoppingBags from '../../assets/png/shopping-bags.png';
-import basket from '../../assets/png/basket.png';
 import noLogo from '../../assets/png/nologo.png';
+import { DataType } from '../types/types';
+import { LS_KEYS } from '../utils/const';
+import { getFromLocalStorage } from '../utils/local-storage';
 
-export function createProductExample() {
+export function createProductExample(filtredData: DataType[]) {
+  console.log(filtredData);
+  const [{ id, title, images, thumbnail, category, brand, description, price, discountPercentage, rating, stock }] = filtredData;
 
+  const inCartIds = getFromLocalStorage(LS_KEYS.cart).map(({ id }: { id: number }) => id);
     return `<section class="product">
         <div class="product__name">
-          <div class="product__title"><span class="text">MacBook Pro</span></div>
+          <div class="product__title"><span class="text">${title}</span></div>
           <div class="product__info">
 
             <div class="gallery">
               
               <div id="gallery">
                 <ul id="navigation">
-                  <li>
-                    <a href="#picture1">
-                    <img alt="small picture1" src="${basket}" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#picture2">
-                    <img alt="small picture2" src="${shoppingBags}" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#picture3">
-                    <img alt="small picture3" src="${basket}" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#picture4">
-                    <img alt="small picture4" src="${shoppingBags}" />
-                    </a>
-                  </li>
+                ${[...new Set(images)].map((image) => `<li><img alt="" src="${image}" /></li>`)}
                 </ul>
                 <div id="full-picture">
                   <div>
-                    <a name="picture1"></a>
-                    <img alt="Large picture1" src="${basket}" />
+                    <img class="big-picture" alt="Large picture2" src="${thumbnail}" />
                   </div>
-                  <div>
-                    <a name="picture2"></a>
-                    <img alt="Large picture2" src="${shoppingBags}" />
-                  </div>
-                  <div>
-                    <a name="picture3"></a>
-                    <img alt="Large picture3" src="${basket}" />
-                  </div>
-                  <div>
-                    <a name="picture4"></a>
-                    <img alt="Large picture4" src="${shoppingBags}" />
-                  </div>
-                </div>
+                 </div>
               </div>
 
             </div>
@@ -62,7 +34,7 @@ export function createProductExample() {
                     <span class="text">Description:</span>
                   </div>
                   <div class="item__info">
-                    <span class="text">MacBook Pro 2021 with mini-LED display may launch between September, November</span>
+                    <span class="text">${description}</span>
                   </div>
                 </div>
                 <div class="desc__item">
@@ -70,7 +42,7 @@ export function createProductExample() {
                     <span class="text">Discount Percentage:</span>
                   </div>
                   <div class="item__info">
-                    <span class="text">Description info will be hereDescription info will be hereDescription info will be hereDescription info will be hereDescription info will be hereDescription info will be hereDescription info will be hereDescription info will be hereDescription info will be here</span>
+                    <span class="text">${discountPercentage}</span>
                   </div>
                 </div>
                 <div class="desc__item">
@@ -78,7 +50,7 @@ export function createProductExample() {
                     <span class="text">Rating:</span>
                   </div>
                   <div class="item__info">
-                    <span class="text">Description info will be here</span>
+                    <span class="text">${rating}</span>
                   </div>
                 </div>
                 <div class="desc__item">
@@ -86,7 +58,7 @@ export function createProductExample() {
                     <span class="text">Stock:</span>
                   </div>
                   <div class="item__info">
-                    <span class="text">Description info will be here</span>
+                    <span class="text">${stock}</span>
                   </div>
                 </div>
                 <div class="desc__item">
@@ -94,7 +66,7 @@ export function createProductExample() {
                     <span class="text">Brand:</span>
                   </div>
                   <div class="item__info">
-                    <span class="text">Description info will be here</span>
+                    <span class="text">${brand}</span>
                   </div>
                 </div>
                 <div class="desc__item">
@@ -102,17 +74,17 @@ export function createProductExample() {
                     <span class="text">Category:</span>
                   </div>
                   <div class="item__info">
-                    <span class="text">Description info will be here</span>
+                    <span class="text">${category}</span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="price_info">
               <div class="price_info__cost">
-                <span class="text">€1,749.00</span>
+                <span class="text">€${price}</span>
               </div>
               <div class="price_info__cart">
-                <button class="btn_product" type="button" onclick="alert('Продукт добавляется в корзину')">ADD TO CART</button>
+                <button class="btn_product ${inCartIds.includes(Number(id)) ? 'in-cart' : ''}" type="button">${inCartIds.includes(Number(id)) ? 'IN ' : 'ADD TO'}CART</button>
               </div>
               <div class="price_info__buy">
                 <button class="modal_func btn_product">BUY NOW</button>

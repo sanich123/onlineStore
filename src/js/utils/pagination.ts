@@ -1,5 +1,5 @@
-import { CreateCart } from "../pages/create-cart";
-import { CreateCatalog } from "../pages/create-catalog";
+import CreateCart from "../pages/create-cart";
+import CreateCatalog from "../pages/create-catalog";
 import { DataType } from "../types/types";
 import { DEFAULT_AMOUNT_ITEMS, DEFAULT_NUMBER_OF_PAGE, PAGINATION_NAMES, routes, SEARCH_KEYS } from "./const";
 import { createSearchUrl } from "./utils";
