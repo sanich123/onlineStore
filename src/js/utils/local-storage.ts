@@ -25,7 +25,7 @@ export function localStorageHelper(name: string, value: string, ids: number[], s
     const filtred = storageItems.filter(({ id }) => id !== +value);
     localStorage.setItem(LS_KEYS.cart, JSON.stringify(filtred));
   }
-  CreateCatalog();
+  window.location.href.includes('#product') ? CreateProduct() : CreateCatalog();
 }
 
 export function localStorageCouponHelper(coupon: string) {

@@ -4,10 +4,9 @@ import { LS_KEYS } from '../utils/const';
 import { getFromLocalStorage } from '../utils/local-storage';
 
 export function createProductExample(filtredData: DataType[]) {
-  console.log(filtredData);
   const [{ id, title, images, thumbnail, category, brand, description, price, discountPercentage, rating, stock }] = filtredData;
-
   const inCartIds = getFromLocalStorage(LS_KEYS.cart).map(({ id }: { id: number }) => id);
+
     return `<section class="product">
         <div class="product__name">
           <div class="product__title"><span class="text">${title}</span></div>
@@ -84,7 +83,7 @@ export function createProductExample(filtredData: DataType[]) {
                 <span class="text">€${price}</span>
               </div>
               <div class="price_info__cart">
-                <button class="btn_product ${inCartIds.includes(Number(id)) ? 'in-cart' : ''}" type="button">${inCartIds.includes(Number(id)) ? 'IN ' : 'ADD TO'}CART</button>
+                <button name="${inCartIds.includes(Number(id)) ? 'in-cart' : 'cart'}" class="btn_product ${inCartIds.includes(Number(id)) ? 'in-cart' : ''}" value="${id}" type="button">${inCartIds.includes(Number(id)) ? 'IN ' : 'ADD TO'}CART</button>
               </div>
               <div class="price_info__buy">
                 <button class="modal_func btn_product">BUY NOW</button>
