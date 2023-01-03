@@ -8,6 +8,8 @@ export function createCartItem({id, title, description, price, stock, thumbnail,
                 src="${thumbnail}"
                 alt="${title}"
                 title="${title}"
+                name="image"
+                id="${id}"
               />
               <p class="cart-item__description">
                 ${description}
