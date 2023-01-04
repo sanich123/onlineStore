@@ -1,3 +1,4 @@
+import { mocks } from '../mocks/mocks';
 import { Router } from '../router/router';
 import { DataType } from '../types/types';
 import { priceOrStockMap, routes, SEARCH_KEYS } from './const';
@@ -157,5 +158,18 @@ export function setSizeToProductsList(urlSize: string, productsList: HTMLUListEl
       btnWrapper.forEach((wrapper) => wrapper.style.gap = '7px');
     }
   }
+}
+
+export function setRightPositionToSlider(filtredData: DataType[]) {
+  const rangeStroke = document.querySelector('.range-selected') as HTMLSpanElement;
+  const defaultPrice = mocks.map(({ price }) => price);
+  const defaultMinPrice = Math.min(...defaultPrice);
+  const defaultMaxPrice = Math.max(...defaultPrice);
+  const { urlMinPrice, urlMaxPrice } = getSearchParams();
+  const { minProductPrice, maxProductPrice } = getMinMaxPriceStock(filtredData);
+  const finallyMinPrice = urlMinPrice ? urlMinPrice : minProductPrice && Number.isFinite(minProductPrice) ? minProductPrice : defaultMinPrice;
+  const finallyMaxPrice = urlMaxPrice ? urlMaxPrice : maxProductPrice && Number.isFinite(maxProductPrice) ? maxProductPrice : defaultMaxPrice;
+  rangeStroke.style.left = `${Math.round((Number(finallyMinPrice) / defaultMaxPrice) * 100)}%`;
+  rangeStroke.style.right = `${Math.round(100 - (Number(finallyMaxPrice) / defaultMaxPrice) * 100)}%`;
 }
 

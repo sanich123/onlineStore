@@ -22,7 +22,12 @@ export function createFilters(products: DataType[], filtredProducts: DataType[])
         <form class="filters-range-price">
           <fieldset class="filters__fieldset">
             <legend class="filters-range-price__legend">Price</legend>
+            <div class="range-slider">
+              <span class="range-selected"></span>
+            </div>
+            <div class="range-input">
             ${priceRanges(mocks, filtredProducts)}
+            </div>
           </fieldset>
         </form>
         <form class="filters-range-stock">
