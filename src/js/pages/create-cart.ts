@@ -1,11 +1,13 @@
 import { createCartItemsList } from "../markup/create-cart-item-list";
 import { createFooter } from "../markup/create-footer";
 import { createHeader } from "../markup/create-header";
+import { createModal } from "../markup/create-modal";
 import { createPagination } from "../markup/create-pagination";
 import { createTotalInfo } from "../markup/create-total-info";
 import { getNodes } from "../markup/get-nodes";
 import { getNodesCart } from "../markup/get-nodes-cart";
-import { getTotalSumAndCoupons } from "../utils/cart-helpers";
+import { getNodesProduct } from "../markup/get-nodes-product";
+import { getCardLogo, getTotalSumAndCoupons } from "../utils/cart-helpers";
 import { LS_KEYS, routes, SEARCH_KEYS } from "../utils/const";
 import { applyToLocalStorage, deleteAppliedCoupons, incrementDecrementCounter, localStorageCouponHelper, setAppliedToCoupons } from "../utils/local-storage";
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
@@ -15,7 +17,7 @@ import CreateProduct from "./create-product";
 
 export default function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
-  const { urlPageNumber, urlAmountOfItems, searchParams } = getSearchParams();
+  const { urlPageNumber, urlAmountOfItems, urlIsModalOpen, searchParams } = getSearchParams();
   const { amountPages, paginatedData } = getPaginatedData(withAmount, Number(urlAmountOfItems), Number(urlPageNumber));
 
   if (Number(urlPageNumber) > amountPages) {
@@ -28,13 +30,33 @@ export default function CreateCart() {
 
   const body = document.querySelector(".page") as HTMLBodyElement;
   body.innerHTML = `${createHeader()}<main class="page__main"><section class="cart">
-    ${createPagination(urlPageNumber, urlAmountOfItems, amountPages)}
-    ${createCartItemsList(paginatedData)}${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
+    ${withAmount.length ? `${createPagination(urlPageNumber, urlAmountOfItems, amountPages)}` : ''}
+    ${createCartItemsList(paginatedData)}
+    ${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
+    ${createModal(urlIsModalOpen)}
     </section></main>${createFooter()}`;
 
-  const { productsList, couponInput, couponsList, paginationForm } = getNodesCart();
+  const { productsList, couponInput, couponsList, paginationForm, purchaseBtn } = getNodesCart();
   const { logo, cart } = getNodes();
+  const { modal, closeButton, cardNumberInput, imgPaySystem, expirationDate } = getNodesProduct();
 
+  expirationDate?.addEventListener('input', ({ target }) => {
+    const input = target as HTMLInputElement;
+    if (input.value.length === 3 && Number(input.value.slice(0,2)) < 13) {
+      input.value = `${input.value.slice(0, 2)}/`;
+    }
+    if (input.value.length >= 5) return;
+  })
+  cardNumberInput?.addEventListener('input', ({ target }) => {
+    const { value } = target as HTMLInputElement;
+    const firstChar = value[0];
+    imgPaySystem.src = getCardLogo(firstChar);
+  });
+  closeButton?.addEventListener('click', () => {
+    modal.classList.toggle('show-modal');
+    searchParams.delete(SEARCH_KEYS.modal);
+    window.history.pushState({}, '', `${routes.cart}?${searchParams.toString()}`);
+  });
   productsList.addEventListener('click', ({ target }) => {
     const { value, name, id } = target as HTMLButtonElement || HTMLImageElement;
     incrementDecrementCounter(name, value, withAmount);
@@ -73,6 +95,11 @@ export default function CreateCart() {
   logo?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.catalog}`);
     CreateCatalog();
+  });
+  purchaseBtn.addEventListener('click', () => {
+    searchParams.set(SEARCH_KEYS.modal, 'true');
+    window.history.pushState({}, "", createSearchUrl(searchParams));
+    CreateCart();
   });
   hashListener();
 }

@@ -7,7 +7,6 @@ import { INCREMENT_BTN, LS_KEYS, NEW_YEAR_COUPON, PROMOCODES, routes, SANTA_COUP
 
 export function localStorageHelper(name: string, value: string, ids: number[], storageItems: DataType[]) {
   if (name === LS_KEYS.product) {
-    window.history.pushState({}, "", `${routes.product}/${value}`);
     window.open(`${routes.product}/${value}`);
     return CreateProduct();
   }
