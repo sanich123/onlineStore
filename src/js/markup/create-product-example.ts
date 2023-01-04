@@ -1,7 +1,29 @@
 import noLogo from '../../assets/png/nologo.png';
+import AMEXlogo from '../../assets/png/american-express-logo.png';
+import VISAlogo from '../../assets/png/visa-logo-png-2024.png'
+import MASTERCARDlogo from '../../assets/png/mastercard-logo.png';
 import { DataType } from '../types/types';
 import { LS_KEYS } from '../utils/const';
 import { getFromLocalStorage } from '../utils/local-storage';
+
+
+//это функция для замены логотипа банковской карты в зависимости от вводимого номера. 
+/*
+export function get_card_logo(card_number: number) {
+  if (card_number[0] == '3') {
+      return `${AMEXlogo}`;
+  }
+  if (card_number[0] == '4') {
+      return `${VISAlogo}`;
+  }
+  if (card_number[0] == '5') {
+      return `${MASTERCARDlogo}`;
+  }
+  else {
+      return `${noLogo}`;
+  }
+}
+*/
 
 export function createProductExample(filtredData: DataType[]) {
   const [{ id, title, images, thumbnail, category, brand, description, price, discountPercentage, rating, stock }] = filtredData;
@@ -103,7 +125,7 @@ export function createProductExample(filtredData: DataType[]) {
                           <input type="text" pattern="[a-zA-Z]{5,}(\s[a-zA-Z]{5,})(\s[a-zA-Z]{5,})+" title="Please enter correct delivery adress: contains at least three words, each at least 5 characters long" placeholder="Delivery adress" class="form_item">
                         </div>
                         <div class="personal__email form_item">
-                          <input type="email" placeholder="E-mail" class="form_item">
+                          <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter correct e-mail adress" placeholder="E-mail" class="form_item">
                         </div>
                       </div>
 
@@ -115,17 +137,17 @@ export function createProductExample(filtredData: DataType[]) {
                             <img alt="nologo" class="card__img" src="${noLogo}" />
                             </div>
                             <div class="card__number">
-                              <input type="number" placeholder="Card number" class="card__form_item">
+                              <input id="card-number" pattern="^[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}$" title="Please enter correct 16 digital number of your card" placeholder="Card number" class="card__form_item">
                             </div>
                           </div>
                           <div class="card__other">
                             <div class="card__valid_info">
                               <h3 class="card__text">VALID:</h3>
-                              <input type="number" placeholder="Valid Thru" class="card__form_item">
+                              <input id="expiration-date" pattern="^[0-9]{2}[/][0-9]{2}$" title="Please enter card validity period" placeholder="Valid Thru" class="card__form_item">
                             </div>
                             <div class="card__cvv_info">
                               <h3 class="card__text">CVV:</h3>
-                              <input type="number" placeholder="Code" class="card__form_item">
+                              <input id="cvv" pattern="^[0-9]{3}$" placeholder="Code" title="Please enter CVV code" period"class="card__form_item">
                             </div>
                           </div>
                         </div>
