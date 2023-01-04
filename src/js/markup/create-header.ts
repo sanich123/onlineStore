@@ -2,8 +2,10 @@ import shoppingBags from '../../assets/png/shopping-bags.png';
 import basket from '../../assets/png/basket.png';
 import { getTotalSumAndCoupons } from '../utils/cart-helpers';
 
+
 export function createHeader() {
-  const { finalSum } = getTotalSumAndCoupons();
+  const { finalSum, totalAmountOfProducts } = getTotalSumAndCoupons();
+
     return `<header class="header">
       <div class="header__logo">
         <div class="logo">
@@ -23,6 +25,7 @@ export function createHeader() {
         <div class="basket">
           <a class="logo__basket">
           <img src="${basket}" alt="basket">
+          <span>${totalAmountOfProducts}</span>
           </a>
         </div>
       </div>

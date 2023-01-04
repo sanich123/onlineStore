@@ -11,6 +11,7 @@ import { applyToLocalStorage, deleteAppliedCoupons, incrementDecrementCounter, l
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
 import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
 import CreateCatalog from "./create-catalog";
+import CreateProduct from "./create-product";
 
 export default function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
@@ -31,13 +32,16 @@ export default function CreateCart() {
     ${createCartItemsList(paginatedData)}${createTotalInfo(totalSum, totalAmountOfProducts, couponsInCart, filtredDiscount, finalSum)}
     </section></main>${createFooter()}`;
 
-  const { productsList, couponInput, couponsList, totalSumHeader, paginationForm } = getNodesCart();
+  const { productsList, couponInput, couponsList, paginationForm } = getNodesCart();
   const { logo, cart } = getNodes();
-  totalSumHeader.textContent = `$${finalSum}`;
 
   productsList.addEventListener('click', ({ target }) => {
-    const { value, name } = target as HTMLButtonElement;
+    const { value, name, id } = target as HTMLButtonElement || HTMLImageElement;
     incrementDecrementCounter(name, value, withAmount);
+    if (name === 'image') {
+      window.history.pushState({}, '', `${routes.product}/${id}`);
+      CreateProduct();
+    }
   });
   couponInput.addEventListener('input', ({ target }) => {
     const { value } = target as HTMLInputElement;
@@ -64,12 +68,10 @@ export default function CreateCart() {
   });
   cart?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.cart}`);
-    document.location.reload();
     CreateCart();
   });
   logo?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.catalog}`);
-    document.location.reload();
     CreateCatalog();
   });
   hashListener();

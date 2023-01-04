@@ -11,7 +11,7 @@ import { LS_KEYS, routes, SEARCH_KEYS } from "../utils/const";
 import { getFiltredData } from "../utils/filter-sort";
 import { getFromLocalStorage, localStorageHelper } from "../utils/local-storage";
 import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } from "../utils/pagination";
-import { createSearchUrl, getMinMaxValue, getSearchParams, hashListener, setSizeToProductsList } from "../utils/utils";
+import { createSearchUrl, getMinMaxValue, getSearchParams, hashListener, setRightPositionToSlider, setSizeToProductsList } from "../utils/utils";
 import CreateCart from "./create-cart";
 
 export default function CreateCatalog() {
@@ -39,6 +39,7 @@ export default function CreateCatalog() {
   if (urlSize) {
     setSizeToProductsList(urlSize, productsList, fullDescriptionList, productsItems, productsBtns, btnWrapper);
   }
+  setRightPositionToSlider(filtredData);
   
   priceRatingSort?.addEventListener("click", ({ target }) => {
     const { value } = target as HTMLInputElement;
@@ -80,7 +81,7 @@ export default function CreateCatalog() {
   });
   resetBtn?.addEventListener("click", () => {
     window.history.pushState({}, "", `${routes.catalog}`); 
-    document.location.reload();  
+    window.location.reload();  
     CreateCatalog();
   });
   copyLinkBtn?.addEventListener("click", () => {
@@ -103,12 +104,10 @@ export default function CreateCatalog() {
   });
   cart?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.cart}`);
-    document.location.reload();
     CreateCart();
   });
   logo?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.catalog}`);
-    document.location.reload();
     CreateCatalog();
   });
   hashListener();

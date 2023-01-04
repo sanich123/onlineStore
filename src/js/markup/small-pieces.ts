@@ -25,7 +25,6 @@ export function priceRanges(defaultData: DataType[], filtredData: DataType[]) {
   const finallyMaxPrice = urlMaxPrice ? urlMaxPrice : maxProductPrice && Number.isFinite(maxProductPrice) ? maxProductPrice : defaultMaxPrice;
 
   return `<label class="filters-range-price__label">
-              <span class="minPrice">$${finallyMinPrice}</span>
               <input
                 class="filters-range-price__input"
                 type="range"
@@ -34,10 +33,8 @@ export function priceRanges(defaultData: DataType[], filtredData: DataType[]) {
                 max="${defaultMaxPrice}"
                 step="10"
                 value="${finallyMinPrice}"
-              /> </label
-            ><br />
+              /> </label>
             <label class="filters-range-price__label">
-              <span class="maxPrice">$${finallyMaxPrice}</span>
               <input
                 class="filters-range-price__input"
                 type="range"
@@ -47,7 +44,11 @@ export function priceRanges(defaultData: DataType[], filtredData: DataType[]) {
                 step="10"
                 value="${finallyMaxPrice}"
               />
-            </label>`;
+            </label>
+            <div class="min-max-value">
+            <span class="minPrice">$${finallyMinPrice}</span>
+            <span class="maxPrice">$${finallyMaxPrice}</span>
+            </div>`;
 }
 
 
