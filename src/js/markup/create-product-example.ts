@@ -94,13 +94,13 @@ export function createProductExample(filtredData: DataType[]) {
                       <div class="personal">
                         <h2>Personal details</h2>
                         <div class="personal__name form_item">
-                          <input type="text" placeholder="Name" class="form_item">
+                          <input type="text" pattern="[a-zA-Z]{3,}(\s[a-zA-Z]{3,})+" title="Please enter correct first and last name" placeholder="Name" class="form_item">
                         </div>
                         <div class="personal__phone form_item">
-                          <input type="tel" placeholder="Phone number" class="form_item">
+                          <input type="tel" pattern="\+[0-9]{9,}" title="Please enter correct phone number: starts with '+', contains only digits, no shorter than 9 digits" placeholder="Phone number" class="form_item">
                         </div>
                         <div class="personal__adress form_item">
-                          <input type="text" placeholder="Delivery adress" class="form_item">
+                          <input type="text" pattern="[a-zA-Z]{5,}(\s[a-zA-Z]{5,})(\s[a-zA-Z]{5,})+" title="Please enter correct delivery adress: contains at least three words, each at least 5 characters long" placeholder="Delivery adress" class="form_item">
                         </div>
                         <div class="personal__email form_item">
                           <input type="email" placeholder="E-mail" class="form_item">
@@ -128,8 +128,11 @@ export function createProductExample(filtredData: DataType[]) {
                               <input type="number" placeholder="Code" class="card__form_item">
                             </div>
                           </div>
-                          </div>
                         </div>
+                        <div class="btn-confirm-wrapper">
+                        <input class="btn-confirm" type="submit" value="CONFIRM" onclick="alert('Payment was successful')"></input>
+                        </div>
+                          </div>
                     </form>
                     
                   </div>
