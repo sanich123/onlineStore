@@ -4,7 +4,7 @@ import noLogo from '../../assets/png/nologo.png';
 export function createModal(urlIsModalOpen: string) {
   return `<div class="modal ${urlIsModalOpen ? 'show-modal' : ''}">
             <div class="modal-content">
-                <form action="#" method="get" enctype="multipart/form-data" class="form">
+                <form action="#catalog" method="get" enctype="multipart/form-data" class="form form__modal">
                     <span class="close-button">&times;</span>
                     <div class="personal">
                         <h2>Personal details</h2>
@@ -36,11 +36,12 @@ export function createModal(urlIsModalOpen: string) {
                           <div class="card__other">
                             <div class="card__valid_info">
                               <h3 class="card__text">VALID:</h3>
-                              <input type="text" id="expiration-date" title="Please enter card validity period" placeholder="Valid Thru" class="card__form_item" required>
+                              <input type="text" id="expiration-date" title="The first two numbers must be less than twelve" placeholder="Valid Thru" class="card__form_item" required>
+                              <span class="invalid-expiration"></span>
                             </div>
                             <div class="card__cvv_info">
                               <h3 class="card__text">CVV:</h3>
-                              <input type="number" id="cvv" pattern="^[0-9]{3}$" placeholder="Code" title="Please enter CVV code/period" class="card__form_item" required>
+                              <input type="number" id="cvv" min="100" max="999" placeholder="Code" title="Please enter CVV code/period" class="card__form_item" required>
                             </div>
                           </div>
                         </div>

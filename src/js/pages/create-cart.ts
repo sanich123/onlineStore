@@ -38,15 +38,30 @@ export default function CreateCart() {
 
   const { productsList, couponInput, couponsList, paginationForm, purchaseBtn } = getNodesCart();
   const { logo, cart } = getNodes();
-  const { modal, closeButton, cardNumberInput, imgPaySystem, expirationDate } = getNodesProduct();
+  const { modal, closeButton, cardNumberInput, imgPaySystem, expirationDate, invalidExpiration, modalForm } = getNodesProduct();
 
+  modalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    setInterval(() => {
+      localStorage.clear();
+      window.history.pushState({}, "", `${routes.catalog}`);
+      CreateCatalog();
+    }, 3000);
+  });
   expirationDate?.addEventListener('input', ({ target }) => {
     const input = target as HTMLInputElement;
-    if (input.value.length === 3 && Number(input.value.slice(0,2)) < 13) {
+      if (input.value.length === 2 && (Number(input.value) > 12 || Number(input.value) < 1)) {
+      invalidExpiration.textContent = 'It is the mistake in your card. The value must be less then twelve.';
+      setInterval(() => invalidExpiration.textContent = '', 2000);
+      return input.value = '';
+    }
+    if (input.value.length === 2 && Number(input.value.slice(0,2)) < 13) {
       input.value = `${input.value.slice(0, 2)}/`;
     }
-    if (input.value.length >= 5) return;
-  })
+    if (input.value.length > 5) {
+      return input.value = input.value.slice(0,5);
+    }
+  });
   cardNumberInput?.addEventListener('input', ({ target }) => {
     const { value } = target as HTMLInputElement;
     const firstChar = value[0];

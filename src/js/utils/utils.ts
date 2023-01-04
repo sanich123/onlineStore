@@ -69,7 +69,6 @@ export function createSearchUrl(params: URLSearchParams) {
     }
     setCheckedValuesToParams(categories, searchUrl);
     setCheckedValuesToParams(brands, searchUrl);
-  console.log(`${window.location.origin}/${page}?${[...new Set([...searchUrl.toString().split('&')])].join('&')}`)
     return `${window.location.origin}/${page}?${[...new Set([...searchUrl.toString().split('&')])].join('&')}`;
 }
 

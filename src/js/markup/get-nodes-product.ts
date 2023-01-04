@@ -8,7 +8,9 @@ export function getNodesProduct() {
     const cardNumberInput = document.getElementById('card-number') as HTMLInputElement;
     const imgPaySystem = document.querySelector('.card__img') as HTMLImageElement;
     const expirationDate = document.getElementById('expiration-date') as HTMLInputElement;
+    const invalidExpiration = document.querySelector('.invalid-expiration') as HTMLSpanElement;
+    const modalForm = document.querySelector('.form__modal') as HTMLFormElement;
     return {
-        modal, addToCartAndGoBuy, closeButton, smallPictures, bigPicture, cartBtn, cardNumberInput, imgPaySystem, expirationDate,
+        modal, addToCartAndGoBuy, closeButton, smallPictures, bigPicture, cartBtn, cardNumberInput, imgPaySystem, expirationDate, invalidExpiration, modalForm,
     }
 }
