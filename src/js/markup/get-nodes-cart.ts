@@ -4,8 +4,9 @@ export function getNodesCart() {
     const couponsList = document.querySelector('.coupon-form__list') as HTMLUListElement;
     const totalSumHeader = document.querySelector('.total__summary') as HTMLDivElement;
     const paginationForm = document.querySelector('.pagination__page-btns') as HTMLFormElement;
+    const purchaseBtn = document.querySelector('.total-info__accept') as HTMLButtonElement;
 
     return {
-        productsList, couponInput, couponsList, totalSumHeader, paginationForm,
+        productsList, couponInput, couponsList, totalSumHeader, paginationForm, purchaseBtn,
     }
 }

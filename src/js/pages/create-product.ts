@@ -2,9 +2,9 @@ import { createBreadcrumbs } from "../markup/create-breadcrumbs";
 import { createHeader } from "../markup/create-header";
 import { createProductExample } from "../markup/create-product-example";
 import { createFooter } from "../markup/create-footer";
-import { hashListener } from "../utils/utils";
+import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
 import { getNodes } from "../markup/get-nodes";
-import { LS_KEYS, routes } from "../utils/const";
+import { LS_KEYS, routes, SEARCH_KEYS } from "../utils/const";
 import CreateCart from "./create-cart";
 import CreateCatalog from "./create-catalog";
 import { mocks } from "../mocks/mocks";
@@ -17,11 +17,12 @@ export default function CreateProduct() {
   const filtredData = mocks.filter((product) => product.id === productId);
   const isInCart = getFromLocalStorage(LS_KEYS.cart);
   const ids = isInCart.map(({id}:{id: number}) => id);
+  const { searchParams } = getSearchParams();
   
   const body = document.querySelector(".page") as HTMLBodyElement;
   body.innerHTML = `${createHeader()}<main>${createBreadcrumbs(filtredData)}${createProductExample(filtredData)}</main>${createFooter()}`;
 
-  const { modal, trigger, closeButton, smallPictures, bigPicture, cartBtn } = getNodesProduct();
+  const { addToCartAndGoBuy, smallPictures, bigPicture, cartBtn } = getNodesProduct();
   const { logo, cart } = getNodes();
 
   cartBtn?.addEventListener('click', ({ target }) => {
@@ -32,11 +33,12 @@ export default function CreateProduct() {
     const { src } = target as HTMLImageElement;
     bigPicture.src = src;
   })
-  trigger.addEventListener('click', () => {
-    modal.classList.toggle('show-modal');
-  });
-  closeButton.addEventListener('click', () => {
-    modal.classList.toggle('show-modal');
+  addToCartAndGoBuy.addEventListener('click', ({ target }) => {
+    const { name, value } = target as HTMLButtonElement;
+    localStorageHelper(name, value, ids, isInCart);
+    searchParams.set(SEARCH_KEYS.modal, 'true');
+    window.history.pushState({}, "", createSearchUrl(searchParams));
+    CreateCart();
   });
   cart?.addEventListener('click', () => {
     window.history.pushState({}, '', `${routes.cart}`);

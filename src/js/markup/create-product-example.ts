@@ -1,42 +1,17 @@
-import noLogo from '../../assets/png/nologo.png';
-import AMEXlogo from '../../assets/png/american-express-logo.png';
-import VISAlogo from '../../assets/png/visa-logo-png-2024.png'
-import MASTERCARDlogo from '../../assets/png/mastercard-logo.png';
 import { DataType } from '../types/types';
 import { LS_KEYS } from '../utils/const';
 import { getFromLocalStorage } from '../utils/local-storage';
-import { createModal } from './create-modal';
-
-
-//это функция для замены логотипа банковской карты в зависимости от вводимого номера. 
-/*
-export function get_card_logo(card_number: number) {
-  if (card_number[0] == '3') {
-      return `${AMEXlogo}`;
-  }
-  if (card_number[0] == '4') {
-      return `${VISAlogo}`;
-  }
-  if (card_number[0] == '5') {
-      return `${MASTERCARDlogo}`;
-  }
-  else {
-      return `${noLogo}`;
-  }
-}
-*/
 
 export function createProductExample(filtredData: DataType[]) {
   const [{ id, title, images, thumbnail, category, brand, description, price, discountPercentage, rating, stock }] = filtredData;
   const inCartIds = getFromLocalStorage(LS_KEYS.cart).map(({ id }: { id: number }) => id);
+  const isInCart = inCartIds.includes(Number(id));
 
     return `<section class="product">
         <div class="product__name">
           <div class="product__title"><span class="text">${title}</span></div>
           <div class="product__info">
-
             <div class="gallery">
-              
               <div id="gallery">
                 <ul id="navigation">
                 ${[...new Set(images)].map((image) => `<li><img alt="" src="${image}" /></li>`)}
@@ -106,11 +81,13 @@ export function createProductExample(filtredData: DataType[]) {
                 <span class="text">€${price}</span>
               </div>
               <div class="price_info__cart">
-                <button name="${inCartIds.includes(Number(id)) ? 'in-cart' : 'cart'}" class="btn_product ${inCartIds.includes(Number(id)) ? 'in-cart' : ''}" value="${id}" type="button">${inCartIds.includes(Number(id)) ? 'IN ' : 'ADD TO'}CART</button>
+                <button 
+                name="${isInCart ? 'in-cart' : 'cart'}" 
+                class="btn_product ${isInCart ? 'in-cart' : ''}" 
+                value="${id}" type="button">${isInCart ? 'IN ' : 'ADD TO'}CART</button>
               </div>
               <div class="price_info__buy">
-                <button class="modal_func btn_product">BUY NOW</button>
-                ${createModal()}
+                <button class="modal_func btn_product" name="${LS_KEYS.cart}" value="${id}">BUY NOW</button>
               </div>
             </div>
           </div>

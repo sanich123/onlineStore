@@ -33,6 +33,7 @@ export function getSearchParams() {
   const urlSearch = searchParams.get(SEARCH_KEYS.search) || '';
   const urlPageNumber = searchParams.get(SEARCH_KEYS.pageNumber) || '';
   const urlAmountOfItems = searchParams.get(SEARCH_KEYS.amountOfItems) || '';
+  const urlIsModalOpen = searchParams.get(SEARCH_KEYS.modal) || '';
   return {
     urlMinPrice,
     urlMaxPrice,
@@ -47,6 +48,7 @@ export function getSearchParams() {
     filtredParams,
     urlPageNumber,
     urlAmountOfItems,
+    urlIsModalOpen,
   };
 }
 
@@ -58,6 +60,7 @@ export function createSearchUrl(params: URLSearchParams) {
   const page = window.location.href.includes(routes.catalog) ? routes.catalog : routes.cart;
   const categories = document.querySelectorAll('.filters-category__input') as NodeListOf<HTMLInputElement>;
   const brands = document.querySelectorAll('.filters-brand__input') as NodeListOf<HTMLInputElement>;
+  
   const searchUrl = params;
     for (const [key] of searchUrl) {
       if (key === SEARCH_KEYS.category || key === SEARCH_KEYS.brand) {

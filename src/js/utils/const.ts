@@ -27,6 +27,7 @@ export const SEARCH_KEYS = {
   maxStock: "maxStock",
   pageNumber: "pageNumber",
   amountOfItems: "amountOfItems",
+  modal: 'modalOpen',
 };
 
 export const SORT_TYPES = {
