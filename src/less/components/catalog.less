@@ -148,13 +148,14 @@
   background-color: #e1e9f6;
   border-radius: 2px;
 }
-.range-selected {
+.range-selected,
+.range-selected-stock {
   height: 100%;
   left: 10%;
   right: 20%;
   position: absolute;
   border-radius: 5px;
-  background-color: #1b53c0;
+  background-color: orange;
 }
 .range-input {
   position: relative;
@@ -173,10 +174,15 @@
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  border: 3px solid #1b53c0;
+  border: 3px solid orange;
   background-color: #fff;
   pointer-events: auto;
   -webkit-appearance: none;
+  transition: .5s ease;
+  &:hover {
+    transform: scale(1.2);
+    background-color: orangered;
+  }
 }
 .range-input input::-moz-range-thumb {
   height: 15px;

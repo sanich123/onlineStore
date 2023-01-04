@@ -46,8 +46,8 @@ export function priceRanges(defaultData: DataType[], filtredData: DataType[]) {
               />
             </label>
             <div class="min-max-value">
-            <span class="minPrice">$${finallyMinPrice}</span>
-            <span class="maxPrice">$${finallyMaxPrice}</span>
+            <span class="min-price">$${finallyMinPrice}</span>
+            <span class="max-price">$${finallyMaxPrice}</span>
             </div>`;
 }
 
@@ -62,7 +62,6 @@ export function stockRanges(defaultData: DataType[], filtredData: DataType[]) {
   const finallyMaxStock = urlMaxStock ? urlMaxStock : maxProductStock && Number.isFinite(maxProductStock) ? maxProductStock : defaultMaxStock;
 
   return `<label class="filters-range-stock__label">
-              <span class="minStock">${finallyMinStock}</span>
               <input
                 class="filters-range-stock__input"
                 type="range"
@@ -71,10 +70,8 @@ export function stockRanges(defaultData: DataType[], filtredData: DataType[]) {
                 max="${defaultMaxStock}"
                 step="10"
                 value="${finallyMinStock}"
-              /> </label
-            ><br />
+              /></label>
             <label class="filters-range-stock__label">
-              <span class="maxStock">${finallyMaxStock}</span>
               <input
                 class="filters-range-stock__input"
                 type="range"
@@ -84,7 +81,11 @@ export function stockRanges(defaultData: DataType[], filtredData: DataType[]) {
                 step="10"
                 value="${finallyMaxStock}"
               />
-            </label>`;
+            </label>
+            <div class="min-max-value">
+            <span class="min-stock">${finallyMinStock}</span>
+            <span class="max-stock">${finallyMaxStock}</span>
+            </div>`;
 }
 
 export function createCoupon(couponValue: string, discount: number, applied: boolean) {

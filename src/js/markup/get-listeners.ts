@@ -9,10 +9,10 @@ export function getListeners() {
   const stockRangeFilter = document.querySelector(".filters-range-stock");
   const resetBtn = document.querySelector(".filters__reset-btn");
   const copyLinkBtn = document.querySelector(".filters__copy-link");
-  const minPrice = document.querySelector('.minPrice') as HTMLInputElement;
-  const maxPrice = document.querySelector('.maxPrice') as HTMLInputElement;
-  const minStock = document.querySelector('.minStock') as HTMLInputElement;
-  const maxStock = document.querySelector('.maxStock') as HTMLInputElement;
+  const minPrice = document.querySelector('.min-price') as HTMLSpanElement;
+  const maxPrice = document.querySelector('.max-price') as HTMLSpanElement;
+  const minStock = document.querySelector('.min-stock') as HTMLSpanElement;
+  const maxStock = document.querySelector('.max-stock') as HTMLSpanElement;
   const productsList = document.querySelector('.products') as HTMLUListElement;
 
   return {

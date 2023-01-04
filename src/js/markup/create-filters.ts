@@ -33,7 +33,12 @@ export function createFilters(products: DataType[], filtredProducts: DataType[])
         <form class="filters-range-stock">
           <fieldset class="filters__fieldset">
             <legend class="filters-range-stock__legend">Stock</legend>
+            <div class="range-slider">
+              <span class="range-selected-stock"></span>
+            </div>
+            <div class="range-input">
             ${stockRanges(mocks, filtredProducts)}
+            </div>
           </fieldset>
         </form>
         <button class="filters__reset-btn" type="button">Reset filters</button>

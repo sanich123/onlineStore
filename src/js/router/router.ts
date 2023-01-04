@@ -1,3 +1,4 @@
+import { Create404Page } from "../pages/create-404-page";
 import CreateCart from "../pages/create-cart";
 import CreateCatalog from "../pages/create-catalog";
 import CreateProduct from "../pages/create-product";
@@ -10,5 +11,7 @@ export function Router(location: string) {
     CreateProduct();
   } else if (location.includes(routes.cart)) {
     CreateCart();
+  } else {
+    Create404Page();
   }
 }

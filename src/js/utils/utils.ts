@@ -69,7 +69,7 @@ export function createSearchUrl(params: URLSearchParams) {
     return `${window.location.origin}/${page}?${[...new Set([...searchUrl.toString().split('&')])].join('&')}`;
 }
 
-export function getMinMaxValue(id: string, value: string, params: URLSearchParams, minValue: HTMLInputElement, maxValue: HTMLInputElement, filtredData: DataType[]) {
+export function getMinMaxValue(id: string, value: string, params: URLSearchParams, minValue: HTMLSpanElement, maxValue: HTMLSpanElement, filtredData: DataType[]) {
   const { minProductPrice: minFiltredPrice, maxProductPrice: maxFiltredPrice, minProductStock: minFiltredStock, maxProductStock: maxFiltredStock } = getMinMaxPriceStock(filtredData);
   const { urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock } = getSearchParams();
   if (id.includes('asc')) {
@@ -160,16 +160,24 @@ export function setSizeToProductsList(urlSize: string, productsList: HTMLUListEl
   }
 }
 
-export function setRightPositionToSlider(filtredData: DataType[]) {
+export function setRightPositionToRanges(filtredData: DataType[]) {
   const rangeStroke = document.querySelector('.range-selected') as HTMLSpanElement;
+  const rangeStrokeStock = document.querySelector('.range-selected-stock') as HTMLSpanElement;
   const defaultPrice = mocks.map(({ price }) => price);
+  const defaultStock = mocks.map(({stock}) => stock);
   const defaultMinPrice = Math.min(...defaultPrice);
   const defaultMaxPrice = Math.max(...defaultPrice);
-  const { urlMinPrice, urlMaxPrice } = getSearchParams();
-  const { minProductPrice, maxProductPrice } = getMinMaxPriceStock(filtredData);
+  const defaultMinStock = Math.min(...defaultStock);
+  const defaultMaxStock = Math.max(...defaultStock);
+  const { urlMinPrice, urlMaxPrice, urlMinStock, urlMaxStock } = getSearchParams();
+  const { minProductPrice, maxProductPrice, minProductStock, maxProductStock } = getMinMaxPriceStock(filtredData);
   const finallyMinPrice = urlMinPrice ? urlMinPrice : minProductPrice && Number.isFinite(minProductPrice) ? minProductPrice : defaultMinPrice;
   const finallyMaxPrice = urlMaxPrice ? urlMaxPrice : maxProductPrice && Number.isFinite(maxProductPrice) ? maxProductPrice : defaultMaxPrice;
+  const finallyMinStock = urlMinStock ? urlMinStock : minProductStock && Number.isFinite(minProductStock) ? minProductStock : defaultMinStock;
+  const finallyMaxStock = urlMaxStock ? urlMaxStock : maxProductStock && Number.isFinite(maxProductStock) ? maxProductStock : defaultMaxStock;
   rangeStroke.style.left = `${Math.round((Number(finallyMinPrice) / defaultMaxPrice) * 100)}%`;
   rangeStroke.style.right = `${Math.round(100 - (Number(finallyMaxPrice) / defaultMaxPrice) * 100)}%`;
+  rangeStrokeStock.style.left = `${Math.round((Number(finallyMinStock) / defaultMaxStock) * 100)}%`;
+  rangeStrokeStock.style.right = `${Math.round(100 - (Number(finallyMaxStock) / defaultMaxStock) * 100)}%`;
 }
 
