@@ -21,13 +21,12 @@ export function createHeader() {
         <div class="total__summary"> €${finalSum}</div>
       </div>
 
-      <div class="logo__basket">
-        <div class="basket">
+      <div class="basket">
           <a class="logo__basket">
-          <img src="${basket}" alt="basket">
-          <span>${totalAmountOfProducts}</span>
+            <div class="total_almount">
+              <span class="almount_text">${totalAmountOfProducts}</span>
+            </div>
           </a>
         </div>
-      </div>
     </header>`
 }
