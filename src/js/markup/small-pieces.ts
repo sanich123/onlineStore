@@ -3,8 +3,8 @@ import { getMinMaxPriceStock, getSearchParams } from "../utils/utils";
 
 export function brandCheckbox(brand: string, filtredBrands: string[]) {
   const { urlBrands } = getSearchParams();
-  return `<label class="filters-brand__label ${filtredBrands.includes(brand) ? 'green' : ''}">
-  <input class="filters-brand__input" type="checkbox" ${urlBrands.includes(brand) ? 'checked' : ''} name="brand" value="${brand}"/> 
+  return `<label for="${brand}" class="filters-brand__label ${filtredBrands.includes(brand) ? 'green' : ''}">
+  <input id="${brand}" class="filters-brand__input" type="checkbox" ${urlBrands.includes(brand) ? 'checked' : ''} name="brand" value="${brand}"/> 
   ${brand}</label>`;
 }
 

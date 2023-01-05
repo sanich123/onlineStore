@@ -27,7 +27,7 @@ export const SEARCH_KEYS = {
   maxStock: "maxStock",
   pageNumber: "pageNumber",
   amountOfItems: "amountOfItems",
-  modal: 'modalOpen',
+  modal: "modalOpen",
 };
 
 export const SORT_TYPES = {
@@ -71,18 +71,57 @@ export const PAGINATION_NAMES = {
 
 export const DEFAULT_AMOUNT_ITEMS = 9;
 export const DEFAULT_NUMBER_OF_PAGE = 1;
-export const INCREMENT_BTN = 'increment';
+export const INCREMENT_BTN = "increment";
 
-export const priceRadioValues = [{
-  value: 'price-asc',
-  icon: `Price ${createArrowUp()}`,
-}, {
-  value: 'price-desc',
-  icon: `Price ${createArrowDown()}`,
-}, {
-  value: 'rating-asc',
-  icon: `Rating ${createArrowUp()}`,
-}, {
-  value: 'rating-desc',
-  icon: `Rating ${createArrowDown()}`,
-}];
+export const priceRadioValues = [
+  {
+    value: "price-asc",
+    icon: `Price ${createArrowUp()}`,
+  },
+  {
+    value: "price-desc",
+    icon: `Price ${createArrowDown()}`,
+  },
+  {
+    value: "rating-asc",
+    icon: `Rating ${createArrowUp()}`,
+  },
+  {
+    value: "rating-desc",
+    icon: `Rating ${createArrowDown()}`,
+  },
+];
+
+export const INPUTS_DATA = [
+  {
+    class: "name",
+    type: "text",
+    pattern: "[a-zA-Z]{3,}(\\s[a-zA-Z]{3,})+",
+    title: "Please enter correct first and last name",
+    placeholder: "Name",
+  },
+  {
+    class: "phone",
+    type: "tel",
+    pattern: "\\+[0-9]{9,}",
+    title:
+      "Please enter correct phone number: starts with " +
+      ", contains only digits, no shorter than 9 digits",
+    placeholder: "Phone number",
+  },
+  {
+    class: "adress",
+    type: "text",
+    pattern: "[a-zA-Z]{5,}(\\s[a-zA-Z]{5,})(\\s[a-zA-Z]{5,})+",
+    title:
+      "Please enter correct delivery adress: contains at least three words, each at least 5 characters long",
+    placeholder: "Delivery adress",
+  },
+  {
+    class: "email",
+    type: "email",
+    pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
+    title: "Please enter correct e-mail adress",
+    placeholder: "E-mail",
+  },
+];
