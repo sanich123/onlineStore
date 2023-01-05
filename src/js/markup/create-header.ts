@@ -9,7 +9,7 @@ export function createHeader() {
     return `<header class="header">
       <div class="header__logo">
         <div class="logo">
-          <a class="logo__home">
+          <a class="logo__home" href="/#catalog">
             <img src="${shoppingBags}" alt="logo" />
           </a>
           </div>
@@ -23,7 +23,7 @@ export function createHeader() {
 
       <div class="logo__basket">
         <div class="basket">
-          <a class="logo__basket">
+          <a class="logo__basket" href="/#cart">
           <img src="${basket}" alt="basket">
           <span>${totalAmountOfProducts}</span>
           </a>
