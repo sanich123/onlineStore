@@ -1,11 +1,10 @@
 import noLogo from '../../assets/png/nologo.png';
 
-
 export function createModal(urlIsModalOpen: string) {
   return `<div class="modal ${urlIsModalOpen ? 'show-modal' : ''}">
             <div class="modal-content">
                 <form action="#catalog" method="get" enctype="multipart/form-data" class="form form__modal">
-                    <span class="close-button">&times;</span>
+                    <button type="button" class="close-button">&times;</button>
                     <div class="personal">
                         <h2>Personal details</h2>
                         <div class="personal__name form_item">

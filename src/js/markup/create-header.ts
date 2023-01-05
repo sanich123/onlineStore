@@ -18,14 +18,14 @@ export function createHeader() {
 
       <div class="total">
         <div class="total__text">Cart total: </div>
-        <div class="total__summary"> €${finalSum}</div>
+        <div class="total__summary"> €${Math.round(finalSum)}</div>
       </div>
 
       <div class="logo__basket">
         <div class="basket">
           <a class="logo__basket" href="/#cart">
           <img src="${basket}" alt="basket">
-          <span>${totalAmountOfProducts}</span>
+          <span> ${totalAmountOfProducts}</span>
           </a>
         </div>
       </div>

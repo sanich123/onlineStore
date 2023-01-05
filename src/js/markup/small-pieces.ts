@@ -1,17 +1,17 @@
 import { DataType } from "../types/types";
 import { getMinMaxPriceStock, getSearchParams } from "../utils/utils";
 
-export function brandCheckbox(brand: string) {
+export function brandCheckbox(brand: string, filtredBrands: string[]) {
   const { urlBrands } = getSearchParams();
-  return `<label class="filters-brand__label">
+  return `<label class="filters-brand__label ${filtredBrands.includes(brand) ? 'green' : ''}">
   <input class="filters-brand__input" type="checkbox" ${urlBrands.includes(brand) ? 'checked' : ''} name="brand" value="${brand}"/> 
   ${brand}</label>`;
 }
 
-export function categoryCheckbox(category: string) {
+export function categoryCheckbox(category: string, filtredCategories: string[]) {
   const { urlCategories } = getSearchParams();
-  return `<label class="filters-category__label">
-    <input class="filters-category__input" type="checkbox" ${urlCategories.includes(category) ? 'checked' : ''} name="category" value="${category}"/> 
+  return `<label class="filters-category__label ${filtredCategories.includes(category) ? 'green' : ''}">
+    <input class="filters-category__input" type="checkbox" ${urlCategories.includes(category) ? 'checked' : ''}  name="category" value="${category}"/> 
     ${category}</label>`;
 }
 

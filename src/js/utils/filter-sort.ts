@@ -23,8 +23,17 @@ export function getFiltredData(mocks: DataType[], params: ParsedParams) {
     }
   }
   if (urlBrands.length) {
+    let filtredBrands: DataType[] = [];
     for (const urlBrand of urlBrands) {
-      filtredData = [...filtredData, ...mocks.filter(({ brand }) => brand === urlBrand)];
+      if (filtredData.length) {
+        filtredBrands = [...filtredBrands, ...filtredData.filter(({ brand }) => brand === urlBrand)];
+      } else {
+        filtredBrands = [...filtredBrands, ...mocks.filter(({brand}) => brand === urlBrand)];
+      }
+    }
+    filtredData = filtredBrands;
+    if (!filtredData.length) {
+      return filtredData;
     }
   }
   if (urlMinPrice) {
