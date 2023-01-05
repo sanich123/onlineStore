@@ -80,10 +80,6 @@ export default function CreateCatalog() {
       CreateCatalog();
   });
   resetBtn?.addEventListener("click", () => {
-
-    for (const key of searchParams.keys()) {
-      searchParams.delete(key);
-    }
     window.history.pushState({}, "", `${routes.catalog}`); 
     window.location.reload();  
     CreateCatalog();
