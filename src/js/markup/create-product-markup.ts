@@ -14,7 +14,7 @@ export function createProductExample(filtredData: DataType[]) {
             <div class="gallery">
               <div id="gallery">
                 <ul id="navigation">
-                ${[...new Set(images)].map((image) => `<li><img alt="" src="${image}" /></li>`)}
+                ${[...new Set(images)].map((image) => `<li><img alt="" src="${image}" /></li>`).join('')}
                 </ul>
                 <div id="full-picture">
                   <div>

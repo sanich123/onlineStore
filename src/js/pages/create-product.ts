@@ -29,8 +29,10 @@ export default function CreateProduct() {
     localStorageHelper(name, value, ids, isInCart);
   })
   smallPictures?.addEventListener('click', ({ target }) => {
-    const { src } = target as HTMLImageElement;
-    bigPicture.src = src;
+    if (target instanceof HTMLImageElement) {
+      const { src } = target as HTMLImageElement;
+      bigPicture.src = src;
+    }
   })
   addToCartAndGoBuy.addEventListener('click', ({ target }) => {
     const { name, value } = target as HTMLButtonElement;
