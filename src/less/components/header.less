@@ -31,8 +31,6 @@
     }
     &__basket {
     cursor: pointer;
-      background-image: url(/src/assets/png/basket.png);
-      width: 50px;
     }
   }
 }
@@ -50,8 +48,29 @@
   &__summary {
     color: #2f0f04;
   }
-  .basket {
-    display: flex;
-    align-items: center;
-  }
+}
+.basket{
+	display: flex;
+	width: 5rem;
+	height: 5rem;
+	background-image: url(../../assets/png/basket.png);
+	background-size: contain;
+	align-items: center;
+	justify-content: center;
+}
+.total_almount {
+	display: flex;
+	width: 2rem;
+	height: 2rem;
+	background-color: #FFBF00;
+	border-radius: 50%;
+	border: 2px solid black;
+	align-items: center;
+	justify-content: center;
+}
+.almount_text {
+	font-size: 1.3rem;
+  font-family: "Red Hat Text", sans-serif;
+  font-weight: 800;
+	
 }
