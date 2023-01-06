@@ -1,6 +1,5 @@
-import { createCartItemsList } from "../markup/create-cart-item-list";
-import { createFooter } from "../markup/create-footer";
-import { createHeader } from "../markup/create-header";
+import { createCartItemsList } from "../markup/create-cart-items-list";
+import { createFooter, createHeader } from "../markup/create-header-footer";
 import { createModal } from "../markup/create-modal";
 import { createPagination } from "../markup/create-pagination";
 import { createTotalInfo } from "../markup/create-total-info";
@@ -14,6 +13,7 @@ import { getPaginatedData, setDefaultPagesAndAmount, setPaginationUrlParams } fr
 import { createSearchUrl, getSearchParams, hashListener } from "../utils/utils";
 import CreateCatalog from "./create-catalog";
 import CreateProduct from "./create-product";
+import { CreateSuccessMessage } from "./create-success-message";
 
 export default function CreateCart() {
   const { couponsInCart, withAmount, totalSum, totalAmountOfProducts, filtredDiscount, finalSum } = getTotalSumAndCoupons();
@@ -42,6 +42,7 @@ export default function CreateCart() {
 
   modalForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    CreateSuccessMessage();
     setInterval(() => {
       localStorage.clear();
       window.history.pushState({}, "", `${routes.catalog}`);
@@ -50,16 +51,16 @@ export default function CreateCart() {
   });
   expirationDate?.addEventListener('input', ({ target }) => {
     const input = target as HTMLInputElement;
-      if (input.value.length === 2 && (Number(input.value) > 12 || Number(input.value) < 1)) {
+    if (input.value.length === 2 && (Number(input.value) > 12 || Number(input.value) < 1)) {
       invalidExpiration.textContent = 'You typed the wrong month';
       setInterval(() => invalidExpiration.textContent = '', 2000);
       return input.value = '';
     }
-    if (input.value.length === 2 && Number(input.value.slice(0,2)) < 13) {
+    if (input.value.length === 2 && Number(input.value.slice(0, 2)) < 13) {
       input.value = `${input.value.slice(0, 2)}/`;
     }
     if (input.value.length > 5) {
-      return input.value = input.value.slice(0,5);
+      return input.value = input.value.slice(0, 5);
     }
   });
   cardNumberInput?.addEventListener('input', ({ target }) => {

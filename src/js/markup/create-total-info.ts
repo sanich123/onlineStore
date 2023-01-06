@@ -1,10 +1,10 @@
 import { CouponsType } from "../types/types";
 import { PROMOCODES } from "../utils/const";
-import { createCoupon } from "./small-pieces";
+import { createCoupon } from "./create-inputs";
 
 export function createTotalInfo(totalSum: number, totalAmountOfProducts: number, couponsInCart: CouponsType[], filtredDiscount: number, finalSum: number) {
 
-    return `<div class="cart__total-info total-info">
+  return `<div class="cart__total-info total-info">
           ${filtredDiscount ? `<p class="total-info__price">Total price: ${(finalSum).toLocaleString('ru')}$</p>` : ''}
           <p class="total-info__price ${filtredDiscount ? 'line-through' : ''}">Total price: ${totalSum.toLocaleString('ru')}$</p>
           <p class="total-info__amount">Amount of items: ${totalAmountOfProducts}</p>
@@ -22,7 +22,7 @@ export function createTotalInfo(totalSum: number, totalAmountOfProducts: number,
             </label>
           </form>
           ${couponsInCart.length && totalAmountOfProducts ? `<ul class="coupon-form__list coupons-list">
-          ${couponsInCart.map(({couponValue, discount, applied}) => createCoupon(couponValue, discount, applied)).join('')}
+          ${couponsInCart.map(({ couponValue, discount, applied }) => createCoupon(couponValue, discount, applied)).join('')}
           </ul>` : ''}
         </div>`
 }

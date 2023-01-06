@@ -1,6 +1,6 @@
 import { mocks } from "../mocks/mocks";
 import { DataType } from "../types/types";
-import { brandCheckbox, categoryCheckbox, priceRanges, stockRanges } from "./small-pieces";
+import { brandCheckbox, categoryCheckbox, priceRanges, stockRanges } from "./create-inputs";
 
 export function createFilters(products: DataType[], filtredProducts: DataType[]) {
   const categories = [...new Set(products.map(({ category }) => category))];

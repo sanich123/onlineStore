@@ -1,5 +1,4 @@
-import { createFooter } from "../markup/create-footer";
-import { createHeader } from "../markup/create-header";
+import { createHeader, createFooter } from "../markup/create-header-footer";
 
 export function CreateSuccessMessage() {
    const body = document.querySelector(".page") as HTMLBodyElement;

@@ -1,13 +1,12 @@
-import { createFooter } from "../markup/create-footer";
-import { createHeader } from "../markup/create-header";
+import { createHeader, createFooter } from "../markup/create-header-footer";
 import { getNodes } from "../markup/get-nodes";
 import { routes } from "../utils/const";
 import CreateCart from "./create-cart";
 import CreateCatalog from "./create-catalog";
 
 export function Create404Page() {
-  const body = document.querySelector(".page") as HTMLBodyElement;
-  body.innerHTML = `${createHeader()}<main class="page__main">
+    const body = document.querySelector(".page") as HTMLBodyElement;
+    body.innerHTML = `${createHeader()}<main class="page__main">
     <section class="page404">
     <div class="title404">
     <span>404</span>

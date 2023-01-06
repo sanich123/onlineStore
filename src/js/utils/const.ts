@@ -125,3 +125,6 @@ export const INPUTS_DATA = [
     placeholder: "E-mail",
   },
 ];
+
+export const ASC_DESC = ['asc', 'desc'];
+export const MIN_MAX = ['min', 'max'];

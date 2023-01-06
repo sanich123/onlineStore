@@ -1,6 +1,5 @@
 import { createFilters } from "../markup/create-filters";
-import { createFooter } from "../markup/create-footer";
-import { createHeader } from "../markup/create-header";
+import { createHeader, createFooter } from "../markup/create-header-footer";
 import { createProductsList } from "../markup/create-products-list";
 import { getListeners } from "../markup/get-listeners";
 import { getNodes } from "../markup/get-nodes";
@@ -40,7 +39,7 @@ export default function CreateCatalog() {
     setSizeToProductsList(urlSize, productsList, fullDescriptionList, productsItems, productsBtns, btnWrapper);
   }
   setRightPositionToRanges(filtredData);
-  
+
   priceRatingSort?.addEventListener("click", ({ target }) => {
     const { value } = target as HTMLInputElement;
     searchParams.set(SEARCH_KEYS.sort, value);
@@ -71,17 +70,17 @@ export default function CreateCatalog() {
   });
   priceRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-      getMinMaxValue(id, value, searchParams, minPrice, maxPrice, filtredData);
-      CreateCatalog();
+    getMinMaxValue(id, value, searchParams, minPrice, maxPrice, filtredData);
+    CreateCatalog();
   });
   stockRangeFilter?.addEventListener("change", ({ target }) => {
     const { value, id } = target as HTMLInputElement;
-      getMinMaxValue(id, value, searchParams, minStock, maxStock, filtredData);
-      CreateCatalog();
+    getMinMaxValue(id, value, searchParams, minStock, maxStock, filtredData);
+    CreateCatalog();
   });
   resetBtn?.addEventListener("click", () => {
-    window.history.pushState({}, "", `${routes.catalog}`); 
-    window.location.reload();  
+    window.history.pushState({}, "", `${routes.catalog}`);
+    window.location.reload();
     CreateCatalog();
   });
   copyLinkBtn?.addEventListener("click", () => {

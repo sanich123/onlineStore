@@ -1,5 +1,4 @@
 import shoppingBags from '../../assets/png/shopping-bags.png';
-import basket from '../../assets/png/basket.png';
 import { getTotalSumAndCoupons } from '../utils/cart-helpers';
 
 
@@ -28,4 +27,10 @@ export function createHeader() {
           </a>
         </div>
     </header>`
+}
+
+export function createFooter() {
+  return `<footer class="footer">
+   <span>Online-Store, 2023</span>
+   </footer>`
 }
