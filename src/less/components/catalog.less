@@ -51,8 +51,16 @@
       display: grid;
       grid-template-columns: repeat(5, auto);
       place-items: center;
+      &__items-count {
+      //font-family: "Magra", sans-serif;
+      font-family: "Red Hat Text", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #606060;
+      }
       &__search {
-        border-radius: 5px;
+        font-family: "Red Hat Text", sans-serif;
+        border-radius: 30%;
         border: none;
         padding: 10px;
         transition: 1.5 ease;
@@ -66,8 +74,14 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
+   
       &__label {
         text-transform: uppercase;
+        cursor: pointer;
+        font-family: "Magra", sans-serif;
+        border: 1px solid #000;
+        border-radius: 5px;
+        color: #606060;
         &:focus-within {
           svg {
             fill: red;
@@ -202,4 +216,14 @@
 
 .green {
   color: green;
+}
+.size-change__label {
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: "Magra", sans-serif;
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: #606060;
+  margin-right: 5px;
+  padding: 2px;
 }
