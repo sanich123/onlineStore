@@ -51,7 +51,7 @@ export default function CreateCart() {
   expirationDate?.addEventListener('input', ({ target }) => {
     const input = target as HTMLInputElement;
       if (input.value.length === 2 && (Number(input.value) > 12 || Number(input.value) < 1)) {
-      invalidExpiration.textContent = 'It is the mistake in your card. The value must be less then twelve.';
+      invalidExpiration.textContent = 'You typed the wrong month';
       setInterval(() => invalidExpiration.textContent = '', 2000);
       return input.value = '';
     }
