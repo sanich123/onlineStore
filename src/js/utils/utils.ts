@@ -34,6 +34,7 @@ export function getSearchParams() {
   const urlPageNumber = searchParams.get(SEARCH_KEYS.pageNumber) || '';
   const urlAmountOfItems = searchParams.get(SEARCH_KEYS.amountOfItems) || '';
   const urlIsModalOpen = searchParams.get(SEARCH_KEYS.modal) || '';
+
   return {
     urlMinPrice,
     urlMaxPrice,
@@ -162,7 +163,7 @@ export function setRightPositionToRanges(filtredData: DataType[]) {
   const rangeStroke = document.querySelector('.range-selected') as HTMLSpanElement;
   const rangeStrokeStock = document.querySelector('.range-selected-stock') as HTMLSpanElement;
   const defaultPrice = mocks.map(({ price }) => price);
-  const defaultStock = mocks.map(({stock}) => stock);
+  const defaultStock = mocks.map(({ stock }) => stock);
   const defaultMinPrice = Math.min(...defaultPrice);
   const defaultMaxPrice = Math.max(...defaultPrice);
   const defaultMinStock = Math.min(...defaultStock);
