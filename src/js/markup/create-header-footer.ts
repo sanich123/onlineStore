@@ -1,5 +1,6 @@
 import shoppingBags from '../../assets/png/shopping-bags.png';
 import { getTotalSumAndCoupons } from '../utils/cart-helpers';
+import { createRsSchoolIcon } from './create-icons';
 
 
 export function createHeader() {
@@ -30,7 +31,26 @@ export function createHeader() {
 }
 
 export function createFooter() {
-  return `<footer class="footer">
-   <span>Online-Store, 2023</span>
-   </footer>`
+  return `<footer class="page__footer footer">
+      <ul class="footer__list footer-list">
+        <li class="footer-list__item list-item">
+          <a href="https://rs.school/js/">
+            ${createRsSchoolIcon()}
+          </a>
+        </li>
+        <li class="footer-list__item list-item">
+          <a class="author-link" href="https://github.com/sanich123">
+          sanich123
+          </a>
+        </li>
+        <li class="footer-list__item list-item">
+          <a class="author-link" href="https://github.com/wasek07">
+          wasek07
+          </a>
+        </li>
+        <li сlass="footer-list__item list-item">
+          <span class="list-item__year">2022 г.</span>
+        </li>
+      </ul>
+    </footer>`
 }

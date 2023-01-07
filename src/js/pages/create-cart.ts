@@ -51,16 +51,20 @@ export default function CreateCart() {
   });
   expirationDate?.addEventListener('input', ({ target }) => {
     const input = target as HTMLInputElement;
-    if (input.value.length === 2 && (Number(input.value) > 12 || Number(input.value) < 1)) {
-      invalidExpiration.textContent = 'You typed the wrong month';
-      setInterval(() => invalidExpiration.textContent = '', 2000);
-      return input.value = '';
-    }
-    if (input.value.length === 2 && Number(input.value.slice(0, 2)) < 13) {
-      input.value = `${input.value.slice(0, 2)}/`;
-    }
-    if (input.value.length > 5) {
-      return input.value = input.value.slice(0, 5);
+    if (Number(input.value.replace('/', ''))) {
+      if (input.value.length === 2 && (Number(input.value) > 12 || Number(input.value) < 1)) {
+        invalidExpiration.textContent = 'You typed the wrong month';
+        setInterval(() => invalidExpiration.textContent = '', 2000);
+        return input.value = '';
+      }
+      if (input.value.length === 2 && Number(input.value.slice(0, 2)) < 13) {
+        input.value = `${input.value.slice(0, 2)}/`;
+      }
+      if (input.value.length > 5) {
+        return input.value = input.value.slice(0, 5);
+      }
+    } else {
+      input.value = '';
     }
   });
   cardNumberInput?.addEventListener('input', ({ target }) => {

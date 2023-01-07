@@ -1,20 +1,38 @@
-import { DataType } from '../types/types';
-import { LS_KEYS } from '../utils/const';
-import { getFromLocalStorage } from '../utils/local-storage';
+import { DataType } from "../types/types";
+import { LS_KEYS } from "../utils/const";
+import { getFromLocalStorage } from "../utils/local-storage";
 
 export function createProductExample(filtredData: DataType[]) {
-  const [{ id, title, images, thumbnail, category, brand, description, price, discountPercentage, rating, stock }] = filtredData;
-  const inCartIds = getFromLocalStorage(LS_KEYS.cart).map(({ id }: { id: number }) => id);
+  const [
+    {
+      id,
+      title,
+      images,
+      thumbnail,
+      category,
+      brand,
+      description,
+      price,
+      discountPercentage,
+      rating,
+      stock,
+    },
+  ] = filtredData;
+  const inCartIds = getFromLocalStorage(LS_KEYS.cart).map(
+    ({ id }: { id: number }) => id
+  );
   const isInCart = inCartIds.includes(Number(id));
 
-    return `<section class="product">
+  return `<section class="product">
         <div class="product__name">
           <div class="product__title"><span class="text">${title}</span></div>
           <div class="product__info">
             <div class="gallery">
               <div id="gallery">
                 <ul id="navigation">
-                ${[...new Set(images)].map((image) => `<li><img alt="" src="${image}" /></li>`)}
+                ${[...new Set(images)]
+                  .map((image) => `<li><img alt="" src="${image}" /></li>`)
+                  .join("")}
                 </ul>
                 <div id="full-picture">
                   <div>
@@ -82,15 +100,19 @@ export function createProductExample(filtredData: DataType[]) {
               </div>
               <div class="price_info__cart">
                 <button 
-                name="${isInCart ? 'in-cart' : 'cart'}" 
-                class="btn_product ${isInCart ? 'in-cart' : ''}" 
-                value="${id}" type="button">${isInCart ? 'IN ' : 'ADD TO'}CART</button>
+                name="${isInCart ? "in-cart" : "cart"}" 
+                class="btn_product ${isInCart ? "in-cart" : ""}" 
+                value="${id}" type="button">${
+    isInCart ? "IN " : "ADD TO"
+  }CART</button>
               </div>
               <div class="price_info__buy">
-                <button class="modal_func btn_product" name="${LS_KEYS.cart}" value="${id}">BUY NOW</button>
+                <button class="modal_func btn_product" name="${
+                  LS_KEYS.cart
+                }" value="${id}">BUY NOW</button>
               </div>
             </div>
           </div>
         </div>
-      </section>`
+      </section>`;
 }
