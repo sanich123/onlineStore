@@ -49,22 +49,24 @@ export default function CreateCart() {
       CreateCatalog();
     }, 3000);
   });
-  expirationDate?.addEventListener('input', ({ target }) => {
-    const input = target as HTMLInputElement;
-    if (Number(input.value.replace('/', ''))) {
-      if (input.value.length === 2 && (Number(input.value) > 12 || Number(input.value) < 1)) {
-        invalidExpiration.textContent = 'You typed the wrong month';
-        setInterval(() => invalidExpiration.textContent = '', 2000);
-        return input.value = '';
+  expirationDate?.addEventListener('change', ({ target }) => {
+    if (target instanceof HTMLInputElement) {
+      const input = target;
+      if (/[01][0-9][0-9]{2}/gi.test(input.value)) {
+        const firstChars = input.value.slice(0, 2);
+        const lastChars = input.value.slice(2, 4);
+        if (Number(firstChars) > 12 || Number(firstChars) <= 0) {
+          invalidExpiration.textContent = 'Type right months number';
+          setTimeout(() => invalidExpiration.textContent = '', 1000);
+          input.value = '';
+        } else {
+          input.value = `${firstChars}/${lastChars}`;
+        }
+      } else {
+        invalidExpiration.textContent = 'Wrong data. Type right data';
+        setTimeout(() => invalidExpiration.textContent = '', 1000);
+        input.value = '';
       }
-      if (input.value.length === 2 && Number(input.value.slice(0, 2)) < 13) {
-        input.value = `${input.value.slice(0, 2)}/`;
-      }
-      if (input.value.length > 5) {
-        return input.value = input.value.slice(0, 5);
-      }
-    } else {
-      input.value = '';
     }
   });
   cardNumberInput?.addEventListener('input', ({ target }) => {

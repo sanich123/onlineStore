@@ -26,7 +26,7 @@ export function createModal(urlIsModalOpen: string) {
                           <div class="card__other">
                             <div class="card__valid_info">
                               <h3 class="card__text">VALID:</h3>
-                              <input type="text" id="expiration-date" title="The first two numbers must be less than twelve" placeholder="Valid Thru" class="card__form_item" required>
+                              <input type="text" id="expiration-date" title="Only numbers. First two are less or equal twelve. Total length four numbers" placeholder="Valid Thru" class="card__form_item" required>
                               <span class="invalid-expiration"></span>
                             </div>
                             <div class="card__cvv_info">
