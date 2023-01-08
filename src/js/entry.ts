@@ -1,4 +1,4 @@
 import "../less/entry.less";
-import { stringNumber } from "./test";
+import { Router } from "./router/router";
 
-alert(stringNumber("2", 3));
+Router(window.location.href);

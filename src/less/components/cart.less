@@ -1,0 +1,194 @@
+.cart {
+  .container(1200px);
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-areas: 
+  'pagination total'
+  'cart-list total';
+  column-gap: 20px;
+  &-products-list {
+    grid-area: cart-list;
+    display: grid;
+    gap: 20px;
+  }
+  &-item {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    column-gap: 30px;
+    grid-template-areas:
+      "img title"
+      "img description"
+      "img stock"
+      "img price"
+      "img buttons";
+    font: normal 16px/1.5 Arial, sans-serif;
+    &__title {
+      grid-area: title;
+      text-align: center;
+      font: bold 24px/1.5 Arial, sans-serif;
+      margin-top: 0;
+    }
+    &__img {
+      grid-area: img;
+      display: flex;
+      align-self: center;
+      object-fit: contain;
+    }
+    &__description {
+      grid-area: description;
+      margin: 0;
+    }
+    &__stock {
+      grid-area: stock;
+      display: grid;
+      grid-auto-rows: auto;
+      font: normal 16px/1.2 Arial, sans-serif;
+    }
+    &__btns {
+      grid-area: buttons;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      place-content: center;
+      gap: 30px;
+    }
+    &__decrement,
+    &__increment {
+      .reset-btn();
+      background: orange;
+      color: white;
+      padding: 10px 30px;
+      display: grid;
+      place-items: center;
+      font: bold 24px/1.5 Arial, sans-serif;
+      transition: 1s ease;
+    }
+    &__decrement:hover,
+    &__increment:hover {
+      background: orangered;
+      color: yellow;
+    }
+    &__amount {
+      display: grid;
+      place-items: center;
+      font: bold 24px/1.5 Arial, sans-serif;
+    }
+  }
+  .total-info {
+    font: normal 16px/1.5 Arial, sans-serif;
+    grid-template-rows: repeat(4, auto);
+    grid-area: total;
+    &__price {
+      font: bold 27px/1.5 Arial, sans-serif;
+      margin-bottom: 0;
+    }
+    &__amount {
+      font-style: italic;
+    }
+    &__accept {
+      .reset-btn();
+      background: orange;
+      padding: 10px 30px;
+      color: white;
+      text-transform: uppercase;
+      font: bold 30px/1.5 Arial, sans-serif;
+      border-radius: 10px;
+      transition: 1s ease;
+      &:hover {
+        background: orangered;
+        color: yellow;
+      }
+      &:disabled {
+        background: grey;
+        color: white;
+        cursor: not-allowed;
+      }
+    }
+    .coupon-form__label {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      gap: 10px;
+      margin-top: 20px;
+      &--promo {
+        font-style: italic;
+        font-size: 12px;
+        margin-top: -10px;
+      }
+    }
+    .coupon-form__input {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+  .empty-cart {
+    font: normal 25px/1.5 Arial, sans-serif;
+  }
+  .coupons-list {
+    .reset-ul();
+    &__item {
+      display: grid;
+      grid-template-columns: 80% 20%;
+      align-items: center;
+      column-gap: 10px;
+    }
+    .coupons-item__btn {
+      .reset-btn();
+      background: orange;
+      color: white;
+      border-radius: 10px;
+      padding: 10px 20px;
+      transition: 1s ease;
+      &:hover {
+        background: orangered;
+        color: yellow;
+      }
+    }
+  }
+  .line-through {
+    text-decoration: line-through;
+    font-style: italic;
+    margin-top: 0;
+    font-weight: normal;
+  }
+}
+  .pagination {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin-top: 30px;
+
+    &__page-btns {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      column-gap: 2px;
+    }
+    .page-btns__label {
+      .reset-btn();
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      background: orange;
+      transition: .5s ease;
+      color: white;
+      &:hover {
+        background: orangered;
+      }
+      &:disabled {
+        opacity: 0.5;
+        background: grey;
+        cursor: not-allowed;
+      }
+    }
+
+    .page-btns-number__input {
+      width: 40px;
+      height: 30px;
+    }
+    .checked {
+      background: green;
+    }
+  }
