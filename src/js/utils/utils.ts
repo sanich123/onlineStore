@@ -58,7 +58,7 @@ export function setCheckedValuesToParams(checkboxes: NodeListOf<HTMLInputElement
 }
 
 export function createSearchUrl(params: URLSearchParams) {
-  const page = window.location.href.includes(routes.catalog) ? routes.catalog : routes.cart;
+  const page = window.location.href.includes(routes.catalog) || !window.location.href.includes('#') ? routes.catalog : routes.cart;
   const categories = document.querySelectorAll('.filters-category__input') as NodeListOf<HTMLInputElement>;
   const brands = document.querySelectorAll('.filters-brand__input') as NodeListOf<HTMLInputElement>;
   params.getAll(SEARCH_KEYS.category).forEach(() => params.delete(SEARCH_KEYS.category));
