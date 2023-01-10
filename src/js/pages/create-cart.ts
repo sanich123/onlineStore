@@ -43,7 +43,7 @@ export default function CreateCart() {
   modalForm.addEventListener('submit', (e) => {
     e.preventDefault();
     CreateSuccessMessage();
-    setInterval(() => {
+    setTimeout(() => {
       localStorage.clear();
       window.history.pushState({}, "", `${routes.catalog}`);
       CreateCatalog();
