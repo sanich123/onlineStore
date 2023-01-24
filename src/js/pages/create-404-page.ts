@@ -13,7 +13,7 @@ export function Create404Page() {
     </div>
     <div class="subtitle404">
     <div>OOPS! THE PAGE WAS NOT FOUND</div>
-    <div>If you want to, you can explore <a href="/#catalog">the main page</a></div>
+    <div>If you love react, your native js can be really  similar to react)))<a href="/#catalog">the main page</a></div>
     </div>
     </section>
     </main>${createFooter()}`;

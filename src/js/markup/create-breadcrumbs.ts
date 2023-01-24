@@ -2,6 +2,7 @@ import { DataType } from "../types/types";
 
 export function createBreadcrumbs(filtredData: DataType[]) {
   const [{category, title, brand}] = filtredData;
+
     return `<section class="breadcrumb-nav">
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a href="#catalog">Catalog</a></li>
