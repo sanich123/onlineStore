@@ -4,13 +4,7 @@
 
 *or launch locally:*
 
-`git clone git@github.com:sanich123/onlineStore.git project`
-
-`cd project`
-
-`npm i`
-
-`npm start`
+`git clone git@github.com:sanich123/onlineStore.git project&&cd project&&npm i&&npm start`
 
 ### Screenshots
 ![merge_from_ofoct (1)](https://user-images.githubusercontent.com/70276651/227799221-45c638d0-9fa5-427d-8d9b-2a5041c57462.jpg)
