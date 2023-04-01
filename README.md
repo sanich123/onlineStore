@@ -16,6 +16,8 @@ JavaScript, Webpack, Less
 
 ### Implemented:
 
-* Фильтрация с URLSearchParams на клиенте
+* Фильтрация с URLSearchParams on the client
 
 * Корзина с купонами
+
+* Native JS routing
